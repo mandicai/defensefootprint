@@ -1,0 +1,23 @@
+{
+  "name": "defensefootprint",
+  "version": "1.0.0",
+  "description": "Private repo for Defense Footprint's data visualization and data processing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mandicai/defensefootprint.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mandicai/defensefootprint/issues"
+  },
+  "homepage": "https://github.com/mandicai/defensefootprint#readme",
+  "dependencies": {
+    "d3": "^4.13.0",
+    "topojson": "^3.0.2"
+  }
+}
