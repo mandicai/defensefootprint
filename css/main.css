@@ -34,6 +34,10 @@ body {
   fill: #91D2F2;
 }
 
+.subunit.IRN {
+  fill: #E74260;
+}
+
 .place-label {
   font-family: sans-serif;
   font-size: 0.5em;
