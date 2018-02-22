@@ -4587,7 +4587,7 @@
           var path = d3.geoPath()
               .projection(projection)
 
-          // append the path to the svg
+          // append the path to the svg for the country outlines
           svg.append("path")
               .datum(subunits) // bind multiple features
               .attr("d", path) // d is the attribute for SVG paths
@@ -4600,6 +4600,7 @@
                 })
                 .attr("d", path)
 
+          // append the path to the svg for the place outlines
           svg.append("path")
              .datum(topojson.feature(af_ir, af_ir.objects.places))
              .attr("d", path)
@@ -4631,11 +4632,12 @@
                 console.log("in")
               })
               .on("mouseout", function() {
-                d3.select(this).style('fill', '#E74260')
+                d3.select(this).style('fill', function (d) {
+                })
                 console.log("out")
               })
+        // make color a property of the subunit
         // what does append("path") do
-        // review enter and exit
         </script>
       </div>
     </div>
