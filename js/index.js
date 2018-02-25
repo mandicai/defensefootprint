@@ -1,12 +1,12 @@
 var width = 960,
-    height = 450
+    height = 325
 
 var svg = d3.select("#map").append("svg")
     // preserveAspectRatio
     // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
     .attr("preserveAspectRatio", "xMinYMin meet")
     // y-axis is the same scale
-    .attr("viewBox", "0 0 960 450")
+    .attr("viewBox", "0 0 960 325")
     .classed("svg-content", true);
 
 // apparently this is not a valid JSON file
@@ -4539,8 +4539,8 @@ var subunits = topojson.feature(af_ir, af_ir.objects.subunits)
 
 // store geomercator projection
 var projection = d3.geoMercator()
-    .translate([width / 2 - 1425, height / 2 + 775]) // translate some pixels
-    .scale(1300)
+    .translate([width / 2 - 1000, height / 2 + 600]) // translate some pixels
+    .scale(1000)
 
 // convert projection to a path
 var path = d3.geoPath()
@@ -4559,32 +4559,6 @@ svg.selectAll(".subunit")
       })
       .attr("d", path)
 
-// append the path to the svg for the place outlines
-svg.append("path")
-   .datum(topojson.feature(af_ir, af_ir.objects.places))
-   .attr("d", path)
-   .attr("class", "place")
-
-svg.selectAll(".place-label")
-      .data(topojson.feature(af_ir, af_ir.objects.places).features)
-    .enter().append("text")
-      .attr("class", "place-label")
-      .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.properties.name; })
-
- svg.selectAll(".place-label")
-   .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
-   .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; })
-
- svg.selectAll(".subunit-label")
-     .data(topojson.feature(af_ir, af_ir.objects.subunits).features)
-   .enter().append("text")
-     .attr("class", function(d) { return "subunit-label " + d.id; })
-     .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-     .attr("dy", ".35em")
-     .text(function(d) { return d.properties.name; })
-
  // fetch a CSV file and store the objects into an array
 let descriptionsStatistics = []
 d3.csv("/data/testdata.csv", function(data) {
@@ -4597,12 +4571,15 @@ svg.selectAll(".subunit")
       d3.select(this) // Change the color of the country
         .style('opacity', '0.75')
 
+      d3.select('#country-text')
+        .remove()
       d3.select('#description-text') // Remove the previous text
         .remove()
       d3.select('#statistics-text')
         .remove()
 
       let countryClass = d3.select(this).attr("class").split(' ')[1] // Grab the class
+      let countryText
       let descriptionText
       let statisticsText
       // Set the corresponding text
@@ -4610,9 +4587,18 @@ svg.selectAll(".subunit")
         if (descriptionsStatistics[i].CODE === countryClass) {
           descriptionText = descriptionsStatistics[i].DESCRIPTION
           statisticsText = descriptionsStatistics[i].STATISTICS
+          countryText = descriptionsStatistics[i].NAME
         }
       }
 
+      // Append country name with the corresponding text
+      d3.select("#country")
+        .append('p')
+        .attr('id', 'country-text')
+        .text(countryText)
+        .style("opacity", "0")
+        .transition()
+        .style("opacity", "1")
       // Append description text with the corresponding text
       d3.select("#description")
         .append('p')
