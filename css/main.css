@@ -2,6 +2,11 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+h3 {
+  font-size: 35px;
+  font-weight: bold;
+}
+
 #nav-bar {
   padding-top: 20px;
   font-size: 20px;
@@ -17,20 +22,25 @@ body {
 }
 
 #map {
-  height: 475px;
+  height: 350px;
 }
 
 .footer {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 20%;
+  height: 30%;
   width: 100%;
   border-top: solid 2px #F1F3F4;
   color: black;
   text-align: center;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.75)
+}
+
+#country-text {
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .subunit.AFG {
