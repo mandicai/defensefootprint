@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 #nav-bar {
@@ -47,7 +47,7 @@ body {
 }
 
 .subunit-label {
-  fill: #777;
+  fill: #000;
   font-family: sans-serif;
   fill-opacity: .5;
   font-size: 20px;
