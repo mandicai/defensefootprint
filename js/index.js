@@ -2,10 +2,14 @@ var width = 960,
     height = 450
 
 var svg = d3.select("#map").append("svg")
+    // preserveAspectRatio
+    // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
     .attr("preserveAspectRatio", "xMinYMin meet")
+    // y-axis is the same scale
     .attr("viewBox", "0 0 960 450")
     .classed("svg-content", true);
 
+// apparently this is not a valid JSON file
 let af_ir = {
   "type": "Topology",
   "objects": {
@@ -4535,7 +4539,7 @@ var subunits = topojson.feature(af_ir, af_ir.objects.subunits)
 
 // store geomercator projection
 var projection = d3.geoMercator()
-    .translate([width / 2 - 1425, height / 2 + 775])
+    .translate([width / 2 - 1425, height / 2 + 775]) // translate some pixels
     .scale(1300)
 
 // convert projection to a path
@@ -4567,11 +4571,11 @@ svg.selectAll(".place-label")
       .attr("class", "place-label")
       .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
       .attr("dy", ".35em")
-      .text(function(d) { return d.properties.name; });
+      .text(function(d) { return d.properties.name; })
 
  svg.selectAll(".place-label")
    .attr("x", function(d) { return d.geometry.coordinates[0] > -1 ? 6 : -6; })
-   .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; });
+   .style("text-anchor", function(d) { return d.geometry.coordinates[0] > -1 ? "start" : "end"; })
 
  svg.selectAll(".subunit-label")
      .data(topojson.feature(af_ir, af_ir.objects.subunits).features)
@@ -4579,17 +4583,54 @@ svg.selectAll(".place-label")
      .attr("class", function(d) { return "subunit-label " + d.id; })
      .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
      .attr("dy", ".35em")
-     .text(function(d) { return d.properties.name; });
+     .text(function(d) { return d.properties.name; })
 
+ // fetch a CSV file and store the objects into an array
+let descriptionsStatistics = []
+d3.csv("/data/testdata.csv", function(data) {
+ descriptionsStatistics.push(data)
+});
+
+// create mouse over and mouse out functionality
 svg.selectAll(".subunit")
     .on("mouseover", function() {
-      d3.select(this).style('fill', '#fff')
-      console.log("in")
+      d3.select(this) // Change the color of the country
+        .style('opacity', '0.75')
+
+      d3.select('#description-text') // Remove the previous text
+        .remove()
+      d3.select('#statistics-text')
+        .remove()
+
+      let countryClass = d3.select(this).attr("class").split(' ')[1] // Grab the class
+      let descriptionText
+      let statisticsText
+      // Set the corresponding text
+      for (i=0;i<descriptionsStatistics.length;i++) {
+        if (descriptionsStatistics[i].CODE === countryClass) {
+          descriptionText = descriptionsStatistics[i].DESCRIPTION
+          statisticsText = descriptionsStatistics[i].STATISTICS
+        }
+      }
+
+      // Append description text with the corresponding text
+      d3.select("#description")
+        .append('p')
+        .attr('id','description-text')
+        .text(descriptionText)
+        .style("opacity", "0")
+        .transition()
+        .style("opacity", "1")
+      // Append statistics text with the corresponding text
+      d3.select("#statistics")
+        .append('p')
+        .attr('id', 'statistics-text')
+        .text(statisticsText)
+        .style("opacity", "0")
+        .transition()
+        .style("opacity", "1")
     })
     .on("mouseout", function() {
-      d3.select(this).style('fill', function (d) {
+      d3.select(this).style('opacity', function (d) {
       })
-      console.log("out")
     })
-// make color a property of the subunit
-// what does append("path") do
