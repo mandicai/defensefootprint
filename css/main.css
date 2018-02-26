@@ -25,6 +25,10 @@ h3 {
   height: 350px;
 }
 
+#methodology-modal-content {
+  padding: 20px;
+}
+
 .footer {
   position: fixed;
   left: 0;
@@ -49,6 +53,18 @@ h3 {
 
 .subunit.IRN {
   fill: #E74260;
+}
+
+.subunit.COL {
+  fill: #FF9E16;
+}
+
+.subunit.KOR {
+  fill: #9AC43D;
+}
+
+.subunit.JPN {
+  fill: #009DFC;
 }
 
 .place-label {
