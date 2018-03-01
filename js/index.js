@@ -10,6 +10,15 @@ var svg = d3.select("#map").append("svg")
     .classed("svg-content", true);
 
 let boundaries
+let dataFiles = ['data/afg_irn_col_kor_jpn.json','data/testdata.csv']
+
+dataFiles.forEach(function(url,i) {
+  fetch(url)
+    .then((data) => {
+      console.log(data)
+    })
+})
+
 fetch('data/afg_irn_col_kor_jpn.json')
   .then((res) => res.json()) // .json() returns a promise that resolves with the result of parsing the text as JSON
   .then((data) => { // do something with the JSON data
@@ -20,8 +29,8 @@ fetch('data/afg_irn_col_kor_jpn.json')
 
   // store geomercator projection
   var projection = d3.geoMercator()
-      .translate([width / 2 - 100, height / 2+100]) // translate some pixels
-      .scale(200)
+      .translate([width / 2 - 225, height / 2]) // translate some pixels
+      .scale(150)
 
   // convert projection to a path
   var path = d3.geoPath()
