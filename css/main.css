@@ -1,5 +1,6 @@
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  min-height: 500px;
 }
 
 h3 {
@@ -22,7 +23,26 @@ h3 {
 }
 
 #map {
-  height: 350px;
+  position: relative;
+  height: 30%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  width: 25%;
+  z-index: 10;
+}
+
+#info-alt {
+  top: 85px;
+  left: 72%;
+  border: solid 2px #F1F3F4;
+  background-color: #fff;
+  color: black;
+  opacity: 0.75;
 }
 
 #methodology-modal-content {
