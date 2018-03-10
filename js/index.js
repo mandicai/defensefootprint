@@ -9,14 +9,25 @@ var svg = d3.select("#map").append("svg")
     .attr("viewBox", "0 20 800 600")
     .classed("svg-content", true);
 
-// let variables = []
-// let dataFiles = ['data/afg_irn_col_kor_jpn.json','data/testdata.csv', 'data/DFscores.csv']
-//
-// var promises = dataFiles.map(url => fetch(url)); //
-// //var responsePromises = responses.map(res => variables.push(res)))
-//
-// Promise.all(promises)
-//   .then(responses => Promise.all(responses.map(res => res.json())))
+let variables = []
+let jsonFiles = ['data/afg_irn_col_kor_jpn.json']
+let csvFiles = ['data/testdata.csv', 'data/DFscores.csv']
+
+var jsonPromises = jsonFiles.map(url => fetch(url));
+var csvPromises = csvFiles.map(url => fetch(url));
+//var responsePromises = responses.map(res => variables.push(res)))
+
+d3.json("data/afg_irn_col_kor_jpn.json").then(function(data) {
+  console.log(data); // [{"Hello": "world"}, …]
+});
+
+// Promise.all(jsonPromises)
+//   .then(responses => Promise.all(responses.map(res => res.json()))
+//   .then(responses => Promise.all(responses.map(res => variables.push(res)))
+// )).then(
+//   Promise.all(csvPromises)
+//   .then(responses => Promise.all)
+// )
   // .then(responses => Promise.all(responses.map(res => variables.push(res)))
   // .then(() => {
   //   console.log()
