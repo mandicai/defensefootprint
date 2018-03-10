@@ -9,36 +9,7 @@ var svg = d3.select("#map").append("svg")
     .attr("viewBox", "0 20 800 600")
     .classed("svg-content", true);
 
-let variables = []
-let jsonFiles = ['data/afg_irn_col_kor_jpn.json']
-let csvFiles = ['data/testdata.csv', 'data/DFscores.csv']
-
-var jsonPromises = jsonFiles.map(url => fetch(url));
-var csvPromises = csvFiles.map(url => fetch(url));
-
-// Promise.all(jsonPromises)
-//   .then(responses => Promise.all(responses.map(res => res.json()))
-//   .then(responses => Promise.all(responses.map(res => variables.push(res)))
-// )).then(
-//   Promise.all(csvPromises)
-//   .then(responses => Promise.all)
-// )
-  // .then(responses => Promise.all(responses.map(res => variables.push(res)))
-  // .then(() => {
-  //   console.log()
-  // }
-  // ))
-
-// dataFiles.forEach(function(url,i) {
-//   fetch(url)
-//     .then((data) => {
-//       variables.push(data)
-//       console.log(variables)
-//     })
-// })
-//var responsePromises = responses.map(res => variables.push(res)))
-
-console.log('edited')
+console.log('edited twice')
 d3.json("data/world_2000.json").then(function(data) {
   boundaries = data
 
@@ -127,7 +98,39 @@ d3.json("data/world_2000.json").then(function(data) {
         })
       })
     })
+    .catch(function(error) {
+      console.log("Error: " + error)
+    })
   })
   .catch(function(error) {
     console.log("Error: " + error)
   })
+
+  // let variables = []
+  // let jsonFiles = ['data/afg_irn_col_kor_jpn.json']
+  // let csvFiles = ['data/testdata.csv', 'data/DFscores.csv']
+  //
+  // var jsonPromises = jsonFiles.map(url => fetch(url));
+  // var csvPromises = csvFiles.map(url => fetch(url));
+
+  // Promise.all(jsonPromises)
+  //   .then(responses => Promise.all(responses.map(res => res.json()))
+  //   .then(responses => Promise.all(responses.map(res => variables.push(res)))
+  // )).then(
+  //   Promise.all(csvPromises)
+  //   .then(responses => Promise.all)
+  // )
+    // .then(responses => Promise.all(responses.map(res => variables.push(res)))
+    // .then(() => {
+    //   console.log()
+    // }
+    // ))
+
+  // dataFiles.forEach(function(url,i) {
+  //   fetch(url)
+  //     .then((data) => {
+  //       variables.push(data)
+  //       console.log(variables)
+  //     })
+  // })
+  //var responsePromises = responses.map(res => variables.push(res)))
