@@ -9,15 +9,27 @@ var svg = d3.select("#map").append("svg")
     .attr("viewBox", "0 20 800 600")
     .classed("svg-content", true);
 
-let boundaries
-let dataFiles = ['data/afg_irn_col_kor_jpn.json','data/testdata.csv']
+// let variables = []
+// let dataFiles = ['data/afg_irn_col_kor_jpn.json','data/testdata.csv', 'data/DFscores.csv']
+//
+// var promises = dataFiles.map(url => fetch(url)); //
+// //var responsePromises = responses.map(res => variables.push(res)))
+//
+// Promise.all(promises)
+//   .then(responses => Promise.all(responses.map(res => res.json())))
+  // .then(responses => Promise.all(responses.map(res => variables.push(res)))
+  // .then(() => {
+  //   console.log()
+  // }
+  // ))
 
-dataFiles.forEach(function(url,i) {
-  fetch(url)
-    .then((data) => {
-      console.log(data)
-    })
-})
+// dataFiles.forEach(function(url,i) {
+//   fetch(url)
+//     .then((data) => {
+//       variables.push(data)
+//       console.log(variables)
+//     })
+// })
 
 fetch('data/world_2000.json')
   .then((res) => res.json()) // .json() returns a promise that resolves with the result of parsing the text as JSON
