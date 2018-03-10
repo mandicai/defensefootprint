@@ -9,7 +9,10 @@ var svg = d3.select("#map").append("svg")
     .attr("viewBox", "0 20 800 600")
     .classed("svg-content", true);
 
-console.log('edited twice')
+var color = d3.scaleThreshold()
+    .domain([0.0, 1.0, 2.0, 3.0, 4.0, 5.0])
+    .range(["#FAF0F0", "#F6E2E2", "#EBC0C0", "#D78181", "#AD0000"]);
+
 d3.json("data/world_2000.json").then(function(data) {
   boundaries = data
 
@@ -18,7 +21,7 @@ d3.json("data/world_2000.json").then(function(data) {
 
   // store geomercator projection
   var projection = d3.geoMercator()
-      .translate([width / 2 - 100, height / 2 + 150]) // translate some pixels
+      .translate([width / 2 - 165, height / 2 + 150]) // translate some pixels
       .scale(100)
 
   // convert projection to a path
@@ -32,16 +35,26 @@ d3.json("data/world_2000.json").then(function(data) {
   //     .datum(subunits) // bind multiple features
   //     .attr("d", path) // d is the attribute for SVG paths
 
-  svg.selectAll(".subunit")
-        .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-      .enter().append("path")
-        .attr("class", function(d) {
-          return "subunit " + d.id // yields class = "subunit AFG"
-        })
-        .attr("d", path)
+  // fetch the DFscores
+  let DFscores
+  d3.csv("data/DFscores.csv").then(function(data) {
+    DFscores = data
+    let rateByDF = {};
+    DFscores.forEach(function(d) {
+      rateByDF[d.ISO] = +d.Modified_DFSCORE
+    })
+    svg.selectAll(".subunit")
+          .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
+        .enter().append("path")
+          .attr("class", function(d) {
+            return "subunit " + d.id // yields class = "subunit AFG"
+          })
+          .attr("d", path)
+          .style("fill", function(d) { return color(rateByDF[d.id]); });
+  })
 
    // fetch a CSV file and store the objects into an array
-  d3.csv("/data/testdata.csv").then(function(data) {
+  d3.csv("/data/description_statistics.csv").then(function(data) {
     // create mouse over and mouse out functionality
     svg.selectAll(".subunit")
         .on("mouseover", function() {
@@ -108,7 +121,7 @@ d3.json("data/world_2000.json").then(function(data) {
 
   // let variables = []
   // let jsonFiles = ['data/afg_irn_col_kor_jpn.json']
-  // let csvFiles = ['data/testdata.csv', 'data/DFscores.csv']
+  // let csvFiles = ['data/description_statistics.csv', 'data/DFscores.csv']
   //
   // var jsonPromises = jsonFiles.map(url => fetch(url));
   // var csvPromises = csvFiles.map(url => fetch(url));
