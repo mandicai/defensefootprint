@@ -38,6 +38,7 @@ var csvPromises = csvFiles.map(url => fetch(url));
 // })
 //var responsePromises = responses.map(res => variables.push(res)))
 
+console.log('edited')
 d3.json("data/world_2000.json").then(function(data) {
   boundaries = data
 
