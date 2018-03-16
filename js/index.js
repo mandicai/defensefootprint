@@ -94,6 +94,7 @@ d3.json("data/world_2000.json").then(function(data) {
       console.log("Error: " + error)
     })
     .then(() => {
+      console.log("blah")
       // fetch a CSV file and store the objects into an array
      d3.csv("data/description_statistics.csv").then(function(data) {
        // create mouse over and mouse out functionality
