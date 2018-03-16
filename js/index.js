@@ -74,6 +74,7 @@ d3.json("data/world_2000.json").then(function(data) {
   //     .attr("d", path) // d is the attribute for SVG paths
 
   // fetch the DFscores
+  console.log("blah")
   let DFscores
   d3.csv("data/DFscores.csv").then(function(data) {
     DFscores = data
