@@ -95,7 +95,7 @@ d3.json("data/world_2000.json").then(function(data) {
     })
     .then(() => {
       // fetch a CSV file and store the objects into an array
-     d3.csv("/data/description_statistics.csv").then(function(data) {
+     d3.csv("data/description_statistics.csv").then(function(data) {
        // create mouse over and mouse out functionality
        svg.selectAll(".subunit")
            .on("mouseover", function() {
