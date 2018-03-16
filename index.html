@@ -18,20 +18,14 @@
       <div class="col-4">
          <h3>defense footprint</h3>
       </div>
-      <div class="col-8" id="nav-links">
+      <div class="col-4">
+      </div>
+      <div class="col-4" id="nav-links">
         <div class="row">
-          <div class="col">
             <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
-          </div>
-          <div class="col">
-            <a href="">Terms</a>
-          </div>
-          <div class="col">
-            <a href="">About</a>
-          </div>
-          <div class="col">
+            <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
+            <a href="" data-toggle="modal" data-target="#about-modal">About</a>
             <a href="https://www.nytimes.com/">Feeling Lucky</a>
-          </div>
         </div>
       </div>
     </div>
@@ -41,49 +35,29 @@
 <div id="map">
 </div>
 
-<div class="overlay" id="info-alt">
-  <div class="col" id="description" style="height:50%">
-    <div id="country">
-      <p id="country-text">
-        Some country name
-      </p>
-    </div>
+<div class="overlay" id="info">
+  <div class="col" id="description">
     <p id="description-text">
-      DOD: Department of Defense <br>
-      Always use “country,” never “state”
     </p>
   </div>
-  <div class="col" style="height:50%">
-    <div id="statistics">
+  <div class="col" id="statistics">
       <p id="statistics-text">
-        Here is a layman's definition of war, much war, very much war. <br>
-        What does the department of defense actually do anyway <br>
       </p>
-    </div>
   </div>
 </div>
 
-<div class="footer" id="info">
-  <div class="row">
-    <div class="col-6" id="description">
-      <div id="country">
-        <p id="country-text">
-        </p>
-      </div>
-      <p id="description-text">
-      </p>
-    </div>
-    <div class="col-6" id="statistics">
-      <p id="statistics-text">
-      </p>
-    </div>
-  </div>
+<div class="overlay" id="country">
+    <p id="country-text">
+    </p>
+</div>
+
+<div class="footer">
 </div>
 
 <div class="modal fade" id="methodology-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content" id="methodology-modal-content">
-      <h3> How did we quantify conflict? </h3>
+    <div class="modal-content">
+      <h2> How did we quantify conflict? </h2>
       <p>
         War is a state of armed conflict between states or societies. It is generally characterized by extreme aggression, destruction, and mortality, using regular or irregular military forces. An absence of war is usually called "peace". Warfare refers to the common activities and characteristics of types of war, or of wars in general.[1] Total war is warfare that is not restricted to purely legitimate military targets, and can result in massive civilian or other non-combatant suffering and casualties.
 
@@ -95,11 +69,73 @@
   </div>
 </div>
 
+<div class="modal fade" id="terms-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <h2> Context and Terminology </h2>
+      <br>
+      <p>
+        <b>What is war?</b><br>
+        Conventionally, war is defined as “open and declared conflict between the armed forces of two or more nations or parties.” However, the US Military’s overseas engagements encompass more than just war, and their adversaries are not just other nations.
+        <br>
+        <br>
+        Other types of US military activities include:
+        <br>
+        <br>Advise and assist
+        <br>Rescue operations
+        <br>Medical assistance relief
+        <br>Food and humanitarian relief
+        <br>Embassy security
+        <br>Policing in volatile areas
+        <br>Natural disaster relief
+        <br>Law enforcement
+        <br>Piracy and drug interdiction
+        <br>
+        <br>
+        <b>Who can declare war?</b><br>
+        The U.S. Constitution gives Congress the sole power to declare war and to “raise and support” an army. As commander and chief, the president can unilaterally order military action, but the War Powers Resolution of 1973 limits the length of that action and requires that the president inform Congress within 48 hours. It also gives Congress a veto mechanism that allows them to recall US troops at any time.
+        <br>
+        <br>
+        <b>Components of the US Military</b>
+        <br>US Army
+        <br>US Navy
+        <br>US Marines
+        <br>US Air Force
+        <br>US Coast Guard
+        <br>Reserves
+        <br>
+        <br>
+        <b>Declaration of War</b>- <i>formal act by Congress that officially declares a war between the US and another entity</i>
+        <br>
+        <b>Combat Mission</b>- <i>armed fighting with enemy forces in a mission to combat or defend something</i>
+        <br>
+        <b>Security Force Assistance Operations</b>- <i>Advise and Assist Mission; action to generate, employ, and sustain local, host nation, or regional security forces in support of a legitimate authority</i>
+        <br>
+        <b>Casualty</b>- <i>a person (either civilian or military member) killed in military action; or, a military member captured, deserted, missing, disabled by injuries, disabled by psychological trauma, or killed by disease.</i>
+        <br>
+        <b>Unmanned Aerial Vehicles</b>- <i>an aircraft piloted by remote control or onboard computers; a drone</i>
+        <br>
+        <b>Remotely Piloted Aerial Systems</b>- <i>an entire drone system, including: the aircraft, the control station that operates the aircraft, and the wireless data link</i>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <h2> About Defense Footprint </h2>
+      <p>
+        Where is the US at war? What is war? Defense Footprint is a non-partisan resource for researchers and members of the public to learn more about the US Military and its overseas engagements.
+      </p>
+    </div>
+  </div>
+</div>
+
 </div>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
-<script src="https://d3js.org/d3-dsv.v1.min.js"></script>
-<script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
 <script src="js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
