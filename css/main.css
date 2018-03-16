@@ -23,6 +23,11 @@ h3 {
   text-align: center;
 }
 
+#nav-links a {
+  display: inline-block;
+  padding-right: 30px;
+}
+
 a {
   color: #fff;
 }
@@ -35,6 +40,7 @@ a:focus {
 a:hover {
   color: #B8E4FF;
 }
+
 
 #map {
   position: relative;
@@ -49,19 +55,33 @@ a:hover {
   z-index: 10;
 }
 
-#info-alt {
-  top: 85px;
-  left: 77%;
-  height: 50%;
-  width: 20%;
-  border: solid 2px #F1F3F4;
-  background-color: #fff;
-  color: black;
+#info {
+  position: fixed;
+  /*border: solid 2px #025C89;*/
+  left: 67%;
+  top: 40%;
+  width: 30%;
+  min-height: 40%;
+  text-align: right;
+}
+
+#country {
+  top: 77%;
+  left: 57%;
+  height: 10%;
+  min-width: 40%;
+  color: #025C89;
   opacity: 0.8;
   position: fixed;
 }
 
-#methodology-modal-content {
+#country-text {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.modal-content {
   padding: 20px;
 }
 
@@ -69,18 +89,13 @@ a:hover {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 15%;
+  height: 10%;
   width: 100%;
   border-top: solid 2px #F1F3F4;
   color: black;
   text-align: center;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.75)
-}
-
-#country-text {
-  font-size: 25px;
-  font-weight: bold;
 }
 
 .subunit {
