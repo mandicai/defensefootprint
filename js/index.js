@@ -1,12 +1,13 @@
 let width = 960,
-  height = 325
+    height = 325,
+    scale0 = (width - 1) / 2 / Math.PI
 
 let svg = d3.select("#map").append("svg")
   // preserveAspectRatio
   // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
+  .attr("viewBox", "0 20 500 500")
   .attr("preserveAspectRatio", "xMinYMin meet")
   // y-axis is the same scale
-  .attr("viewBox", "0 20 800 600")
   .classed("svg-content", true)
 
 // Make a threshold scale
@@ -95,7 +96,7 @@ d3.json("data/world_2000.json").then(function(data) {
 
         DFscores = rateByDF
 
-        svg.selectAll(".subunit")
+        let subunit = svg.selectAll(".subunit")
           .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
           .enter().append("path")
           .attr("class", function(d) {
@@ -105,6 +106,21 @@ d3.json("data/world_2000.json").then(function(data) {
           .style("fill", function(d) {
             return color(rateByDF[d.id])
           })
+
+        // Zoom
+        var zoom = d3.zoom()
+          .scaleExtent([1, 40])
+          .translateExtent([[0, 0], [width, height]])
+          .extent([[0, 0], [width, height]])
+          .on("zoom", zoomed)
+
+        svg.call(zoom);
+
+        function zoomed() {
+          let transform = d3.event.transform
+          subunit.attr("transform", transform)
+        }
+
       })
       .catch(function(error) {
         console.log("Error: " + error)
@@ -176,53 +192,80 @@ d3.json("data/world_2000.json").then(function(data) {
     console.log("Error: " + error)
   })
 
-function changeMap(checkbox) {
-  if (checkbox.name === 'casualties' && checkbox.checked === true) {
-    let rateByCasuality = {};
-    scores.forEach(function(d) {
-      rateByCasuality[d.ISO] = +d.CasualtiesUS
-    })
-
-    svg.selectAll(".subunit")
-      .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-      .transition()
-      .style("fill", function(d) {
-        return color(rateByCasuality[d.id]);
-      })
-
-  } else if (checkbox.name === 'casualties' && checkbox.checked === false) {
-    svg.selectAll(".subunit")
-      .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-      .transition()
-      .style("fill", function(d) {
-        return color(DFscores[d.id]);
-      })
-  }
-
-  if (checkbox.name === 'troops' && checkbox.checked === true) {
-    let rateByTroop = {};
-    scores.forEach(function(d) {
-      rateByTroop[d.ISO] = +d.TroopNumbers
-    })
-    svg.selectAll(".subunit")
-      .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-      .transition()
-      .style("fill", function(d) {
-        return color(rateByTroop[d.id]);
-      })
-
-  } else if (checkbox.name === 'troops' && checkbox.checked === false) {
-    svg.selectAll(".subunit")
-      .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-      .transition()
-      .style("fill", function(d) {
-        return color(DFscores[d.id]);
-      })
-  }
-
-  if (checkbox.name === 'DFscores' && checkbox.checked === true) {
-
-  } else {
-
-  }
-}
+// you need to consider the handling of these states
+// function changeMap(checkbox) {
+//   if (checkbox.name === 'casualties' && checkbox.checked === true) {
+//     let rateByCasuality = {};
+//     scores.forEach(function(d) {
+//       rateByCasuality[d.ISO] = +d.CasualtiesUS
+//     })
+//
+//     svg.selectAll(".subunit")
+//       .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
+//       .transition()
+//       .style("fill", function(d) {
+//         return color(rateByCasuality[d.id]);
+//       })
+//
+//   } else if (checkbox.name === 'casualties' && checkbox.checked === false) {
+//     let casualtyData = []
+//     scores.forEach(function(d) {
+//       casualtyData.push({'ISO':d.ISO, 'Casualties':d.CasualtiesUS})
+//     })
+//
+//     svg.selectAll(".casualty-circle")
+//       .data(casualtyData)
+//       .enter().append("circle")
+//       .attr("class", "casualty-circle")
+//       .attr("cx", function(d,i) {
+//         return i*50 + 100
+//       })
+//       .attr("cy", function(d,i) {
+//         return 100
+//       })
+//       .attr("r", function(d) { // find a better way of normalizing the bubbles
+//         if (d.Casualties > 50) {
+//           return d.Casualties/1000
+//         } else {
+//           return d.Casualties
+//         }
+//       })
+//       .attr("fill", "#000000")
+//
+//     // svg.selectAll(".subunit")
+//       // .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
+//       // .transition()
+//       // .style("fill", function(d) {
+//       //   return color(DFscores[d.id]);
+//       // })
+//
+//     // figure out how to bind circles based on number of casualties
+//   }
+//
+//   if (checkbox.name === 'troops' && checkbox.checked === true) {
+//     let rateByTroop = {};
+//     scores.forEach(function(d) {
+//       rateByTroop[d.ISO] = +d.TroopNumbers
+//     })
+//     svg.selectAll(".subunit")
+//       .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
+//       .transition()
+//       .style("fill", function(d) {
+//         return color(rateByTroop[d.id]);
+//       })
+//
+//   } else if (checkbox.name === 'troops' && checkbox.checked === false) {
+//     svg.selectAll(".subunit")
+//       .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
+//       .transition()
+//       .style("fill", function(d) {
+//         return color(DFscores[d.id]);
+//       })
+//   }
+//
+//   if (checkbox.name === 'DFscores' && checkbox.checked === true) {
+//
+//   } else {
+//
+//   }
+// }
