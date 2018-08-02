@@ -123,6 +123,16 @@ d3.json("data/world_2000.json").then(function(data) {
           subunit.attr("transform", transform)
         }
 
+        d3.select("#reset")
+          .on("click", resetted)
+
+        function resetted() {
+          console.log('reset!')
+          svg.transition()
+            .duration(750)
+            .call(zoom.transform, d3.zoomIdentity)
+        }
+
       })
       .catch(function(error) {
         console.log("Error: " + error)
