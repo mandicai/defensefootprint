@@ -107,15 +107,17 @@ d3.json("data/world_2000.json").then(function(data) {
             return color(rateByDF[d.id])
           })
 
-        // Zoom
-        var zoom = d3.zoom()
-          .scaleExtent([1, 40])
-          .translateExtent([[0, 0], [width, height]])
-          .extent([[0, 0], [width, height]])
+        // define the zoom behavior
+        let zoom = d3.zoom()
+          .scaleExtent([1, 40]) // restricts zooming in and out
+          .translateExtent([[0, 0], [width, height]]) // restricts panning, causes translation on zoom out
+          .extent([[0, 0], [width, height]]) // sets the viewport
           .on("zoom", zoomed)
 
-        svg.call(zoom);
+        // call the zoom behavior on a selected element
+        svg.call(zoom)
 
+        // applies the current zoom transform
         function zoomed() {
           let transform = d3.event.transform
           subunit.attr("transform", transform)
