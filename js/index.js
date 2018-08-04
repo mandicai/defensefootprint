@@ -5,7 +5,7 @@ let width = 960,
 let svg = d3.select("#map").append("svg")
   // preserveAspectRatio
   // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
-  .attr("viewBox", "0 20 500 500")
+  .attr("viewBox", "0 20 475 475")
   .attr("preserveAspectRatio", "xMinYMin meet")
   // y-axis is the same scale
   .classed("svg-content", true)

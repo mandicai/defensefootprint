@@ -5,33 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <!-- preload css -->
+  <link rel="preload" href="css/bootstrap.min.css" as="style">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <!-- preload css -->
+  <link rel="preload" href="css/main.css" as="style">
   <link rel="stylesheet" href="css/main.css">
+
   <!-- font-awesome -->
+  <link rel="preload" href="css/all.min.css" as="style">
   <link rel="stylesheet" href="css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
+  <link rel="stylesheet" rel="preconnect" href="https://fonts.googleapis.com/css?family=Open+Sans" crossorigin>
 
   <title>Defense Footprint</title>
 </head>
 
 <body>
   <div id="nav-bar">
-    <div class="row">
-      <div class="col-6 title-link">
-        <h3>defense footprint</h3>
-      </div>
-      <div class="col-6 nav-links">
-        <div class="row">
-          <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
-          <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
-          <a href="" data-toggle="modal" data-target="#about-modal">About</a>
-          <a href="https://www.nytimes.com/">Feeling Lucky</a>
-          <div class="social-icons">
-            <a href=""><i class="far fa-envelope" aria-hidden="true"></i></a>
-            <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-            <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-          </div>
-          </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-5 title-link">
+          <h3>defense footprint</h3>
+        </div>
+        <div class="col-7 nav-links">
+            <div class="row">
+              <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
+              <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
+              <a href="" data-toggle="modal" data-target="#about-modal">About</a>
+              <a href="https://www.nytimes.com/">Feeling Lucky</a>
+              <div class="social-icons">
+                <a href=""><i class="far fa-envelope" aria-hidden="true"></i></a>
+                <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+              </div>
+              </ul>
+            </div>
         </div>
       </div>
     </div>
@@ -153,12 +163,13 @@
   </div>
 
   </div>
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://d3js.org/topojson.v1.min.js"></script>
-  <script src="https://d3js.org/d3-queue.v3.min.js"></script>
-  <script src="js/index.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3-queue.v3.min.js"></script>
+<script src="js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </html>
