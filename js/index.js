@@ -23,6 +23,10 @@ let g = svg.append("g")
   .attr("class", "key")
   .attr("transform", "translate(265,50)")
 
+let tooltip = d3.select('body').append('div')
+    .attr('id', 'tooltip')
+    .style('opacity', 0)
+
 // g.selectAll("rect")
 //   .data(color.range().map(function(d) {
 //     d = color.invertExtent(d);
@@ -190,9 +194,20 @@ d3.json("data/world_2000.json").then(function(data) {
                   .style("opacity", "0")
                   .transition()
                   .style("opacity", "1")
+
+                tooltip.transition()
+                  .duration(200)
+                  .style("opacity", .9)
+
+                tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
+                  .style("left", (d3.event.pageX) + "px")
+                  .style("top", (d3.event.pageY - 28) + "px")
               })
               .on("mouseout", function() {
                 d3.select(this).style('opacity', function(d) {})
+                tooltip.transition()
+                  .duration(500)
+                  .style("opacity", 0)
               })
           })
           .catch(function(error) {

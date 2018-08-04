@@ -187,7 +187,7 @@ svg {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  background-color: rgb(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.2);
 }
 
 .org-carousel {
@@ -201,6 +201,18 @@ svg {
 .checkbox {
   display: inline;
   font-size: 23px;
+}
+
+div#tooltip {
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 175px;
+  padding: 9px;
+  font-size: 16px;
+  background: rgba(255,255,255,0.75);
+  pointer-events: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16);
 }
 
 input[type='checkbox'] {
