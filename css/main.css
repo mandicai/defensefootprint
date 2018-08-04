@@ -161,8 +161,17 @@ svg {
   transition: all 0.25s ease;
 }
 
-#controls a {
+#controls button {
   display: block;
+  width: 40px;
+  height: 40px;
+  background-color: #bbbbbb;
+  color: #FFF;
+  line-height: 30px;
+  font-size: 15px;
+  border-radius: 100%;
+  text-align: center;
+  margin: 10px;
 }
 
 .checkbox {
