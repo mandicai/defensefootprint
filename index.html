@@ -17,6 +17,7 @@
   <link rel="preload" href="css/all.min.css" as="style">
   <link rel="stylesheet" href="css/all.min.css">
 
+  <!-- open-sans -->
   <link rel="stylesheet" rel="preconnect" href="https://fonts.googleapis.com/css?family=Open+Sans" crossorigin>
 
   <title>Defense Footprint</title>
@@ -26,15 +27,17 @@
   <div id="nav-bar">
     <div class="container">
       <div class="row">
-        <div class="col-5 title-link">
+        <div class="col-md-4 title-link">
           <h3>defense footprint</h3>
         </div>
-        <div class="col-7 nav-links">
+        <div class="col-md-8 nav-links">
             <div class="row">
-              <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
-              <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
-              <a href="" data-toggle="modal" data-target="#about-modal">About</a>
-              <a href="https://www.nytimes.com/">Feeling Lucky</a>
+              <div class="links">
+                <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
+                <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
+                <a href="" data-toggle="modal" data-target="#about-modal">About</a>
+                <a href="https://www.nytimes.com/">Feeling Lucky</a>
+              </div>
               <div class="social-icons">
                 <a href=""><i class="far fa-envelope" aria-hidden="true"></i></a>
                 <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter" aria-hidden="true"></i></a>
@@ -54,6 +57,38 @@
     <button id="reset"><i class="fa fa-globe-americas" aria-hidden="true"></i></button>
     <button><i class="fas fa-search-plus" aria-hidden="true"></i></button>
     <button><i class="fas fa-search-minus" aria-hidden="true"></i></button>
+  </div>
+
+  <div id="org-chooser">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          Conflict according to:
+        </div>
+        <div class="col-md-6 org-carousel">
+          <div id="carouselExampleControls" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                Brown University
+              </div>
+              <div class="carousel-item">
+                International Institute for Strategic Studies
+              </div>
+              <div class="carousel-item">
+                Center for Strategic and International Studies
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+      </div>
+    </div>
   </div>
 
   <!-- <div id="controls"> -->

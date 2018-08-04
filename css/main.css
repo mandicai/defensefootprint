@@ -16,19 +16,22 @@ h3 {
 }
 
 #nav-bar {
-  padding-top: 10px;
+  padding-top: 20px;
   font-size: 20px;
   background-color: #112a38;
-}
-
-.title-link {
-  padding-left: 5%;
 }
 
 .nav-links {
   padding-top: 0.5%;
   font-size: 0.75em;
   text-align: center;
+  padding-left: 200px;
+}
+
+
+.nav-links .links {
+  padding-top: 3px;
+  margin-right: 40px;
 }
 
 .nav-links a {
@@ -53,7 +56,7 @@ a:hover {
   width: 30px;
   height: 30px;
   background-color: #bbbbbb;
-  color: #FFF;
+  color: #112a38;
   line-height: 30px;
   font-size: 15px;
   border-radius: 100%;
@@ -165,12 +168,34 @@ svg {
   width: 40px;
   height: 40px;
   background-color: #bbbbbb;
-  color: #FFF;
+  color: #112a38;
   line-height: 30px;
   font-size: 15px;
   border-radius: 100%;
   text-align: center;
   margin: 10px;
+}
+
+#org-chooser {
+  position: absolute;
+  top: 13%;
+  left: 25%;
+  min-height: 10%;
+  width: 50%;
+  font-size: 150%;
+  color: #ffffff;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  background-color: rgb(255,255,255,0.2);
+}
+
+.org-carousel {
+  padding-top: 10px;
+}
+
+.carousel-item {
+  font-size: 11px;
 }
 
 .checkbox {

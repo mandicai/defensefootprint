@@ -5,7 +5,7 @@ let width = 960,
 let svg = d3.select("#map").append("svg")
   // preserveAspectRatio
   // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
-  .attr("viewBox", "0 20 475 475")
+  .attr("viewBox", "-50 -25 525 525")
   .attr("preserveAspectRatio", "xMinYMin meet")
   // y-axis is the same scale
   .classed("svg-content", true)
@@ -23,42 +23,42 @@ let g = svg.append("g")
   .attr("class", "key")
   .attr("transform", "translate(265,50)")
 
-g.selectAll("rect")
-  .data(color.range().map(function(d) {
-    d = color.invertExtent(d);
-    if (d[0] == null) d[0] = x.domain()[0] // this takes the edge values and sets them to actual values
-    if (d[1] == null) d[1] = x.domain()[1]
-    return d
-  }))
-  .enter().append("rect")
-  .attr("height", 8)
-  .attr("x", function(d) {
-    return x(d[0])
-  })
-  .attr("width", function(d) {
-    return x(d[1]) - x(d[0])
-  })
-  .attr("fill", function(d) {
-    return color(d[0])
-  })
-
-g.append("text")
-  .attr("class", "caption")
-  .attr("x", x.range()[0])
-  .attr("y", -6)
-  .attr("fill", "#000")
-  .attr("text-anchor", "start")
-  .attr("font-weight", "bold")
-  .text("DF score")
-
-g.call(d3.axisBottom(x)
-    .tickSize(13)
-    .tickFormat(function(x, i) {
-      return x
-    })
-    .tickValues(color.domain()))
-  .select(".domain")
-  .remove()
+// g.selectAll("rect")
+//   .data(color.range().map(function(d) {
+//     d = color.invertExtent(d);
+//     if (d[0] == null) d[0] = x.domain()[0] // this takes the edge values and sets them to actual values
+//     if (d[1] == null) d[1] = x.domain()[1]
+//     return d
+//   }))
+//   .enter().append("rect")
+//   .attr("height", 8)
+//   .attr("x", function(d) {
+//     return x(d[0])
+//   })
+//   .attr("width", function(d) {
+//     return x(d[1]) - x(d[0])
+//   })
+//   .attr("fill", function(d) {
+//     return color(d[0])
+//   })
+//
+// g.append("text")
+//   .attr("class", "caption")
+//   .attr("x", x.range()[0])
+//   .attr("y", -6)
+//   .attr("fill", "#000")
+//   .attr("text-anchor", "start")
+//   .attr("font-weight", "bold")
+//   .text("DF score")
+//
+// g.call(d3.axisBottom(x)
+//     .tickSize(13)
+//     .tickFormat(function(x, i) {
+//       return x
+//     })
+//     .tickValues(color.domain()))
+//   .select(".domain")
+//   .remove()
 
 let scores
 let boundaries
