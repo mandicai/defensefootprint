@@ -31,7 +31,7 @@ let scores
 let boundaries
 let DFscores
 
-d3.json("data/world_2000.json")
+d3.json("data/world.json")
   .then(data => {
     boundaries = data
 
@@ -61,12 +61,10 @@ d3.json("data/world_2000.json")
     d3.csv("data/DFscores.csv").then(function(data) {
       scores = data
 
-      let rateByDF = {}
+      let DFscores = {}
       scores.forEach(function(d) {
-        rateByDF[d.ISO] = +d.Modified_DFSCORE
+        DFscores[d.ID] = +d.Modified_DFSCORE
       })
-
-      DFscores = rateByDF
 
       let subunit = svg.selectAll(".subunit")
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
@@ -76,8 +74,13 @@ d3.json("data/world_2000.json")
         })
         .attr("d", mapTopo.path)
         .style("fill", function(d) {
-          return color(rateByDF[d.id])
+          return color(DFscores[d.id])
         })
+
+      // if some property is true (which gets set by the button)
+      // svg.selectAll(".subunit").style("fill", function(d) {
+      //   return color(DFscores[d.id])
+      // })
 
       // define the zoom behavior
       let zoom = d3.zoom()
@@ -126,9 +129,9 @@ d3.json("data/world_2000.json")
         })
     })
     .catch(function(error) {
-      console.log("Error in retrieving JSON: " + error)
+      console.log("Error in retrieving CSV: " + error)
     })
   })
   .catch(function(error) {
-    console.log("Error in retrieving CSV: " + error)
+    console.log("Error in retrieving JSON: " + error)
   })
