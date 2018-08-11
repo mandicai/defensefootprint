@@ -77,6 +77,30 @@ d3.json("data/world.json")
           return color(DFscores[d.id])
         })
 
+      // UPDATE
+      d3.select('.carousel-control-next').on('click', function() {
+        setTimeout(function() {
+          if (document.body.getElementsByClassName("active")[0].innerText === 'International Institute for Strategic Studies') {
+            scores.forEach(function(d) {
+              DFscores[d.ID] = +d.Modified_DFSCORETWO
+            })
+
+            subunit.transition()
+              .style("fill", function(d) {
+                return color(DFscores[d.id])
+              })
+          } else {
+            scores.forEach(function(d) {
+              DFscores[d.ID] = +d.Modified_DFSCORE
+            })
+
+            subunit.transition()
+              .style("fill", function(d) {
+                return color(DFscores[d.id])
+              })
+          }
+        }, 650)
+      })
       // if some property is true (which gets set by the button)
       // svg.selectAll(".subunit").style("fill", function(d) {
       //   return color(DFscores[d.id])
