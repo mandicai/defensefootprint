@@ -18,7 +18,7 @@ let color = d3.scaleThreshold()
 let x = d3.scaleLinear()
   .domain([0, 6])
   .rangeRound([325, 500]) // divide by number of values in domain
-// how big the scale is
+                          // how big the scale is
 let g = svg.append("g")
   .attr("class", "key")
   .attr("transform", "translate(265,50)")
@@ -26,10 +26,6 @@ let g = svg.append("g")
 let tooltip = d3.select('body').append('div')
     .attr('id', 'tooltip')
     .style('opacity', 0)
-
-let scores
-let boundaries
-let DFscores
 
 d3.json("data/world.json")
   .then(data => {
@@ -63,7 +59,7 @@ d3.json("data/world.json")
 
       let DFscores = {}
       scores.forEach(function(d) {
-        DFscores[d.ID] = +d.Modified_DFSCORE
+        DFscores[d.ID] = { Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
       })
 
       let subunit = svg.selectAll(".subunit")
@@ -74,10 +70,31 @@ d3.json("data/world.json")
         })
         .attr("d", mapTopo.path)
         .style("fill", function(d) {
-          return color(DFscores[d.id])
+          if (DFscores[d.id]) {
+            return color(DFscores[d.id].Score)
+          }
         })
+        .style("stroke", "black")
 
-      // UPDATE
+      // Casualty bubbles
+      let casualtyBubbles = svg.append("g").attr("class", "casualty-bubbles")
+
+      casualtyBubbles.selectAll("circle")
+        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+        .enter().append("circle")
+        .attr("transform", function(d) {
+          return "translate(" + mapTopo.path.centroid(d) + ")"
+        })
+        .attr("r", function(d) {
+          if (DFscores[d.id]) {
+            return Math.log(DFscores[d.id].Casualties)
+          }
+        })
+        .style("fill", "orange")
+        .style("stroke", "black")
+        .attr("opacity", 0.5)
+
+      // should fix so that it doesn't rely on a set time out ...
       d3.selectAll('.carousel-control').on('click', function() {
         setTimeout(function() {
           if (document.body.getElementsByClassName("active")[0].innerText === 'International Institute for Strategic Studies') {
@@ -101,10 +118,6 @@ d3.json("data/world.json")
           }
         }, 650)
       })
-      // if some property is true (which gets set by the button)
-      // svg.selectAll(".subunit").style("fill", function(d) {
-      //   return color(DFscores[d.id])
-      // })
 
       // define the zoom behavior
       let zoom = d3.zoom()
@@ -120,8 +133,10 @@ d3.json("data/world.json")
       function zoomed() {
         let transform = d3.event.transform
         subunit.attr("transform", transform)
+        casualtyBubbles.attr("transform", transform)
       }
 
+      // reset button
       d3.select("#reset")
         .on("click", resetted)
 
