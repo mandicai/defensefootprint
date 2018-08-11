@@ -23,7 +23,6 @@ h3 {
   padding-left: 150px;
 }
 
-
 .nav-links .links {
   padding-top: 3px;
   margin-right: 40px;
@@ -214,7 +213,11 @@ svg {
   margin-top: 83px;
 }
 
-#score-factors a {
+.score-factor-links .active {
+  color: #C34444;
+}
+
+.score-factor-links a {
   display: block;
   min-width: 125px;
   border-bottom: 2px solid #C34444;
