@@ -78,7 +78,7 @@ d3.json("data/world.json")
         })
 
       // UPDATE
-      d3.select('.carousel-control-next').on('click', function() {
+      d3.selectAll('.carousel-control').on('click', function() {
         setTimeout(function() {
           if (document.body.getElementsByClassName("active")[0].innerText === 'International Institute for Strategic Studies') {
             scores.forEach(function(d) {
