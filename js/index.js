@@ -86,34 +86,46 @@ d3.json("data/world.json")
           return "translate(" + mapTopo.path.centroid(d) + ")"
         })
         .attr("r", function(d) {
-          if (DFscores[d.id]) {
-            return Math.log(DFscores[d.id].Casualties)
-          }
+          return 0
         })
-        .style("fill", "orange")
-        .style("stroke", "black")
-        .attr("opacity", 0.5)
+
+      d3.select("#casualties-link").on("click", function() {
+        casualtyBubbles.selectAll("circle")
+          .transition()
+          .attr("r", function(d) {
+            if (DFscores[d.id]) {
+              return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
+            }
+          })
+          .style("fill", "orange")
+          .style("stroke", "black")
+          .attr("opacity", 0.5)
+      })
 
       // should fix so that it doesn't rely on a set time out ...
       d3.selectAll('.carousel-control').on('click', function() {
         setTimeout(function() {
           if (document.body.getElementsByClassName("active")[0].innerText === 'International Institute for Strategic Studies') {
             scores.forEach(function(d) {
-              DFscores[d.ID] = +d.Modified_DFSCORETWO
+              DFscores[d.ID] = DFscores[d.ID] = { Score: d.Modified_DFSCORETWO, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
             })
 
             subunit.transition()
               .style("fill", function(d) {
-                return color(DFscores[d.id])
+                if (DFscores[d.id]) {
+                  return color(DFscores[d.id].Score)
+                }
               })
           } else {
             scores.forEach(function(d) {
-              DFscores[d.ID] = +d.Modified_DFSCORE
+              DFscores[d.ID] = { Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
             })
 
             subunit.transition()
               .style("fill", function(d) {
-                return color(DFscores[d.id])
+                if (DFscores[d.id]) {
+                  return color(DFscores[d.id].Score)
+                }
               })
           }
         }, 650)
