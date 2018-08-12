@@ -14,23 +14,31 @@ h3 {
   padding-top: 20px;
   font-size: 20px;
   background-color: #112a38;
+  display: flex;
+  padding-left: 5%;
 }
 
 .nav-links {
+  display: flex;
+  margin-left: auto;
   padding-top: 0.5%;
+  padding-right: 5%;
   font-size: 0.85em;
-  text-align: center;
-  padding-left: 150px;
 }
 
-.nav-links .links {
-  padding-top: 3px;
-  margin-right: 40px;
+.nav-links.nav-links__show {
+  display: initial;
 }
 
 .nav-links a {
   display: inline-block;
   margin: 0 10px;
+}
+
+.links {
+  display: flex;
+  padding-top: 3px;
+  margin-right: 40px;
 }
 
 a {
@@ -46,6 +54,10 @@ a:hover {
   color: #B8E4FF;
 }
 
+.social-icons {
+  display: flex;
+}
+
 .social-icons a {
   width: 30px;
   height: 30px;
@@ -55,6 +67,34 @@ a:hover {
   font-size: 15px;
   border-radius: 100%;
   text-align: center;
+}
+
+.mobile-icon {
+  display: none;
+}
+
+.social-icons a:hover {
+  color: #fb5353;
+  transition: all 0.25s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  #nav-bar,
+  .nav-links,
+  .links {
+    flex-direction: column;
+  }
+  .nav-links {
+    margin-left: 0;
+    display: none;
+  }
+  .mobile-icon {
+    display: initial;
+    color: #fff;
+    position: absolute;
+    align-self: flex-end;
+    padding-right: 20px;
+  }
 }
 
 #map {
@@ -170,6 +210,11 @@ svg {
   margin: 10px;
 }
 
+#controls button:hover {
+  color: #fb5353;
+  transition: all 0.25s ease;
+}
+
 #org-chooser {
   position: absolute;
   top: 13%;
@@ -178,15 +223,20 @@ svg {
   width: 50%;
   font-size: 1.10em;
   color: #ffffff;
-  padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
   border-bottom: 2px solid #C34444;
+  display: flex;
   /* background-color: rgba(255,255,255,0.2); */
 }
 
+.conflict-header {
+  min-width: 38%;
+}
+
 .org-carousel {
-  padding-top: 5px;
+  margin: auto;
+  min-width: 60%;
 }
 
 .carousel-item {
