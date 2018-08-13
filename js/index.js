@@ -5,7 +5,7 @@ let width = 960,
 let svg = d3.select("#map").append("svg")
   // preserveAspectRatio
   // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
-  .attr("viewBox", "-50 -25 525 525")
+  .attr("viewBox", "-75 -25 525 525")
   .attr("preserveAspectRatio", "xMinYMin meet")
   // y-axis is the same scale
   .classed("svg-content", true)
@@ -18,7 +18,7 @@ let color = d3.scaleThreshold()
 let x = d3.scaleLinear()
   .domain([0, 6])
   .rangeRound([325, 500]) // divide by number of values in domain
-// how big the scale is
+                          // how big the scale is
 let g = svg.append("g")
   .attr("class", "key")
   .attr("transform", "translate(265,50)")
@@ -27,48 +27,8 @@ let tooltip = d3.select('body').append('div')
     .attr('id', 'tooltip')
     .style('opacity', 0)
 
-// g.selectAll("rect")
-//   .data(color.range().map(function(d) {
-//     d = color.invertExtent(d);
-//     if (d[0] == null) d[0] = x.domain()[0] // this takes the edge values and sets them to actual values
-//     if (d[1] == null) d[1] = x.domain()[1]
-//     return d
-//   }))
-//   .enter().append("rect")
-//   .attr("height", 8)
-//   .attr("x", function(d) {
-//     return x(d[0])
-//   })
-//   .attr("width", function(d) {
-//     return x(d[1]) - x(d[0])
-//   })
-//   .attr("fill", function(d) {
-//     return color(d[0])
-//   })
-//
-// g.append("text")
-//   .attr("class", "caption")
-//   .attr("x", x.range()[0])
-//   .attr("y", -6)
-//   .attr("fill", "#000")
-//   .attr("text-anchor", "start")
-//   .attr("font-weight", "bold")
-//   .text("DF score")
-//
-// g.call(d3.axisBottom(x)
-//     .tickSize(13)
-//     .tickFormat(function(x, i) {
-//       return x
-//     })
-//     .tickValues(color.domain()))
-//   .select(".domain")
-//   .remove()
-
-let scores
-let boundaries
-let DFscores
-
-d3.json("data/world_2000.json").then(function(data) {
+d3.json("data/world.json")
+  .then(data => {
     boundaries = data
 
     // topojson - feature collection
@@ -90,209 +50,139 @@ d3.json("data/world_2000.json").then(function(data) {
     //     .datum(subunits) // bind multiple features
     //     .attr("d", path) // d is the attribute for SVG paths
 
+    let mapTopo = { boundaries: boundaries, path: path }
+    return mapTopo
+})
+  .then(mapTopo => {
     d3.csv("data/DFscores.csv").then(function(data) {
-        scores = data
+      scores = data
 
-        let rateByDF = {}
-        scores.forEach(function(d) {
-          rateByDF[d.ISO] = +d.Modified_DFSCORE
+      let DFscores = {}
+      scores.forEach(function(d) {
+        DFscores[d.ID] = { Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+      })
+
+      let subunit = svg.selectAll(".subunit")
+        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+        .enter().append("path")
+        .attr("class", function(d) {
+          return "subunit " + d.id
+        })
+        .attr("d", mapTopo.path)
+        .style("fill", function(d) {
+          if (DFscores[d.id]) {
+            return color(DFscores[d.id].Score)
+          }
+        })
+        .style("stroke", "black")
+
+      // Casualty bubbles
+      let casualtyBubbles = svg.append("g").attr("class", "casualty-bubbles")
+
+      casualtyBubbles.selectAll("circle")
+        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+        .enter().append("circle")
+        .attr("transform", function(d) {
+          return "translate(" + mapTopo.path.centroid(d) + ")"
+        })
+        .attr("r", function(d) {
+          return 0
         })
 
-        DFscores = rateByDF
-
-        let subunit = svg.selectAll(".subunit")
-          .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-          .enter().append("path")
-          .attr("class", function(d) {
-            return "subunit " + d.id
+      d3.select("#casualties-link").on("click", function() {
+        casualtyBubbles.selectAll("circle")
+          .transition()
+          .attr("r", function(d) {
+            if (DFscores[d.id]) {
+              return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
+            }
           })
-          .attr("d", path)
-          .style("fill", function(d) {
-            return color(rateByDF[d.id])
-          })
-
-        // define the zoom behavior
-        let zoom = d3.zoom()
-          .scaleExtent([1, 40]) // restricts zooming in and out
-          .translateExtent([[0, 0], [width, height]]) // restricts panning, causes translation on zoom out
-          .extent([[0, 0], [width, height]]) // sets the viewport
-          .on("zoom", zoomed)
-
-        // call the zoom behavior on a selected element
-        svg.call(zoom)
-
-        // applies the current zoom transform
-        function zoomed() {
-          let transform = d3.event.transform
-          subunit.attr("transform", transform)
-        }
-
-        d3.select("#reset")
-          .on("click", resetted)
-
-        function resetted() {
-          console.log('reset!')
-          svg.transition()
-            .duration(750)
-            .call(zoom.transform, d3.zoomIdentity)
-        }
-
+          .style("fill", "orange")
+          .style("stroke", "black")
+          .attr("opacity", 0.5)
       })
-      .catch(function(error) {
-        console.log("Error: " + error)
-      })
-      .then(() => {
-        // fetch a CSV file and store the objects into an array
-        d3.csv("data/description_statistics.csv").then(function(data) {
-            // create mouse over and mouse out functionality
-            svg.selectAll(".subunit")
-              .on("mouseover", function() {
-                d3.select(this) // Change the color of the country
-                  .style('opacity', '0.75')
 
-                d3.select('#country-text')
-                  .remove()
-                d3.select('#description-text') // Remove the previous text
-                  .remove()
-                d3.select('#statistics-text')
-                  .remove()
+      // should fix so that it doesn't rely on a set time out ...
+      d3.selectAll('.carousel-control').on('click', function() {
+        setTimeout(function() {
+          if (document.body.getElementsByClassName("active")[0].innerText === 'International Institute for Strategic Studies') {
+            scores.forEach(function(d) {
+              DFscores[d.ID] = DFscores[d.ID] = { Score: d.Modified_DFSCORETWO, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+            })
 
-                let countryClass = d3.select(this).attr("class").split(' ')[1] // Grab the class
-                let countryText
-                let descriptionText
-                let statisticsText
-                // Set the corresponding text
-                for (i = 0; i < data.length; i++) {
-                  if (data[i].CODE === countryClass) {
-                    descriptionText = data[i].DESCRIPTION
-                    statisticsText = data[i].STATISTICS
-                    countryText = data[i].NAME
-                  }
+            subunit.transition()
+              .style("fill", function(d) {
+                if (DFscores[d.id]) {
+                  return color(DFscores[d.id].Score)
                 }
-
-                // Append country name with the corresponding text
-                d3.select("#country")
-                  .append('p')
-                  .attr('id', 'country-text')
-                  .text(countryText)
-                  .style("opacity", "0")
-                  .transition()
-                  .style("opacity", "1")
-                // Append description text with the corresponding text
-                d3.select("#description")
-                  .append('p')
-                  .attr('id', 'description-text')
-                  .text(descriptionText)
-                  .style("opacity", "0")
-                  .transition()
-                  .style("opacity", "1")
-                // Append statistics text with the corresponding text
-                d3.select("#statistics")
-                  .append('p')
-                  .attr('id', 'statistics-text')
-                  .text(statisticsText)
-                  .style("opacity", "0")
-                  .transition()
-                  .style("opacity", "1")
-
-                tooltip.transition()
-                  .duration(200)
-                  .style("opacity", .9)
-
-                tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
-                  .style("left", (d3.event.pageX) + "px")
-                  .style("top", (d3.event.pageY - 28) + "px")
               })
-              .on("mouseout", function() {
-                d3.select(this).style('opacity', function(d) {})
-                tooltip.transition()
-                  .duration(500)
-                  .style("opacity", 0)
+          } else {
+            scores.forEach(function(d) {
+              DFscores[d.ID] = { Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+            })
+
+            subunit.transition()
+              .style("fill", function(d) {
+                if (DFscores[d.id]) {
+                  return color(DFscores[d.id].Score)
+                }
               })
-          })
-          .catch(function(error) {
-            console.log("Error: " + error)
-          })
+          }
+        }, 650)
       })
+
+      // define the zoom behavior
+      let zoom = d3.zoom()
+        .scaleExtent([1, 40]) // restricts zooming in and out
+        .translateExtent([[0, 0], [width, height]]) // restricts panning, causes translation on zoom out
+        .extent([[0, 0], [width, height]]) // sets the viewport
+        .on("zoom", zoomed)
+
+      // call the zoom behavior on a selected element
+      svg.call(zoom)
+
+      // applies the current zoom transform
+      function zoomed() {
+        let transform = d3.event.transform
+        subunit.attr("transform", transform)
+        casualtyBubbles.attr("transform", transform)
+      }
+
+      // reset button
+      d3.select("#reset")
+        .on("click", resetted)
+
+      function resetted() {
+        svg.transition()
+          .duration(750)
+          .call(zoom.transform, d3.zoomIdentity)
+      }
+
+      // create mouse over and mouse out functionality
+      svg.selectAll(".subunit")
+        .on("mouseover", function() {
+          d3.select(this) // Change the color of the country
+            .style('opacity', '0.75')
+
+          tooltip.transition()
+            .duration(200)
+            .style("opacity", .9)
+
+          tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px")
+        })
+        .on("mouseout", function() {
+          d3.select(this).style('opacity', function(d) {})
+          tooltip.transition()
+            .duration(500)
+            .style("opacity", 0)
+        })
+    })
+    .catch(function(error) {
+      console.log("Error in retrieving CSV: " + error)
+    })
   })
   .catch(function(error) {
-    console.log("Error: " + error)
+    console.log("Error in retrieving JSON: " + error)
   })
-
-// you need to consider the handling of these states
-// function changeMap(checkbox) {
-//   if (checkbox.name === 'casualties' && checkbox.checked === true) {
-//     let rateByCasuality = {};
-//     scores.forEach(function(d) {
-//       rateByCasuality[d.ISO] = +d.CasualtiesUS
-//     })
-//
-//     svg.selectAll(".subunit")
-//       .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-//       .transition()
-//       .style("fill", function(d) {
-//         return color(rateByCasuality[d.id]);
-//       })
-//
-//   } else if (checkbox.name === 'casualties' && checkbox.checked === false) {
-//     let casualtyData = []
-//     scores.forEach(function(d) {
-//       casualtyData.push({'ISO':d.ISO, 'Casualties':d.CasualtiesUS})
-//     })
-//
-//     svg.selectAll(".casualty-circle")
-//       .data(casualtyData)
-//       .enter().append("circle")
-//       .attr("class", "casualty-circle")
-//       .attr("cx", function(d,i) {
-//         return i*50 + 100
-//       })
-//       .attr("cy", function(d,i) {
-//         return 100
-//       })
-//       .attr("r", function(d) { // find a better way of normalizing the bubbles
-//         if (d.Casualties > 50) {
-//           return d.Casualties/1000
-//         } else {
-//           return d.Casualties
-//         }
-//       })
-//       .attr("fill", "#000000")
-//
-//     // svg.selectAll(".subunit")
-//       // .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-//       // .transition()
-//       // .style("fill", function(d) {
-//       //   return color(DFscores[d.id]);
-//       // })
-//
-//     // figure out how to bind circles based on number of casualties
-//   }
-//
-//   if (checkbox.name === 'troops' && checkbox.checked === true) {
-//     let rateByTroop = {};
-//     scores.forEach(function(d) {
-//       rateByTroop[d.ISO] = +d.TroopNumbers
-//     })
-//     svg.selectAll(".subunit")
-//       .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-//       .transition()
-//       .style("fill", function(d) {
-//         return color(rateByTroop[d.id]);
-//       })
-//
-//   } else if (checkbox.name === 'troops' && checkbox.checked === false) {
-//     svg.selectAll(".subunit")
-//       .data(topojson.feature(boundaries, boundaries.objects.subunits).features)
-//       .transition()
-//       .style("fill", function(d) {
-//         return color(DFscores[d.id]);
-//       })
-//   }
-//
-//   if (checkbox.name === 'DFscores' && checkbox.checked === true) {
-//
-//   } else {
-//
-//   }
-// }

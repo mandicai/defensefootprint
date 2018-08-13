@@ -1,10 +1,5 @@
-@font-face {
-  font-family: 'DroidSerif';
-  src: url('../fonts/DroidSerif-Regular.ttf');
-}
-
 body {
-  font-family: 'DroidSerif', sans-serif;
+  font-family: 'Inconsolata', sans-serif;
   min-height: 500px;
 }
 
@@ -19,24 +14,31 @@ h3 {
   padding-top: 20px;
   font-size: 20px;
   background-color: #112a38;
+  display: flex;
+  padding-left: 5%;
 }
 
 .nav-links {
+  display: flex;
+  margin-left: auto;
   padding-top: 0.5%;
-  font-size: 0.75em;
-  text-align: center;
-  padding-left: 200px;
+  padding-right: 5%;
+  font-size: 0.85em;
 }
 
-
-.nav-links .links {
-  padding-top: 3px;
-  margin-right: 40px;
+.nav-links.nav-links__show {
+  display: initial;
 }
 
 .nav-links a {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 20px;
+}
+
+.links {
+  display: flex;
+  padding-top: 3px;
+  margin-right: 40px;
 }
 
 a {
@@ -52,6 +54,10 @@ a:hover {
   color: #B8E4FF;
 }
 
+.social-icons {
+  display: flex;
+}
+
 .social-icons a {
   width: 30px;
   height: 30px;
@@ -61,6 +67,34 @@ a:hover {
   font-size: 15px;
   border-radius: 100%;
   text-align: center;
+}
+
+.mobile-icon {
+  display: none;
+}
+
+.social-icons a:hover {
+  color: #fb5353;
+  transition: all 0.25s ease;
+}
+
+@media only screen and (max-width: 768px) {
+  #nav-bar,
+  .nav-links,
+  .links {
+    flex-direction: column;
+  }
+  .nav-links {
+    margin-left: 0;
+    display: none;
+  }
+  .mobile-icon {
+    display: initial;
+    color: #fff;
+    position: absolute;
+    align-self: flex-end;
+    padding-right: 20px;
+  }
 }
 
 #map {
@@ -85,13 +119,19 @@ svg {
 
 #info {
   position: fixed;
-  /*border: solid 2px #025C89;*/
-  left: 67%;
-  top: 30%;
-  width: 30%;
-  min-height: 60%;
-  text-align: right;
-  background-color: rgba(255,255,255,0.3);
+  padding: 1%;
+  left: 70%;
+  top: 25%;
+  width: 26%;
+  height: 65%;
+  background-color: rgba(255,255,255,0.1);
+  overflow: auto;
+  box-shadow: 0 6px 10px rgba(0,0,0,.25);
+}
+
+#conflict-name {
+  text-align: center;
+  background-color: #710000;
 }
 
 #country {
@@ -177,31 +217,69 @@ svg {
   margin: 10px;
 }
 
+#controls button:hover {
+  color: #fb5353;
+  transition: all 0.25s ease;
+}
+
 #org-chooser {
   position: absolute;
   top: 13%;
   left: 25%;
-  min-height: 10%;
+  min-height: 5%;
   width: 50%;
-  font-size: 150%;
+  font-size: 1.10em;
   color: #ffffff;
-  padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  background-color: rgba(255,255,255,0.2);
+  border-bottom: 2px solid #C34444;
+  display: flex;
+  /* background-color: rgba(255,255,255,0.2); */
+}
+
+.conflict-header {
+  min-width: 38%;
 }
 
 .org-carousel {
-  padding-top: 10px;
+  margin: auto;
+  min-width: 60%;
 }
 
 .carousel-item {
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .checkbox {
   display: inline;
   font-size: 23px;
+}
+
+#score-factors {
+  position: absolute;
+  border-left: 2px solid rgba(255,255,255,0.75);
+  top: 40%;
+  left: 4%;
+  min-height: 175px;
+  width: 100px;
+  font-size: 1em;
+  color: #ffffff;
+}
+
+.score-factor-links {
+  margin-top: 83px;
+}
+
+.score-factor-links .active {
+  color: #C34444;
+}
+
+.score-factor-links a {
+  display: block;
+  min-width: 125px;
+  border-bottom: 2px solid #C34444;
+  text-align: right;
+  margin-top: 20px;
 }
 
 div#tooltip {

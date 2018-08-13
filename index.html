@@ -19,35 +19,32 @@
 
   <!-- open-sans -->
   <link rel="stylesheet" rel="preconnect" href="https://fonts.googleapis.com/css?family=Open+Sans" crossorigin>
+  <link rel="stylesheet" rel="preconnect" href="https://fonts.googleapis.com/css?family=Inconsolata" crossorigin>
 
   <title>Defense Footprint</title>
 </head>
 
 <body>
   <div id="nav-bar">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 title-link">
-          <h3>defense footprint</h3>
-        </div>
-        <div class="col-md-8 nav-links">
-            <div class="row">
-              <div class="links">
-                <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
-                <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
-                <a href="" data-toggle="modal" data-target="#about-modal">About</a>
-                <a href="https://www.nytimes.com/">Feeling Lucky</a>
-              </div>
-              <div class="social-icons">
-                <a href=""><i class="far fa-envelope" aria-hidden="true"></i></a>
-                <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-              </div>
-              </ul>
-            </div>
-        </div>
+    <div>
+      <a href=""><h3>defense footprint</h3></a>
+    </div>
+    <div class="mobile-icon">
+      <i class="fas fa-bars"></i>
+    </div>
+    <div class="nav-links">
+      <div class="links">
+        <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
+        <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
+        <a href="" data-toggle="modal" data-target="#about-modal">About</a>
+      </div>
+      <div class="social-icons">
+        <a href=""><i class="far fa-envelope" aria-hidden="true"></i></a>
+        <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook" aria-hidden="true"></i></a>
       </div>
     </div>
+
   </div>
 
   <div id="map">
@@ -60,54 +57,52 @@
   </div>
 
   <div id="org-chooser">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          Conflict according to:
-        </div>
-        <div class="col-md-6 org-carousel">
-          <div id="carouselExampleControls" class="carousel slide">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                Brown University
-              </div>
-              <div class="carousel-item">
-                International Institute for Strategic Studies
-              </div>
-              <div class="carousel-item">
-                Center for Strategic and International Studies
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
+    <div class="conflict-header">
+      CONFLICT ACCORDING TO:
+    </div>
+    <div class="org-carousel">
+      <div id="carouselExampleControls" class="carousel slide" data-interval=false>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            Brown University
+          </div>
+          <div class="carousel-item">
+            International Institute for Strategic Studies
+          </div>
+          <div class="carousel-item">
+            Center for Strategic and International Studies
           </div>
         </div>
+        <a class="carousel-control-prev carousel-control" href="#carouselExampleControls" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next carousel-control" href="#carouselExampleControls" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- <div id="controls"> -->
-    <!-- <div><input type="checkbox" name="casualties" class="checkbox" onchange="changeMap(this)">Casualties</input>
-    </div>
-    <div><input type="checkbox" name="troops" class="checkbox" onchange="changeMap(this)">Troops</input>
-    </div> -->
-    <!-- <div><input type="checkbox" name="DFscores" class="checkbox" checked onchange="changeMap(this)">DF Score</input>
-    </div> -->
-  <!-- </div> -->
+  <div id="score-factors">
+    <div class="score-factor-links">
+      <a id="df-score-link" href="#">DF Score</a>
+      <a id="casualties-link" href="#">Casualties</a>
+      <a id="troop-numbers-link" href="#">Troop Numbers</a>
+    <div>
+  </div>
 
   <div class="overlay" id="info">
     <div class="col" id="description">
+      <h2 id="conflict-name">CONFLICT NAME</h2>
       <p id="description-text">
+        War is a state of armed conflict between states, governments, societies and informal paramilitary groups, such as mercenaries, insurgents and militias. It is generally characterized by extreme violence, aggression, destruction, and mortality, using regular or irregular military forces.
       </p>
     </div>
     <div class="col" id="statistics">
       <p id="statistics-text">
+        The deadliest war in history, in terms of the cumulative number of deaths since its start, is World War II, from 1939 to 1945, with 60–85 million deaths, followed by the Mongol conquests[4] at up to 60 million. As concerns a belligerent's losses in proportion to its prewar population, the most destructive war in modern history may have been the Paraguayan War (see Paraguayan War casualties).
       </p>
     </div>
   </div>
@@ -199,13 +194,12 @@
   </div>
 
   </div>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/nav-bar.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
-
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="https://d3js.org/topojson.v1.min.js"></script>
-<script src="https://d3js.org/d3-queue.v3.min.js"></script>
-<script src="js/index.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </html>
