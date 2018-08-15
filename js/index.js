@@ -227,6 +227,7 @@ d3.json("data/world.json")
         let transform = d3.event.transform
         subunit.attr("transform", transform)
         casualtyBubbles.attr("transform", transform)
+        troopsBubbles.attr("transform", transform)
       }
 
       // reset button
