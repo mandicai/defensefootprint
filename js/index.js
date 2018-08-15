@@ -76,6 +76,33 @@ d3.json("data/world.json")
         })
         .style("stroke", "black")
 
+      d3.select('#df-score-link')
+        .attr("class", "active")
+
+      DFScoreActive = true // for toggling
+
+      d3.select("#df-score-link").on("click", function() {
+        d3.select(this).classed("active", true)
+        if (DFScoreActive === false) {
+          subunit.transition()
+            .style("fill", function(d) {
+              if (DFscores[d.id]) {
+                return color(DFscores[d.id].Score)
+              }
+            })
+          DFScoreActive = true
+        } else {
+          d3.select(this).classed("active", false)
+          subunit.transition()
+            .style("fill", function(d) {
+              if (DFscores[d.id]) {
+                return
+              }
+            })
+          DFScoreActive = false
+        }
+      })
+
       // Casualty bubbles
       let casualtyBubbles = svg.append("g").attr("class", "casualty-bubbles")
 
@@ -89,17 +116,71 @@ d3.json("data/world.json")
           return 0
         })
 
+      casualtyActive = false // for toggling
+
       d3.select("#casualties-link").on("click", function() {
-        casualtyBubbles.selectAll("circle")
-          .transition()
-          .attr("r", function(d) {
-            if (DFscores[d.id]) {
-              return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
-            }
-          })
-          .style("fill", "orange")
-          .style("stroke", "black")
-          .attr("opacity", 0.5)
+        d3.select(this).classed("active", true)
+        if (casualtyActive === false) {
+          casualtyBubbles.selectAll("circle")
+            .transition()
+            .attr("r", function(d) {
+              if (DFscores[d.id]) {
+                return Math.log(DFscores[d.id].Casualties) * 2 // have to tweak this! it's bullshit rn!
+              }
+            })
+            .style("fill", "orange")
+            .style("stroke", "black")
+            .attr("opacity", 0.5)
+          casualtyActive = true
+        } else {
+          d3.select(this).classed("active", false)
+          casualtyBubbles.selectAll("circle")
+            .transition()
+            .attr("r", function(d) {
+              return 0
+            })
+          casualtyActive = false
+        }
+      })
+
+      // Troop bubbles
+      let troopsBubbles = svg.append("g").attr("class", "troops-bubbles")
+
+      troopsBubbles.selectAll("circle")
+        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+        .enter().append("circle")
+        .attr("transform", function(d) {
+          return "translate(" + mapTopo.path.centroid(d) + ")"
+        })
+        .attr("r", function(d) {
+          return 0
+        })
+
+      troopsActive = false // for toggling
+
+      d3.select("#troop-numbers-link").on("click", function() {
+        d3.select(this).classed("active", true)
+        if (troopsActive === false) {
+          troopsBubbles.selectAll("circle")
+            .transition()
+            .attr("r", function(d) {
+              if (DFscores[d.id]) {
+                return Math.log(DFscores[d.id].Troops) * 2 // have to tweak this! it's bullshit rn!
+              }
+            })
+            .style("fill", "purple")
+            .style("stroke", "black")
+            .attr("opacity", 0.5)
+          troopsActive = true
+        } else {
+          d3.select(this).classed("active", false)
+          troopsBubbles.selectAll("circle")
+            .transition()
+            .attr("r", function(d) {
+              return 0
+            })
+          troopsActive = false
+        }
       })
 
       // should fix so that it doesn't rely on a set time out ...
@@ -146,6 +227,7 @@ d3.json("data/world.json")
         let transform = d3.event.transform
         subunit.attr("transform", transform)
         casualtyBubbles.attr("transform", transform)
+        troopsBubbles.attr("transform", transform)
       }
 
       // reset button
