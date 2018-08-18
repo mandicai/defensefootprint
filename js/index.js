@@ -226,9 +226,18 @@ d3.json("data/world.json")
       function zoomed() {
         let transform = d3.event.transform
         subunit.attr("transform", transform)
+        subunit.style("stroke-width", 1.0 / transform.k + "px")
         casualtyBubbles.attr("transform", transform)
         troopsBubbles.attr("transform", transform)
       }
+
+      d3.select("#zoom-in").on("click", function() {
+        zoom.scaleBy(svg.transition().duration(750), 1.4)
+      })
+
+      d3.select("#zoom-out").on("click", function() {
+        zoom.scaleBy(svg.transition().duration(750), 1/1.4)
+      })
 
       // reset button
       d3.select("#reset")
