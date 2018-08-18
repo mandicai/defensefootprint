@@ -45,13 +45,11 @@ a {
   color: #fff;
 }
 
-a:focus {
-  outline: none;
-  /*BAD ACCESSIBILITY*/
-}
-
 a:hover {
-  color: #B8E4FF;
+  color: #fb5353;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  font-weight: 800;
 }
 
 .social-icons {
@@ -120,10 +118,10 @@ svg {
 #info {
   position: fixed;
   padding: 1%;
-  left: 70%;
-  top: 25%;
+  left: 72%;
+  top: 15%;
   width: 26%;
-  height: 65%;
+  height: 80%;
   background-color: rgba(255,255,255,0.1);
   overflow: auto;
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
@@ -169,10 +167,12 @@ svg {
 
 .subunit {
   fill: #25424f;
+  stroke: black;
+  stroke-width: 0.2px;
 }
 
-.subunitCasualties {
-  fill: rgba(255, 255, 255, 0.75);
+.subunit.activeConflict {
+  fill: rgba(91, 12, 31, 0.2)
 }
 
 .place-label {
@@ -189,9 +189,20 @@ svg {
   text-anchor: middle;
 }
 
-.casualty-circle {
-  fill: #FF7F00;
-  opacity: 0.5;
+.casualty-bubble {
+  stroke: #a50404;
+  stroke-width: 2px;
+  fill: none;
+  opacity: 0.8;
+  box-shadow: 0 0 100px -10px black inset;
+}
+
+.troops-bubbles {
+  stroke: #ede107;
+  stroke-width: 2px;
+  fill: none;
+  opacity: 0.8;
+  box-shadow: 0 0 100px -10px black inset;
 }
 
 #controls {
@@ -224,16 +235,15 @@ svg {
 
 #org-chooser {
   position: absolute;
-  top: 13%;
-  left: 25%;
+  top: 20%;
+  left: 4%;
   min-height: 5%;
-  width: 50%;
-  font-size: 1.10em;
+  width: 20%;
+  font-size: 30px;
   color: #ffffff;
   padding-bottom: 20px;
-  text-align: center;
   border-bottom: 2px solid #C34444;
-  display: flex;
+  /* display: flex; */
   /* background-color: rgba(255,255,255,0.2); */
 }
 
@@ -277,7 +287,7 @@ svg {
 .score-factor-links a {
   display: block;
   min-width: 125px;
-  border-bottom: 2px solid #C34444;
+  border-bottom: 2px solid rgba(255,255,255,0.5);
   text-align: right;
   margin-top: 20px;
 }
@@ -302,4 +312,23 @@ input[type='checkbox'] {
   vertical-align: bottom;
   position: relative;
   top: 5px;
+}
+
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    stroke: rgba(204, 169, 44, 0.4);
+    stroke-width: 0;
+  }
+  50% {
+    stroke: rgba(204, 169, 44, 1);
+    stroke-width: 1px;
+  }
+  100% {
+    stroke: rgba(204, 169, 44, 0.4);
+    stroke-width: 0;
+  }
 }

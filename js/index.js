@@ -66,7 +66,11 @@ d3.json("data/world.json")
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
         .enter().append("path")
         .attr("class", function(d) {
-          return "subunit " + d.id
+          if (DFscores[d.id]) {
+            return "subunit " + d.id + " activeConflict"
+          } else {
+            return "subunit " + d.id
+          }
         })
         .attr("d", mapTopo.path)
         .style("fill", function(d) {
@@ -74,7 +78,6 @@ d3.json("data/world.json")
             return color(DFscores[d.id].Score)
           }
         })
-        .style("stroke", "black")
 
       d3.select('#df-score-link')
         .attr("class", "active")
@@ -125,12 +128,10 @@ d3.json("data/world.json")
             .transition()
             .attr("r", function(d) {
               if (DFscores[d.id]) {
-                return Math.log(DFscores[d.id].Casualties) * 2 // have to tweak this! it's bullshit rn!
+                return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
               }
             })
-            .style("fill", "orange")
-            .style("stroke", "black")
-            .attr("opacity", 0.5)
+            .attr("class", "casualty-bubble")
           casualtyActive = true
         } else {
           d3.select(this).classed("active", false)
@@ -158,19 +159,17 @@ d3.json("data/world.json")
 
       troopsActive = false // for toggling
 
-      d3.select("#troop-numbers-link").on("click", function() {
+      d3.select("#us-troops-link").on("click", function() {
         d3.select(this).classed("active", true)
         if (troopsActive === false) {
           troopsBubbles.selectAll("circle")
             .transition()
             .attr("r", function(d) {
               if (DFscores[d.id]) {
-                return Math.log(DFscores[d.id].Troops) * 2 // have to tweak this! it's bullshit rn!
+                return Math.log(DFscores[d.id].Troops) // have to tweak this! it's bullshit rn!
               }
             })
-            .style("fill", "purple")
-            .style("stroke", "black")
-            .attr("opacity", 0.5)
+            .attr("class", "troops-bubbles")
           troopsActive = true
         } else {
           d3.select(this).classed("active", false)
@@ -226,7 +225,7 @@ d3.json("data/world.json")
       function zoomed() {
         let transform = d3.event.transform
         subunit.attr("transform", transform)
-        subunit.style("stroke-width", 1.0 / transform.k + "px")
+        subunit.style("stroke-width", 0.5 / transform.k + "px")
         casualtyBubbles.attr("transform", transform)
         troopsBubbles.attr("transform", transform)
       }
@@ -252,21 +251,21 @@ d3.json("data/world.json")
       }
 
       // create mouse over and mouse out functionality
-      svg.selectAll(".subunit")
+      d3.selectAll(".activeConflict")
         .on("mousemove", function() {
-          d3.select(this) // Change the color of the country
-            .style('opacity', '0.75')
+          d3.select(this).classed("pulse", true)
+          // d3.select(".840").classed("pulse", true)
 
           tooltip.transition()
             .duration(50)
             .style("opacity", .9)
 
           tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px")
+            .style("left", (d3.event.pageX + 40) + "px")
+            .style("top", (d3.event.pageY - 35) + "px")
         })
         .on("mouseout", function() {
-          d3.select(this).style('opacity', function(d) {})
+          d3.select(this).classed("pulse", false)
           tooltip.transition()
             .duration(500)
             .style("opacity", 0)
