@@ -231,12 +231,14 @@ d3.json("data/world.json")
         troopsBubbles.attr("transform", transform)
       }
 
+      // zoom in, scaleBy takes in a factor and automatically zooms in by that factor
       d3.select("#zoom-in").on("click", function() {
-        zoom.scaleBy(svg.transition().duration(750), 1.4)
+        zoom.scaleBy(svg.transition().duration(500), 1.4)
       })
 
+      // must do 1/1.4 to zoom out, no longer like scale() which took the negative of the zoom-in factor
       d3.select("#zoom-out").on("click", function() {
-        zoom.scaleBy(svg.transition().duration(750), 1/1.4)
+        zoom.scaleBy(svg.transition().duration(500), 1/1.4)
       })
 
       // reset button
@@ -251,12 +253,12 @@ d3.json("data/world.json")
 
       // create mouse over and mouse out functionality
       svg.selectAll(".subunit")
-        .on("mouseover", function() {
+        .on("mousemove", function() {
           d3.select(this) // Change the color of the country
             .style('opacity', '0.75')
 
           tooltip.transition()
-            .duration(200)
+            .duration(50)
             .style("opacity", .9)
 
           tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
