@@ -58,7 +58,7 @@
 
   <div id="org-chooser">
     <div class="conflict-header">
-      SOURCE
+      SOURCE:</i>
     </div>
     <div class="org-carousel">
       <div id="carouselExampleControls" class="carousel slide" data-interval=false>
@@ -83,18 +83,19 @@
         </a>
       </div>
     </div>
+    <i class="far fa-play-circle" style="margin-left: 5%; margin-top: 1%; font-size: 35px;"></i>
   </div>
 
   <div id="score-factors">
     <div class="score-factor-links">
-      <a id="df-score-link" href="#">DF Score</a>
-      <a id="casualties-link" href="#">Casualties</a>
-      <a id="us-troops-link" href="#">US Troops</a>
+      <a id="df-score-link" href="#" style="display:flex; justify-content: flex-end;">DF Score<div class="square-df-score"></div><div class="square-df-score-two"></div></a>
+      <a id="casualties-link" href="#" style="display:flex; justify-content: flex-end;">Casualties<div class="circle-casualties"></div></a>
+      <a id="us-troops-link" href="#" style="display:flex; justify-content: flex-end;">US Troops<div class="circle-troops"></div></a>
     <div>
   </div>
 
   <div class="overlay" id="info">
-    <div class="col" id="description">
+    <div class="col" id="info-text">
       <h2 id="conflict-name">CONFLICT NAME</h2>
       <p id="description-text">
         War is a state of armed conflict between states, governments, societies and informal paramilitary groups, such as mercenaries, insurgents and militias. It is generally characterized by extreme violence, aggression, destruction, and mortality, using regular or irregular military forces.
@@ -107,9 +108,10 @@
     </div>
   </div>
 
-  <div class="overlay" id="country">
-    <p id="country-text">
-    </p>
+  <div class="overlay" id="summary">
+    <div class="col" id="summary-text">
+      Fun fact: The US did this shitty thing in this country, wtf.
+    </div>
   </div>
 
   <div class="modal fade" id="methodology-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
