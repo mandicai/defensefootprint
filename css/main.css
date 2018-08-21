@@ -322,7 +322,7 @@ svg {
 }
 
 .score-factor-links .active {
-  /* text-decoration: line-through; */
+  opacity: 1;
 }
 
 .score-factor-links a {
