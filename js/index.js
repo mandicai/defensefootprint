@@ -11,9 +11,7 @@ let svg = d3.select("#map").append("svg")
   .classed("svg-content", true)
 
 // Make a threshold scale
-let color = d3.scaleThreshold()
-  .domain([1.0, 2.0, 3.0, 4.0, 5.0])
-  .range(["#FFFFFF", "#ECC5C5", "#D98888", "#C34444", "#AD0000", "#710000"])
+let color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, 5])
 
 let x = d3.scaleLinear()
   .domain([0, 6])
@@ -59,7 +57,7 @@ d3.json("data/world.json")
 
       let DFscores = {}
       scores.forEach(function(d) {
-        DFscores[d.ID] = { Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+        DFscores[d.ID] = { ISO: d.ISO, Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
       })
 
       let subunit = svg.selectAll(".subunit")
@@ -67,13 +65,9 @@ d3.json("data/world.json")
         .enter().append("path")
         .attr("class", function(d) {
           if (DFscores[d.id]) {
-            return "subunit " + d.id + " activeConflict"
+            return "subunit " + DFscores[d.id].ISO + " activeConflict"
           } else {
-            if (d.id === 840) {
-              return "subunit " + d.id + " USA"
-            } else {
-              return "subunit " + d.id
-            }
+            return "subunit"
           }
         })
         .attr("d", mapTopo.path)
@@ -111,16 +105,30 @@ d3.json("data/world.json")
       })
 
       // Casualty bubbles
-      let casualtyBubbles = svg.append("g").attr("class", "casualtyBubbles")
-
-      casualtyBubbles.selectAll("circle")
+      let casualtyBubbles = svg.selectAll(".casualtyBubble")
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append("circle")
+        .enter().append("g")
+        .attr("class", function(d) {
+          if (DFscores[d.id]) {
+            return "casualtyBubble " + DFscores[d.id].ISO
+          } else {
+            return "casualtyBubble"
+          }
+        })
+
+      casualtyBubbles.append("circle")
         .attr("transform", function(d) {
           return "translate(" + mapTopo.path.centroid(d) + ")"
         })
         .attr("r", function(d) {
           return 0
+        })
+        .attr("class", function(d) {
+          if (DFscores[d.id]) {
+            return "casualtyBubble " + DFscores[d.id].ISO
+          } else {
+            return "casualtyBubble"
+          }
         })
 
       casualtyActive = false // for toggling
@@ -135,7 +143,6 @@ d3.json("data/world.json")
                 return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
               }
             })
-            .attr("class", "casualtyBubble")
           casualtyActive = true
         } else {
           d3.select(this).classed("active", false)
@@ -148,17 +155,31 @@ d3.json("data/world.json")
         }
       })
 
-      // Troop bubbles
-      let troopsBubbles = svg.append("g").attr("class", "troopsBubbles")
-
-      troopsBubbles.selectAll("circle")
+      // Casualty bubbles
+      let troopsBubbles = svg.selectAll(".troopsBubble")
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append("circle")
+        .enter().append("g")
+        .attr("class", function(d) {
+          if (DFscores[d.id]) {
+            return "troopsBubble " + DFscores[d.id].ISO
+          } else {
+            return "troopsBubble"
+          }
+        })
+
+      troopsBubbles.append("circle")
         .attr("transform", function(d) {
           return "translate(" + mapTopo.path.centroid(d) + ")"
         })
         .attr("r", function(d) {
           return 0
+        })
+        .attr("class", function(d) {
+          if (DFscores[d.id]) {
+            return "troopsBubble " + DFscores[d.id].ISO
+          } else {
+            return "troopsBubble"
+          }
         })
 
       troopsActive = false // for toggling
@@ -173,7 +194,6 @@ d3.json("data/world.json")
                 return Math.log(DFscores[d.id].Troops) // have to tweak this! it's bullshit rn!
               }
             })
-            .attr("class", "troopsBubbles")
           troopsActive = true
         } else {
           d3.select(this).classed("active", false)
@@ -257,14 +277,20 @@ d3.json("data/world.json")
       // create mouse over and mouse out functionality
       d3.selectAll(".activeConflict")
         .on("mousemove", function() {
-          d3.select(this).classed("activeConflict", false)
-          if (DFScoreActive) {
-            d3.selectAll(".activeConflict").transition().duration(10).style("opacity", 0.3)
-          } else {
-            d3.select(this).transition().style("fill", "#828230")
-          }
-          d3.selectAll(".troopsBubbles").transition().style("opacity", 0.3)
-          d3.selectAll(".casualtyBubbles").transition().duration(10).style("opacity", 0.3)
+          let selector = d3.select(this).attr("class").split(` `)[1]
+          d3.selectAll("." + selector).transition().duration(10).style('opacity', 1)
+
+          d3.selectAll(".activeConflict").style('opacity', function(d) {
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.2 }
+          })
+
+          d3.selectAll(".casualtyBubble").style('opacity', function(d) {
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.2 }
+          })
+
+          d3.selectAll(".troopsBubble").style('opacity', function(d) {
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.2 }
+          })
 
           tooltip.transition()
             .duration(50)
@@ -275,14 +301,9 @@ d3.json("data/world.json")
             .style("top", (d3.event.pageY - 35) + "px")
         })
         .on("mouseout", function() {
-          d3.select(this).classed("activeConflict", true)
-          if (DFScoreActive) {
-            d3.selectAll(".activeConflict").transition().style("opacity", 1)
-          } else {
-            d3.select(this).transition().duration(10).style("fill", "rgba(91, 12, 31, 0.2)")
-          }
-          d3.selectAll(".troopsBubbles").transition().style("opacity", 1)
-          d3.selectAll(".casualtyBubbles").transition().style("opacity", 1)
+          d3.selectAll(".activeConflict").transition().style('opacity', 1)
+          d3.selectAll(".casualtyBubble").transition().style('opacity', 1)
+          d3.selectAll(".troopsBubble").transition().style('opacity', 1)
 
           tooltip.transition()
             .duration(500)

@@ -227,15 +227,15 @@ svg {
   stroke: #a50404;
   stroke-width: 1px;
   fill: none;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   box-shadow: 0 0 100px -10px black inset;
 }
 
-.troopsBubbles {
+.troopsBubble {
   stroke: #47c5fc;
   stroke-width: 1px;
   fill: none;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   box-shadow: 0 0 100px -10px black inset;
 }
 
