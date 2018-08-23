@@ -138,6 +138,23 @@ svg {
   overflow: auto;
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
   border: 2px solid rgba(255,255,255,0.2);
+  font-size: 20px;
+}
+
+.summary-DFscore, .summary-casualties, .summary-troops {
+  float: right;
+}
+
+.summary-DFscore {
+  color: #C34444;
+}
+
+.summary-casualties {
+  color: #a50404;
+}
+
+.summary-troops {
+  color: #47c5fc;
 }
 
 .circle-casualties {
@@ -227,7 +244,6 @@ svg {
   stroke: #a50404;
   stroke-width: 1px;
   fill: none;
-  /* opacity: 0.8; */
   box-shadow: 0 0 100px -10px black inset;
 }
 
@@ -235,7 +251,6 @@ svg {
   stroke: #47c5fc;
   stroke-width: 1px;
   fill: none;
-  /* opacity: 0.8; */
   box-shadow: 0 0 100px -10px black inset;
 }
 
@@ -285,6 +300,25 @@ svg {
   padding-bottom: 20px;
   /* display: flex; */
   /* background-color: rgba(255,255,255,0.2); */
+}
+
+#org-chooser:hover {
+  background-color: rgba(255,255,255,0.15);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.5);
+  transition: all 0.25s ease;
+}
+
+.fa-play, .fa-pause {
+  margin-left: 5%;
+  margin-top: 15px;
+  font-size: 20px;
+  opacity: 0.5;
+}
+
+.fa-play:hover, .fa-pause:hover {
+  opacity: 1;
+  color: #fb5353;
+  transition: all 0.25s ease;
 }
 
 .conflict-header {

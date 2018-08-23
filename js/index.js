@@ -11,7 +11,10 @@ let svg = d3.select("#map").append("svg")
   .classed("svg-content", true)
 
 // Make a threshold scale
-let color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, 5])
+let color = d3.scaleThreshold()
+  .domain([1.0, 2.0, 3.0, 4.0, 5.0])
+  .range(["#FFFFFF", "#ECC5C5", "#D98888", "#C34444", "#AD0000", "#710000"])
+// let color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, 5])
 
 let x = d3.scaleLinear()
   .domain([0, 6])
@@ -276,38 +279,43 @@ d3.json("data/world.json")
 
       // create mouse over and mouse out functionality
       d3.selectAll(".activeConflict")
-        .on("mousemove", function() {
+        .on("mousemove click", function() {
           let selector = d3.select(this).attr("class").split(` `)[1]
+          
           d3.selectAll("." + selector).transition().duration(10).style('opacity', 1)
 
           d3.selectAll(".activeConflict").style('opacity', function(d) {
-            if (!d3.select(this).attr("class").includes(selector)) { return 0.2 }
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
           })
 
           d3.selectAll(".casualtyBubble").style('opacity', function(d) {
-            if (!d3.select(this).attr("class").includes(selector)) { return 0.2 }
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
           })
 
           d3.selectAll(".troopsBubble").style('opacity', function(d) {
-            if (!d3.select(this).attr("class").includes(selector)) { return 0.2 }
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
           })
 
-          tooltip.transition()
-            .duration(50)
-            .style("opacity", 1)
+          d3.select(".summary-DFscore").text(DFscores[d3.select(this).data()[0].id].Score)
+          d3.select(".summary-casualties").text(DFscores[d3.select(this).data()[0].id].Casualties)
+          d3.select(".summary-troops").text(DFscores[d3.select(this).data()[0].id].Troops)
 
-          tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
-            .style("left", (d3.event.pageX + 40) + "px")
-            .style("top", (d3.event.pageY - 35) + "px")
+          // tooltip.transition()
+          //   .duration(50)
+          //   .style("opacity", 1)
+          //
+          // tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
+          //   .style("left", (d3.event.pageX + 40) + "px")
+          //   .style("top", (d3.event.pageY - 35) + "px")
         })
         .on("mouseout", function() {
           d3.selectAll(".activeConflict").transition().style('opacity', 1)
           d3.selectAll(".casualtyBubble").transition().style('opacity', 1)
           d3.selectAll(".troopsBubble").transition().style('opacity', 1)
 
-          tooltip.transition()
-            .duration(500)
-            .style("opacity", 0)
+          // tooltip.transition()
+          //   .duration(500)
+          //   .style("opacity", 0)
         })
     })
     .catch(function(error) {
