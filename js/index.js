@@ -60,7 +60,7 @@ d3.json("data/world.json")
 
       let DFscores = {}
       scores.forEach(function(d) {
-        DFscores[d.ID] = { ISO: d.ISO, Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+        DFscores[d.ID] = { Name: d.COUNTRY, ISO: d.ISO, Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
       })
 
       let subunit = svg.selectAll(".subunit")
@@ -214,7 +214,7 @@ d3.json("data/world.json")
         setTimeout(function() {
           if (document.body.getElementsByClassName("active")[0].innerText === 'International Institute for Strategic Studies') {
             scores.forEach(function(d) {
-              DFscores[d.ID] = DFscores[d.ID] = { Score: d.Modified_DFSCORETWO, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+              DFscores[d.ID] = { Name: d.COUNTRY, ISO: d.ISO, Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
             })
 
             subunit.transition()
@@ -225,7 +225,7 @@ d3.json("data/world.json")
               })
           } else {
             scores.forEach(function(d) {
-              DFscores[d.ID] = { Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
+              DFscores[d.ID] = { Name: d.COUNTRY, ISO: d.ISO, Score: d.Modified_DFSCORE, Casualties: d.CasualtiesUS, Troops: d.TroopNumbers }
             })
 
             subunit.transition()
@@ -281,7 +281,7 @@ d3.json("data/world.json")
       d3.selectAll(".activeConflict")
         .on("mousemove click", function() {
           let selector = d3.select(this).attr("class").split(` `)[1]
-          
+
           d3.selectAll("." + selector).transition().duration(10).style('opacity', 1)
 
           d3.selectAll(".activeConflict").style('opacity', function(d) {
@@ -296,6 +296,7 @@ d3.json("data/world.json")
             if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
           })
 
+          d3.select("#conflict-name").text(DFscores[d3.select(this).data()[0].id].Name)
           d3.select(".summary-DFscore").text(DFscores[d3.select(this).data()[0].id].Score)
           d3.select(".summary-casualties").text(DFscores[d3.select(this).data()[0].id].Casualties)
           d3.select(".summary-troops").text(DFscores[d3.select(this).data()[0].id].Troops)
