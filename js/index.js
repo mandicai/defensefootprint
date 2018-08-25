@@ -70,7 +70,7 @@ d3.json("data/world.json")
           if (DFscores[d.id]) {
             return "subunit " + DFscores[d.id].ISO + " activeConflict"
           } else {
-            return "subunit" + " inactiveConflict"
+            return "subunit"
           }
         })
         .attr("d", mapTopo.path)
@@ -284,7 +284,15 @@ d3.json("data/world.json")
 
           d3.selectAll("." + selector).transition().duration(10).style('opacity', 1)
 
-          d3.selectAll(".activeConflict", ".casualtyBubble", ".troopsBubble").style('opacity', function(d) {
+          d3.selectAll(".activeConflict").style('opacity', function(d) {
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
+          })
+
+          d3.selectAll(".casualtyBubble").style('opacity', function(d) {
+            if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
+          })
+
+          d3.selectAll(".troopsBubble").style('opacity', function(d) {
             if (!d3.select(this).attr("class").includes(selector)) { return 0.3 }
           })
 
@@ -300,11 +308,6 @@ d3.json("data/world.json")
           // tooltip.html('Conflict occurs here' + "<br/>"  + 'Stuff about troop numbers')
           //   .style("left", (d3.event.pageX + 40) + "px")
           //   .style("top", (d3.event.pageY - 35) + "px")
-        })
-
-      d3.selectAll(".inactiveConflict")
-        .on("mouseover click", function() {
-          d3.selectAll(".activeConflict", ".casualtyBubble", ".troopsBubble").style('opacity', 1)
         })
     })
     .catch(function(error) {
