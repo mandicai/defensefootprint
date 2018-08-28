@@ -102,6 +102,12 @@ a:hover {
   background-color: #112a38;
 }
 
+.ocean {
+  min-width: 100%;
+  min-height: 100%;
+  fill: #112a38;
+}
+
 svg {
   width: 100%;
   height: 100%;
