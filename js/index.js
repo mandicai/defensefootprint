@@ -26,6 +26,7 @@ let color = d3.scaleThreshold()
 let x = d3.scaleLinear()
   .domain([0, 6])
   .rangeRound([325, 500]) // divide by number of values in domain
+
 // how big the scale is
 let g = svg.append('g')
   .attr('class', 'key')
@@ -67,6 +68,24 @@ d3.json('data/world.json')
   .then(mapTopo => {
     d3.csv('data/DFscores.csv').then(function(data) {
       scores = data
+      let links = []
+
+      topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
+        links.push({
+          type: 'LineString',
+          coordinates: [
+            [99.94446873416787, 193.1915558661329],
+            mapTopo.path.centroid(feature)
+          ]
+        })
+      })
+
+      let pathArcs = svg.selectAll('.arc')
+        .data(links)
+        .enter().append('path')
+        .attr('class', 'arc')
+
+      pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
 
       let DFscores = {}
       scores.forEach(function(d) {
