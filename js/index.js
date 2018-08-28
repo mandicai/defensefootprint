@@ -46,7 +46,7 @@ d3.json('data/world.json')
     // store geomercator projection
     let projection = d3.geoMercator()
       .translate([width / 2 - 182, height / 2 + 130]) // translate some pixels
-      .scale(95)
+      .scale(100)
 
     // convert projection to a path
     let path = d3.geoPath()

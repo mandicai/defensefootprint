@@ -348,7 +348,7 @@ svg {
 
 #score-factors {
   position: absolute;
-  border-left: 2px solid rgba(255,255,255,0.75);
+  border-left: 3px solid rgba(255,255,255,0.75);
   top: 40%;
   left: 4%;
   min-height: 175px;
@@ -361,14 +361,20 @@ svg {
   margin-top: 83px;
 }
 
-.score-factor-links .active {
+#df-score-link, #casualties-link, #us-troops-link {
+  display:flex;
+  justify-content: flex-end;
+  opacity: 0.3;
+}
+
+#df-score-link.active, #casualties-link.active, #us-troops-link.active {
   opacity: 1;
 }
 
 .score-factor-links a {
   display: block;
   min-width: 125px;
-  border-bottom: 2px solid rgba(255,255,255,0.5);
+  border-bottom: 3px solid rgba(255,255,255,0.5);
   text-align: right;
   margin-top: 20px;
 }
