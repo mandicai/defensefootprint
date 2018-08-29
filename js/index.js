@@ -5,8 +5,8 @@ let width = 960,
 let svg = d3.select('#map').append('svg')
   // preserveAspectRatio
   // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
-  .attr('viewBox', '-75 -25 550 550')
-  .attr('preserveAspectRatio', 'xMinYMin meet')
+  .attr('viewBox', '0 -25 750 750')
+  .attr('preserveAspectRatio', 'xMinYMid slice')
   // y-axis is the same scale
   .classed('svg-content', true)
 
@@ -45,7 +45,7 @@ d3.json('data/world.json')
 
     // store geomercator projection
     let projection = d3.geoMercator()
-      .translate([width / 2 - 182, height / 2 + 130]) // translate some pixels
+      .translate([width / 2 - 200, height / 2 + 200]) // translate some pixels
       .scale(100)
 
     // convert projection to a path
