@@ -70,22 +70,22 @@ d3.json('data/world.json')
       scores = data
       let links = []
 
-      topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
-        links.push({
-          type: 'LineString',
-          coordinates: [
-            [99.94446873416787, 193.1915558661329],
-            mapTopo.path.centroid(feature)
-          ]
-        })
-      })
-
-      let pathArcs = svg.selectAll('.arc')
-        .data(links)
-        .enter().append('path')
-        .attr('class', 'arc')
-
-      pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
+      // topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
+      //   links.push({
+      //     type: 'LineString',
+      //     coordinates: [
+      //       [99.94446873416787, 193.1915558661329],
+      //       mapTopo.path.centroid(feature)
+      //     ]
+      //   })
+      // })
+      //
+      // let pathArcs = svg.selectAll('.arc')
+      //   .data(links)
+      //   .enter().append('path')
+      //   .attr('class', 'arc')
+      //
+      // pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
 
       let DFscores = {}
       scores.forEach(function(d) {
@@ -118,18 +118,18 @@ d3.json('data/world.json')
       d3.select('#df-score-link')
         .attr('class', 'active')
 
-      DFScoreActive = true // for toggling
+      DFscoreActive = true // for toggling
 
       d3.select('#df-score-link').on('click', function() {
         d3.select(this).classed('active', true)
-        if (DFScoreActive === false) {
+        if (DFscoreActive === false) {
           subunit.transition()
             .style('fill', function(d) {
               if (DFscores[d.id]) {
                 return color(DFscores[d.id].Score)
               }
             })
-          DFScoreActive = true
+          DFscoreActive = true
         } else {
           d3.select(this).classed('active', false)
           subunit.transition()
@@ -138,7 +138,7 @@ d3.json('data/world.json')
                 return
               }
             })
-          DFScoreActive = false
+          DFscoreActive = false
         }
       })
 
@@ -173,6 +173,7 @@ d3.json('data/world.json')
 
       d3.select('#casualties-link').on('click', function() {
         d3.select(this).classed('active', true)
+
         if (casualtyActive === false) {
           casualtyBubbles.selectAll('circle')
             .transition()
@@ -252,18 +253,21 @@ d3.json('data/world.json')
               DFscores[d.ID] = {
                 Name: d.COUNTRY,
                 ISO: d.ISO,
-                Score: d.Modified_DFSCORE,
-                Casualties: d.CasualtiesUS,
-                Troops: d.TroopNumbers
+                Score: d.Modified_DFSCORETWO,
+                Casualties: d.CasualtiesUS_TWO,
+                Troops: d.TroopNumbers_TWO
               }
             })
-
-            subunit.transition()
-              .style('fill', function(d) {
-                if (DFscores[d.id]) {
-                  return color(DFscores[d.id].Score)
-                }
-              })
+          } else if (document.body.getElementsByClassName('active')[0].innerText === 'Center for Strategic and International Studies') {
+            scores.forEach(function(d) {
+              DFscores[d.ID] = {
+                Name: d.COUNTRY,
+                ISO: d.ISO,
+                Score: d.Modified_DFSCORETHREE,
+                Casualties: d.CasualtiesUS_THREE,
+                Troops: d.TroopNumbers_THREE
+              }
+            })
           } else {
             scores.forEach(function(d) {
               DFscores[d.ID] = {
@@ -274,11 +278,33 @@ d3.json('data/world.json')
                 Troops: d.TroopNumbers
               }
             })
+          }
 
+          if (DFscoreActive) {
             subunit.transition()
               .style('fill', function(d) {
                 if (DFscores[d.id]) {
                   return color(DFscores[d.id].Score)
+                }
+              })
+          }
+
+          if (casualtyActive) {
+            casualtyBubbles.selectAll('circle')
+              .transition()
+              .attr('r', function(d) {
+                if (DFscores[d.id]) {
+                  return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
+                }
+              })
+          }
+
+          if (troopsActive) {
+            troopsBubbles.selectAll('circle')
+              .transition()
+              .attr('r', function(d) {
+                if (DFscores[d.id]) {
+                  return Math.log(DFscores[d.id].Troops) // have to tweak this! it's bullshit rn!
                 }
               })
           }
