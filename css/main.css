@@ -61,7 +61,7 @@ a {
 }
 
 a:hover {
-  color: #adba50;
+  color: #dee880;
   transition: all 0.25s ease;
   text-decoration: none;
   font-weight: 800;
@@ -87,7 +87,7 @@ a:hover {
 }
 
 .social-icons a:hover {
-  color: #adba50;
+  color: #dee880;
   transition: all 0.25s ease;
 }
 
@@ -317,7 +317,7 @@ svg {
 }
 
 #controls button:hover {
-  color: #adba50;
+  color: #dee880;
   transition: all 0.25s ease;
 }
 
@@ -355,19 +355,19 @@ svg {
 
 .pause:hover {
   opacity: 1;
-  color: #adba50;
+  color: #dee880;
   transition: all 0.5s ease;
 }
 
 .play:hover {
   opacity: 1;
-  color: #9fd616;
+  color: #dee880;
   transition: all 0.5s ease;
 }
 
 .play-active {
   opacity: 1;
-  color: #9fd616;
+  color: #dee880;
   transition: all 0.25s ease;
 }
 
