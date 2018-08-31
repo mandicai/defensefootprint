@@ -394,7 +394,7 @@ svg {
 .score-factor-links a {
   display: block;
   min-width: 125px;
-  border-bottom: 3px solid rgba(255,255,255,0.5);
+  border-bottom: 3px solid rgba(255,255,255,0.75);
   text-align: right;
   margin-top: 20px;
 }
