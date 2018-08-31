@@ -3,6 +3,15 @@ body {
   min-height: 500px;
 }
 
+#info::-webkit-scrollbar, #info::-webkit-scrollbar-corner {
+  width: 0.5em;
+  background-color: #112a38;
+}
+
+#info::-webkit-scrollbar-thumb {
+  background-color: #101c23;
+}
+
 h3 {
   font-family: 'Open Sans';
   font-size: 30px;
@@ -46,7 +55,7 @@ a {
 }
 
 a:hover {
-  color: #fb5353;
+  color: #adba50;
   transition: all 0.25s ease;
   text-decoration: none;
   font-weight: 800;
@@ -72,7 +81,7 @@ a:hover {
 }
 
 .social-icons a:hover {
-  color: #fb5353;
+  color: #adba50;
   transition: all 0.25s ease;
 }
 
@@ -140,7 +149,7 @@ svg {
   top: 12%;
   width: 26%;
   height: 15%;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(0,0,0,0.2);
   overflow: auto;
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
   border: 2px solid rgba(255,255,255,0.2);
@@ -152,11 +161,11 @@ svg {
 }
 
 .summary-DFscore {
-  color: #C34444;
+  color: #D98888;
 }
 
 .summary-casualties {
-  color: #a50404;
+  color: #ce2525;
 }
 
 .summary-troops {
@@ -167,7 +176,7 @@ svg {
   display: block;
   width: 20px;
   height: 20px;
-  border: 3px solid #a50404;
+  border: 3px solid #ce2525;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
@@ -247,7 +256,7 @@ svg {
 }
 
 .casualtyBubble {
-  stroke: #a50404;
+  stroke: #ce2525;
   stroke-width: 1px;
   fill: none;
   box-shadow: 0 0 100px -10px black inset;
@@ -284,7 +293,7 @@ svg {
 }
 
 #controls button:hover {
-  color: #fb5353;
+  color: #adba50;
   transition: all 0.25s ease;
 }
 
@@ -297,7 +306,7 @@ svg {
   top: 12%;
   width: 50%;
   height: 10%;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(16,28,35,0.8);
   overflow: auto;
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
   border: 2px solid rgba(255,255,255,0.2);
@@ -305,25 +314,36 @@ svg {
   color: #ffffff;
   padding-bottom: 20px;
   /* display: flex; */
-  /* background-color: rgba(255,255,255,0.2); */
 }
 
 #org-chooser:hover {
-  background-color: rgba(255,255,255,0.15);
+  background-color: rgba(0,0,0,0.6);
   box-shadow: 0 6px 10px rgba(0,0,0,0.5);
   transition: all 0.25s ease;
 }
 
-.fa-play, .fa-pause {
+.play, .pause {
   margin-left: 5%;
   margin-top: 15px;
   font-size: 20px;
   opacity: 0.5;
 }
 
-.fa-play:hover, .fa-pause:hover {
+.pause:hover {
   opacity: 1;
-  color: #fb5353;
+  color: #adba50;
+  transition: all 0.5s ease;
+}
+
+.play:hover {
+  opacity: 1;
+  color: #9fd616;
+  transition: all 0.5s ease;
+}
+
+.play-active {
+  opacity: 1;
+  color: #9fd616;
   transition: all 0.25s ease;
 }
 
@@ -337,7 +357,7 @@ svg {
 }
 
 .carousel-item {
-  font-size: 14.5px;
+  font-size: 13px;
   text-align: center;
 }
 

@@ -1,11 +1,12 @@
 let width = 960,
   height = 325,
+  viewBox = 750,
   scale0 = (width - 1) / 2 / Math.PI
 
 let svg = d3.select('#map').append('svg')
   // preserveAspectRatio
   // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
-  .attr('viewBox', '0 -25 750 750')
+  .attr('viewBox', '0 -25' + ' ' + viewBox + ' ' + viewBox)
   .attr('preserveAspectRatio', 'xMinYMid slice')
   // y-axis is the same scale
   .classed('svg-content', true)
@@ -14,13 +15,13 @@ let ocean = svg.append('rect')
                 .attr('x', -75)
                 .attr('y', -25)
                 .attr('width', 960)
-                .attr('height', 600)
+                .attr('height', viewBox)
                 .attr('class', 'ocean')
 
 // Make a threshold scale
 let color = d3.scaleThreshold()
   .domain([1.0, 2.0, 3.0, 4.0, 5.0])
-  .range(['#FFFFFF', '#ECC5C5', '#D98888', '#C34444', '#AD0000', '#710000'])
+  .range(['#FFFFFF', '#ECC5C5', '#D98888', '#C34444', '#710000', '#4c0202'])
 // let color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, 5])
 
 let x = d3.scaleLinear()
@@ -245,70 +246,77 @@ d3.json('data/world.json')
         }
       })
 
-      // should fix so that it doesn't rely on a set time out ...
-      d3.selectAll('.carousel-control').on('click', function() {
-        setTimeout(function() {
-          if (document.body.getElementsByClassName('active')[0].innerText === 'International Institute for Strategic Studies') {
-            scores.forEach(function(d) {
-              DFscores[d.ID] = {
-                Name: d.COUNTRY,
-                ISO: d.ISO,
-                Score: d.Modified_DFSCORETWO,
-                Casualties: d.CasualtiesUS_TWO,
-                Troops: d.TroopNumbers_TWO
+      d3.select('.play').on('click', function() {
+        d3.select(this).classed('play-active', true)
+        $('#orgCarousel').carousel('cycle')
+      })
+
+      d3.select('.fa-pause').on('click', function() {
+        d3.select('.play').classed('play-active', false)
+        $('#orgCarousel').carousel('pause')
+      })
+
+      $('#orgCarousel').on('slid.bs.carousel', function (event) {
+        if (event.relatedTarget.innerText === 'International Institute for Strategic Studies') {
+          scores.forEach(function(d) {
+            DFscores[d.ID] = {
+              Name: d.COUNTRY,
+              ISO: d.ISO,
+              Score: d.Modified_DFSCORETWO,
+              Casualties: d.CasualtiesUS_TWO,
+              Troops: d.TroopNumbers_TWO
+            }
+          })
+        } else if (event.relatedTarget.innerText === 'Center for Strategic and International Studies') {
+          scores.forEach(function(d) {
+            DFscores[d.ID] = {
+              Name: d.COUNTRY,
+              ISO: d.ISO,
+              Score: d.Modified_DFSCORETHREE,
+              Casualties: d.CasualtiesUS_THREE,
+              Troops: d.TroopNumbers_THREE
+            }
+          })
+        } else if (event.relatedTarget.innerText === 'Brown University') {
+          scores.forEach(function(d) {
+            DFscores[d.ID] = {
+              Name: d.COUNTRY,
+              ISO: d.ISO,
+              Score: d.Modified_DFSCORE,
+              Casualties: d.CasualtiesUS,
+              Troops: d.TroopNumbers
+            }
+          })
+        }
+
+        if (DFscoreActive) {
+          subunit.transition()
+            .style('fill', function(d) {
+              if (DFscores[d.id]) {
+                return color(DFscores[d.id].Score)
               }
             })
-          } else if (document.body.getElementsByClassName('active')[0].innerText === 'Center for Strategic and International Studies') {
-            scores.forEach(function(d) {
-              DFscores[d.ID] = {
-                Name: d.COUNTRY,
-                ISO: d.ISO,
-                Score: d.Modified_DFSCORETHREE,
-                Casualties: d.CasualtiesUS_THREE,
-                Troops: d.TroopNumbers_THREE
+        }
+
+        if (casualtyActive) {
+          casualtyBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function(d) {
+              if (DFscores[d.id]) {
+                return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
               }
             })
-          } else {
-            scores.forEach(function(d) {
-              DFscores[d.ID] = {
-                Name: d.COUNTRY,
-                ISO: d.ISO,
-                Score: d.Modified_DFSCORE,
-                Casualties: d.CasualtiesUS,
-                Troops: d.TroopNumbers
+        }
+
+        if (troopsActive) {
+          troopsBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function(d) {
+              if (DFscores[d.id]) {
+                return Math.log(DFscores[d.id].Troops) // have to tweak this! it's bullshit rn!
               }
             })
-          }
-
-          if (DFscoreActive) {
-            subunit.transition()
-              .style('fill', function(d) {
-                if (DFscores[d.id]) {
-                  return color(DFscores[d.id].Score)
-                }
-              })
-          }
-
-          if (casualtyActive) {
-            casualtyBubbles.selectAll('circle')
-              .transition()
-              .attr('r', function(d) {
-                if (DFscores[d.id]) {
-                  return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
-                }
-              })
-          }
-
-          if (troopsActive) {
-            troopsBubbles.selectAll('circle')
-              .transition()
-              .attr('r', function(d) {
-                if (DFscores[d.id]) {
-                  return Math.log(DFscores[d.id].Troops) // have to tweak this! it's bullshit rn!
-                }
-              })
-          }
-        }, 650)
+        }
       })
 
       // define the zoom behavior
