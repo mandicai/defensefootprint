@@ -67,7 +67,7 @@ d3.json('data/world.json')
     return mapTopo
   })
   .then(mapTopo => {
-    d3.csv('data/DFscores.csv').then(function(data) {
+    d3.csv('data/DFscores.csv').then(function (data) {
       scores = data
       let links = []
 
@@ -89,7 +89,7 @@ d3.json('data/world.json')
       // pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
 
       let DFscores = {}
-      scores.forEach(function(d) {
+      scores.forEach(function (d) {
         DFscores[d.ID] = {
           Name: d.COUNTRY,
           ISO: d.ISO,
@@ -102,7 +102,7 @@ d3.json('data/world.json')
       let subunit = svg.selectAll('.subunit')
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
         .enter().append('path')
-        .attr('class', function(d) {
+        .attr('class', function (d) {
           if (DFscores[d.id]) {
             return 'subunit ' + DFscores[d.id].ISO + ' activeConflict'
           } else {
@@ -125,7 +125,7 @@ d3.json('data/world.json')
         d3.select(this).classed('active', true)
         if (DFscoreActive === false) {
           subunit.transition()
-            .style('fill', function(d) {
+            .style('fill', function (d) {
               if (DFscores[d.id]) {
                 return color(DFscores[d.id].Score)
               }
@@ -358,7 +358,7 @@ d3.json('data/world.json')
       d3.select('#reset')
         .on('click', resetted)
 
-      function resetted() {
+      function resetted () {
         svg.transition()
           .duration(750)
           .call(zoom.transform, d3.zoomIdentity)
@@ -368,8 +368,6 @@ d3.json('data/world.json')
       d3.selectAll('.activeConflict')
         .on('mousemove mouseout click', function () {
           let selector = d3.select(this).attr('class').split(` `)[1]
-
-          d3.selectAll('.' + selector).transition().duration(10).style('opacity', 1)
 
           d3.selectAll('.activeConflict').style('opacity', function (d) {
             if (!d3.select(this).attr('class').includes(selector)) {
@@ -395,7 +393,7 @@ d3.json('data/world.json')
           d3.select('.summary-troops').text(DFscores[d3.select(this).data()[0].id].Troops)
 
           // tooltip.transition()
-          //   .duration(50)
+          //   .duration(100)
           //   .style('opacity', 1)
           //
           // tooltip.html('Conflict occurs here' + '<br/>'  + 'Stuff about troop numbers')
@@ -409,17 +407,22 @@ d3.json('data/world.json')
         d3.selectAll('.troopsBubble').style('opacity', 1)
       })
 
-        d3.select('.ocean').on('mouseover', function () {
-          d3.selectAll('.activeConflict').style('opacity', 1)
-          d3.selectAll('.casualtyBubble').style('opacity', 1)
-          d3.selectAll('.troopsBubble').style('opacity', 1)
-        })
-
+      d3.select('.ocean').on('mouseover', function () {
+        d3.selectAll('.activeConflict').style('opacity', 1)
+        d3.selectAll('.casualtyBubble').style('opacity', 1)
+        d3.selectAll('.troopsBubble').style('opacity', 1)
+      })
     })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log('Error in retrieving CSV: ' + error)
       })
   })
-  .catch(function(error) {
+  .catch(function (error) {
     console.log('Error in retrieving JSON: ' + error)
   })
+
+d3.select('#explore-map').on('click', function () {
+  d3.select('#nav-bar').style('display', 'flex')
+  d3.select('#map-view').style('display', 'initial')
+  d3.select('#opening-view').style('display', 'none')
+})

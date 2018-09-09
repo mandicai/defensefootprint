@@ -26,17 +26,18 @@
 
 <body>
   <div id="nav-bar">
-    <div class="logo"> 
-      <a href=""><h3>defense footprint</h3></a>
+    <div class="logo">
+      <a href="index.html">Defense Footprint</a>
     </div>
     <div class="mobile-icon">
       <i class="fas fa-bars"></i>
     </div>
     <div class="nav-links">
       <div class="links">
-        <a href="" data-toggle="modal" data-target="#methodology-modal">Methodology</a>
-        <a href="" data-toggle="modal" data-target="#terms-modal">Terms</a>
-        <a href="" data-toggle="modal" data-target="#about-modal">About</a>
+        <a href="index.html">Map</a>
+        <a href="methodology.html">Methodology</a>
+        <a href="terms.html">Terms</a>
+        <a href="about.html">About</a>
       </div>
       <div class="social-icons">
         <a href=""><i class="far fa-envelope" aria-hidden="true"></i></a>
@@ -44,76 +45,82 @@
         <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook" aria-hidden="true"></i></a>
       </div>
     </div>
-
   </div>
 
-  <div id="map">
+  <div id="opening-view">
+    <h3>Welcome to Defense Footprint.</h3>
+    <button id="explore-map">Explore Map</button>
   </div>
 
-  <div id="controls">
-    <button id="reset"><i class="fa fa-globe-americas" aria-hidden="true"></i></button>
-    <button id="zoom-in"><i class="fas fa-search-plus" aria-hidden="true"></i></button>
-    <button id="zoom-out"><i class="fas fa-search-minus" aria-hidden="true"></i></button>
-  </div>
-
-  <div id="org-chooser">
-    <div class="conflict-header">
-      SOURCE:</i>
+  <div id="map-view">
+    <div id="map">
     </div>
-    <div class="org-carousel">
-      <div id="orgCarousel" class="carousel slide" data-ride="false" data-interval=2000>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            Brown University
+
+    <div id="controls">
+      <button id="reset"><i class="fa fa-globe-americas" aria-hidden="true"></i></button>
+      <button id="zoom-in"><i class="fas fa-search-plus" aria-hidden="true"></i></button>
+      <button id="zoom-out"><i class="fas fa-search-minus" aria-hidden="true"></i></button>
+    </div>
+
+    <div id="org-chooser">
+      <div class="conflict-header">
+        SOURCE:</i>
+      </div>
+      <div class="org-carousel">
+        <div id="orgCarousel" class="carousel slide" data-ride="false" data-interval=3000>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              Brown University
+            </div>
+            <div class="carousel-item">
+              International Institute for Strategic Studies
+            </div>
+            <div class="carousel-item">
+              Center for Strategic and International Studies
+            </div>
           </div>
-          <div class="carousel-item">
-            International Institute for Strategic Studies
-          </div>
-          <div class="carousel-item">
-            Center for Strategic and International Studies
-          </div>
+          <a class="carousel-control-prev carousel-control" href="#orgCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next carousel-control" href="#orgCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
-        <a class="carousel-control-prev carousel-control" href="#orgCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next carousel-control" href="#orgCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+      </div>
+      <div class="play"><i class="fas fa-play"></i></div>
+      <div class="pause"><i class="fas fa-pause"></i></div>
+    </div>
+
+    <div id="score-factors">
+      <div class="score-factor-links">
+        <a id="df-score-link" href="#">DF Score<div class="square-df-score"></div><div class="square-df-score-two"></div></a>
+        <a id="casualties-link" href="#">Casualties<div class="circle-casualties"></div></a>
+        <a id="us-troops-link" href="#">US Troops<div class="circle-troops"></div></a>
       </div>
     </div>
-    <div class="play"><i class="fas fa-play"></i></div>
-    <div class="pause"><i class="fas fa-pause"></i></div>
-  </div>
 
-  <div id="score-factors">
-    <div class="score-factor-links">
-      <a id="df-score-link" href="#">DF Score<div class="square-df-score"></div><div class="square-df-score-two"></div></a>
-      <a id="casualties-link" href="#">Casualties<div class="circle-casualties"></div></a>
-      <a id="us-troops-link" href="#">US Troops<div class="circle-troops"></div></a>
-    <div>
-  </div>
-
-  <div class="overlay" id="info">
-    <div class="col" id="info-text">
-      <h2 id="conflict-name">AFGHANISTAN</h2>
-      <p id="description-text">
-        War is a state of armed conflict between states, governments, societies and informal paramilitary groups, such as mercenaries, insurgents and militias. It is generally characterized by extreme violence, aggression, destruction, and mortality, using regular or irregular military forces.
-      </p>
+    <div class="overlay" id="info">
+      <div class="col" id="info-text">
+        <h2 id="conflict-name">AFGHANISTAN</h2>
+        <p id="description-text">
+          War is a state of armed conflict between states, governments, societies and informal paramilitary groups, such as mercenaries, insurgents and militias. It is generally characterized by extreme violence, aggression, destruction, and mortality, using regular or irregular military forces.
+        </p>
+      </div>
+      <div class="col" id="statistics">
+        <p id="statistics-text">
+          The deadliest war in history, in terms of the cumulative number of deaths since its start, is World War II, from 1939 to 1945, with 60–85 million deaths, followed by the Mongol conquests[4] at up to 60 million. As concerns a belligerent's losses in proportion to its prewar population, the most destructive war in modern history may have been the Paraguayan War (see Paraguayan War casualties).
+        </p>
+      </div>
     </div>
-    <div class="col" id="statistics">
-      <p id="statistics-text">
-        The deadliest war in history, in terms of the cumulative number of deaths since its start, is World War II, from 1939 to 1945, with 60–85 million deaths, followed by the Mongol conquests[4] at up to 60 million. As concerns a belligerent's losses in proportion to its prewar population, the most destructive war in modern history may have been the Paraguayan War (see Paraguayan War casualties).
-      </p>
-    </div>
-  </div>
 
-  <div class="overlay" id="summary">
-    <div class="col" id="summary-text">
-      <div>DF Score:<span class="summary-DFscore">4.5</span></div>
-      <div>Casualties:<span class="summary-casualties">2262</span></div>
-      <div>US Troops:<span class="summary-troops">16500</span></div>
+    <div class="overlay" id="summary">
+      <div class="col" id="summary-text">
+        <div>DF Score:<span class="summary-DFscore">4.5</span></div>
+        <div>Casualties:<span class="summary-casualties">2262</span></div>
+        <div>US Troops:<span class="summary-troops">16500</span></div>
+      </div>
     </div>
   </div>
 

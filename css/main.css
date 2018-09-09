@@ -1,6 +1,7 @@
 body {
   font-family: 'Inconsolata', sans-serif;
   min-height: 500px;
+  color: #fff;
 }
 
 #info::-webkit-scrollbar, #info::-webkit-scrollbar-corner,
@@ -19,29 +20,27 @@ body {
   background-color: rgba(255,255,255,0.4);
 }
 
-h3 {
+.logo {
   font-family: 'Open Sans';
-  font-size: 30px;
   font-weight: bold;
-  color: #fff;
+  font-size: 20px;
+  width: 30%;
+  padding-left: 40px;
 }
 
 #nav-bar {
-  padding-top: 20px;
+  display: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
   font-size: 20px;
   background-color: #112a38;
-  display: flex;
-}
-
-.logo {
-  padding-left: 5%;
+  /* display: flex; */
 }
 
 .nav-links {
   display: flex;
   margin-left: auto;
-  padding-top: 0.5%;
-  padding-right: 5%;
+  padding-right: 20px;
   font-size: 0.85em;
 }
 
@@ -110,7 +109,6 @@ a:hover {
 
   .mobile-icon {
     display: initial;
-    color: #fff;
     position: absolute;
     align-self: flex-end;
     padding-right: 20px;
@@ -126,6 +124,10 @@ a:hover {
     background-color: #0c161c;
     z-index: 1000;
   }
+}
+
+#map-view {
+  display: none;
 }
 
 #map {
@@ -200,7 +202,7 @@ svg {
   display: block;
   width: 20px;
   height: 20px;
-  border: 3px solid #ce2525;
+  border: 1px solid #ce2525;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
@@ -210,7 +212,7 @@ svg {
   display: block;
   width: 20px;
   height: 20px;
-  border: 3px solid #47c5fc;
+  border: 1px solid #47c5fc;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
@@ -273,7 +275,7 @@ svg {
 .subunit-label {
   fill: #000;
   font-family: sans-serif;
-  fill-opacity: .5;
+  fill-opacity: 0.5;
   font-size: 20px;
   font-weight: 300;
   text-anchor: middle;
@@ -281,14 +283,14 @@ svg {
 
 .casualtyBubble {
   stroke: #ce2525;
-  stroke-width: 1px;
+  stroke-width: 0.5px;
   fill: none;
   box-shadow: 0 0 100px -10px black inset;
 }
 
 .troopsBubble {
   stroke: #47c5fc;
-  stroke-width: 1px;
+  stroke-width: 0.5px;
   fill: none;
   box-shadow: 0 0 100px -10px black inset;
 }
@@ -335,7 +337,6 @@ svg {
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
   border: 2px solid rgba(255,255,255,0.2);
   font-size: 30px;
-  color: #ffffff;
   padding-bottom: 20px;
   /* display: flex; */
 }
@@ -392,13 +393,12 @@ svg {
 
 #score-factors {
   position: absolute;
-  border-left: 3px solid rgba(255,255,255,0.75);
+  border-left: 2px solid rgba(255,255,255,0.75);
   top: 40%;
   left: 4%;
   min-height: 175px;
   width: 100px;
   font-size: 1em;
-  color: #ffffff;
 }
 
 .score-factor-links {
@@ -418,7 +418,7 @@ svg {
 .score-factor-links a {
   display: block;
   min-width: 125px;
-  border-bottom: 3px solid rgba(255,255,255,0.75);
+  border-bottom: 2px solid rgba(255,255,255,0.75);
   text-align: right;
   margin-top: 20px;
 }
@@ -463,4 +463,21 @@ input[type='checkbox'] {
     stroke: rgba(235, 225, 7, 0.2);
     stroke-width: 0;
   }
+}
+
+#opening-view, #methodology-view {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #121E26;
+}
+
+#opening-view {
+  text-align: center;
+  padding-top: 25%;
+}
+
+.methodology-heading {
+  padding-top: 5%;
+  padding-left: 5%;
 }
