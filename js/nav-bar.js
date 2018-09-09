@@ -1,8 +1,8 @@
-d3.select(".mobile-icon").on("click", function() {
+d3.select('.mobile-icon').on('click', function () {
   mobileMenuToggle()
 })
 
-function mobileMenuToggle() {
+function mobileMenuToggle () {
   let navs = document.querySelectorAll('.nav-links')
   console.log('clicked')
   console.log(navs)
