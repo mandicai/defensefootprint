@@ -30,11 +30,11 @@ body {
 
 #nav-bar {
   display: none;
+  /* display: flex; */
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 20px;
   background-color: #112a38;
-  /* display: flex; */
 }
 
 .nav-links {
@@ -124,10 +124,6 @@ a:hover {
     background-color: #0c161c;
     z-index: 1000;
   }
-}
-
-#map-view {
-  display: none;
 }
 
 #map {
@@ -338,7 +334,6 @@ svg {
   border: 2px solid rgba(255,255,255,0.2);
   font-size: 30px;
   padding-bottom: 20px;
-  /* display: flex; */
 }
 
 #org-chooser:hover {

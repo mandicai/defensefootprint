@@ -420,9 +420,3 @@ d3.json('data/world.json')
   .catch(function (error) {
     console.log('Error in retrieving JSON: ' + error)
   })
-
-d3.select('#explore-map').on('click', function () {
-  d3.select('#nav-bar').style('display', 'flex')
-  d3.select('#map-view').style('display', 'initial')
-  d3.select('#opening-view').style('display', 'none')
-})
