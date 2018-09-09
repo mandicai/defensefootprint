@@ -60,10 +60,10 @@ a {
 }
 
 a:hover {
-  color: #dee880;
+  color: #fff;
+  opacity: 0.5;
   transition: all 0.25s ease;
   text-decoration: none;
-  font-weight: 800;
 }
 
 .social-icons {
@@ -86,7 +86,7 @@ a:hover {
 }
 
 .social-icons a:hover {
-  color: #dee880;
+  opacity: 0.5;
   transition: all 0.25s ease;
 }
 
@@ -319,7 +319,7 @@ svg {
 }
 
 #controls button:hover {
-  color: #dee880;
+  opacity: 0.5;
   transition: all 0.25s ease;
 }
 
@@ -356,19 +356,18 @@ svg {
 
 .pause:hover {
   opacity: 1;
-  color: #dee880;
   transition: all 0.5s ease;
 }
 
 .play:hover {
+  color: #ce2525;
   opacity: 1;
-  color: #dee880;
   transition: all 0.5s ease;
 }
 
 .play-active {
+  color: #ce2525;
   opacity: 1;
-  color: #dee880;
   transition: all 0.25s ease;
 }
 
@@ -409,6 +408,10 @@ svg {
   display:flex;
   justify-content: flex-end;
   opacity: 0.3;
+}
+
+#df-score-link:hover , #casualties-link:hover , #us-troops-link:hover {
+  opacity: 1;
 }
 
 #df-score-link.active, #casualties-link.active, #us-troops-link.active {
