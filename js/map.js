@@ -324,11 +324,11 @@ d3.json('data/world.json')
         .scaleExtent([1, 40]) // restricts zooming in and out
         .translateExtent([
           [0, 0],
-          [width, height]
+          [width / 1.5, height / 0.6]
         ]) // restricts panning, causes translation on zoom out
         .extent([
           [0, 0],
-          [width, height]
+          [width / 1.5, height / 0.6]
         ]) // sets the viewport
         .on('zoom', zoomed)
 
