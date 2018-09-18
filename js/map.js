@@ -69,24 +69,6 @@ d3.json('data/world.json')
   .then(mapTopo => {
     d3.csv('data/DFscores.csv').then(function (data) {
       scores = data
-      let links = []
-
-      // topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
-      //   links.push({
-      //     type: 'LineString',
-      //     coordinates: [
-      //       [99.94446873416787, 193.1915558661329],
-      //       mapTopo.path.centroid(feature)
-      //     ]
-      //   })
-      // })
-      //
-      // let pathArcs = svg.selectAll('.arc')
-      //   .data(links)
-      //   .enter().append('path')
-      //   .attr('class', 'arc')
-      //
-      // pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
 
       let DFscores = {}
       scores.forEach(function (d) {
@@ -115,6 +97,28 @@ d3.json('data/world.json')
             return color(DFscores[d.id].Score)
           }
         })
+        
+      let links = []
+
+      topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
+        if (feature.id === 840) {
+          console.log(mapTopo.path.centroid(feature))
+        }
+        links.push({
+          type: 'LineString',
+          coordinates: [
+            [-100, 40],
+            [0, 50]
+          ]
+        })
+      })
+
+      let pathArcs = svg.selectAll('.arc')
+        .data(links)
+        .enter().append('path')
+        .attr('class', 'arc')
+
+      pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
 
       d3.select('#df-score-link')
         .attr('class', 'active')
