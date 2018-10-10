@@ -1,3 +1,6 @@
+// countries-topo is made from Natural Earth
+// countries is a simplified map file
+
 let width = 960,
   height = 325,
   viewBox = 750,
@@ -100,18 +103,18 @@ d3.json('data/world.json')
         
       let links = []
 
-      topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
-        if (feature.id === 840) {
-          console.log(mapTopo.path.centroid(feature))
-        }
-        links.push({
-          type: 'LineString',
-          coordinates: [
-            [-100, 40],
-            [0, 50]
-          ]
-        })
-      })
+      // topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
+      //   if (feature.id === 840) {
+      //     console.log(mapTopo.path.centroid(feature))
+      //   }
+      //   links.push({
+      //     type: 'LineString',
+      //     coordinates: [
+      //       [-100, 40],
+      //       [0, 50]
+      //     ]
+      //   })
+      // })
 
       let pathArcs = svg.selectAll('.arc')
         .data(links)
