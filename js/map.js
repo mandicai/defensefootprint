@@ -394,7 +394,7 @@ d3.json('data/world.json')
             }
           })
 
-          d3.select('#conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
+          d3.select('.conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
           d3.select('.summary-DFscore').text(DFscores[d3.select(this).data()[0].id].Score)
           d3.select('.summary-casualties').text(DFscores[d3.select(this).data()[0].id].Casualties)
           d3.select('.summary-troops').text(DFscores[d3.select(this).data()[0].id].Troops)

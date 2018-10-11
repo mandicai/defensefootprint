@@ -23,7 +23,7 @@ body {
 .logo {
   font-family: 'Inconsolata';
   font-weight: bold;
-  font-size: 23px;
+  font-size: 25px;
   width: 80%;
   padding-left: 40px;
 }
@@ -238,13 +238,12 @@ svg {
   opacity: 0.8;
 }
 
-#conflict-name {
+.conflict-name {
   font-family: 'Inconsolata';
-  text-align: center;
-  background-color: #4C0202;
+  border-bottom: 2px solid #4C0202;
 }
 
-#description-text, #statistics-text {
+.description-text, .statistics-text {
   opacity: 0.8;
 }
 
@@ -454,25 +453,6 @@ input[type='checkbox'] {
   vertical-align: bottom;
   position: relative;
   top: 5px;
-}
-
-.pulse {
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    stroke: rgba(235, 225, 7, 0.2);
-    stroke-width: 0;
-  }
-  50% {
-    stroke: rgba(235, 225, 7, 0.4);
-    stroke-width: 2px;
-  }
-  100% {
-    stroke: rgba(235, 225, 7, 0.2);
-    stroke-width: 0;
-  }
 }
 
 #opening-view, #methodology-view {
