@@ -1,5 +1,5 @@
 body {
-  font-family: 'Inconsolata', sans-serif;
+  font-family: 'Dosis', sans-serif;
   min-height: 500px;
   color: #fff;
 }
@@ -21,18 +21,25 @@ body {
 }
 
 .logo {
-  font-family: 'Open Sans';
+  font-family: 'Inconsolata';
   font-weight: bold;
-  font-size: 20px;
-  width: 30%;
+  font-size: 23px;
+  width: 80%;
   padding-left: 40px;
+}
+
+.logo p {
+  display: inline;
+  font-family: 'Dosis';
+  font-size: 14px;
+  opacity: 0.6;
 }
 
 #nav-bar {
   display: flex;
   padding-top: 15px;
   padding-bottom: 15px;
-  font-size: 20px;
+  font-size: 15px;
   background-color: #112a38;
 }
 
@@ -40,7 +47,7 @@ body {
   display: flex;
   margin-left: auto;
   padding-right: 20px;
-  font-size: 0.85em;
+  font-size: 1em;
 }
 
 .nav-links a {
@@ -174,11 +181,12 @@ svg {
   overflow: auto;
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
   border: 2px solid rgba(255,255,255,0.2);
-  font-size: 18px;
+  font-size: 1em;
 }
 
 .summary-DFscore, .summary-casualties, .summary-troops {
   float: right;
+  font-family: 'Inconsolata';
 }
 
 .summary-DFscore {
@@ -231,8 +239,13 @@ svg {
 }
 
 #conflict-name {
+  font-family: 'Inconsolata';
   text-align: center;
-  background-color: #710000;
+  background-color: #4C0202;
+}
+
+#description-text, #statistics-text {
+  opacity: 0.8;
 }
 
 .modal-content {
@@ -292,8 +305,8 @@ svg {
 
 #controls {
   position: absolute;
-  top: 70%;
-  left: 3%;
+  top: 75%;
+  left: 2%;
   height: 20%;
   width: 20%;
   font-size: 150%;
@@ -302,12 +315,12 @@ svg {
 
 #controls button {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-color: #bbbbbb;
   color: #112a38;
-  line-height: 30px;
-  font-size: 15px;
+  line-height: 25px;
+  font-size: 12px;
   border-radius: 100%;
   text-align: center;
   margin: 10px;
@@ -322,10 +335,10 @@ svg {
   position: fixed;
   display: flex;
   padding-left: 2%;
-  padding-top: 1%;
-  left: 4%;
+  padding-top: 0.5%;
+  left: 2%;
   top: 12%;
-  width: 50%;
+  width: 40%;
   height: 10%;
   background-color: rgba(16,28,35,0.8);
   overflow: auto;
@@ -371,7 +384,7 @@ svg {
 
 .org-carousel {
   margin-top: 15px;
-  min-width: 60%;
+  min-width: 75%;
 }
 
 .carousel-item {
@@ -388,7 +401,7 @@ svg {
   position: absolute;
   border-left: 2px solid rgba(255,255,255,0.75);
   top: 40%;
-  left: 4%;
+  left: 3%;
   min-height: 175px;
   width: 100px;
   font-size: 1em;
@@ -463,6 +476,7 @@ input[type='checkbox'] {
 }
 
 #opening-view, #methodology-view {
+  font-family: 'Dosis';
   position: absolute;
   width: 100%;
   height: 100%;
@@ -472,6 +486,10 @@ input[type='checkbox'] {
 #opening-view {
   text-align: center;
   padding-top: 25%;
+}
+
+#opening-view h3 {
+  font-family: 'Inconsolata';
 }
 
 .methodology-heading {
