@@ -1,6 +1,3 @@
-// countries-topo is made from Natural Earth
-// countries is a simplified map file
-
 let width = 960,
   height = 325,
   viewBox = 750,
@@ -56,13 +53,6 @@ d3.json('data/world.json')
     let path = d3.geoPath()
       .projection(projection)
 
-    // append the path to the svg for the country outlines
-    // This part attaches an entire map that groups together the country subunits as one large chunk
-    // Take out to access individual countries?
-    // svg.append('path')
-    //     .datum(subunits) // bind multiple features
-    //     .attr('d', path) // d is the attribute for SVG paths
-
     let mapTopo = {
       boundaries: boundaries,
       path: path
@@ -100,28 +90,6 @@ d3.json('data/world.json')
             return color(DFscores[d.id].Score)
           }
         })
-        
-      let links = []
-
-      // topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features.forEach((feature) => {
-      //   if (feature.id === 840) {
-      //     console.log(mapTopo.path.centroid(feature))
-      //   }
-      //   links.push({
-      //     type: 'LineString',
-      //     coordinates: [
-      //       [-100, 40],
-      //       [0, 50]
-      //     ]
-      //   })
-      // })
-
-      let pathArcs = svg.selectAll('.arc')
-        .data(links)
-        .enter().append('path')
-        .attr('class', 'arc')
-
-      pathArcs.attr('d', mapTopo.path).style('stroke', 'red')
 
       d3.select('#df-score-link')
         .attr('class', 'active')
@@ -398,14 +366,6 @@ d3.json('data/world.json')
           d3.select('.summary-DFscore').text(DFscores[d3.select(this).data()[0].id].Score)
           d3.select('.summary-casualties').text(DFscores[d3.select(this).data()[0].id].Casualties)
           d3.select('.summary-troops').text(DFscores[d3.select(this).data()[0].id].Troops)
-
-          // tooltip.transition()
-          //   .duration(100)
-          //   .style('opacity', 1)
-          //
-          // tooltip.html('Conflict occurs here' + '<br/>'  + 'Stuff about troop numbers')
-          //   .style('left', (d3.event.pageX + 40) + 'px')
-          //   .style('top', (d3.event.pageY - 35) + 'px')
         })
 
       d3.selectAll('.inactiveConflict').on('mouseover', function () {
