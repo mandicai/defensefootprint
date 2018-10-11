@@ -485,11 +485,27 @@ input[type='checkbox'] {
 
 #opening-view {
   text-align: center;
-  padding-top: 25%;
+  padding-top: 10%;
 }
 
-#opening-view h3 {
+#opening-text {
+  opacity: 0;
+}
+
+#opening-text h3 {
   font-family: 'Inconsolata';
+  margin: 5%;
+}
+
+#opening-text p {
+  text-align: left;
+  margin-left: 20%;
+  margin-right: 20%;
+  opacity: 0.75;
+}
+
+#opening-text a {
+  font-size: 20px;
 }
 
 .methodology-heading {
