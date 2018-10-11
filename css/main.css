@@ -21,7 +21,7 @@ body {
 }
 
 .logo {
-  font-family: 'Inconsolata';
+  font-family: 'Open Sans';
   font-weight: bold;
   font-size: 25px;
   width: 80%;
@@ -33,6 +33,7 @@ body {
   font-family: 'Dosis';
   font-size: 14px;
   opacity: 0.6;
+  margin-left: 10px;
 }
 
 #nav-bar {
@@ -46,6 +47,7 @@ body {
 .nav-links {
   display: flex;
   margin-left: auto;
+  padding-top: 10px;
   padding-right: 20px;
   font-size: 1em;
 }
@@ -57,7 +59,6 @@ body {
 
 .links {
   display: flex;
-  padding-top: 3px;
   margin-right: 40px;
 }
 
@@ -105,6 +106,7 @@ a:hover {
 
   .nav-links {
     margin-left: 0;
+    margin-top: 10px;
     display: none;
   }
 
@@ -129,6 +131,15 @@ a:hover {
     display: initial;
     background-color: #0c161c;
     z-index: 1000;
+  }
+
+  .logo {
+    font-size: 15px;
+    padding-left: 20px;
+  }
+
+  .logo p {
+    display: none;
   }
 }
 
@@ -182,6 +193,14 @@ svg {
   box-shadow: 0 6px 10px rgba(0,0,0,.25);
   border: 2px solid rgba(255,255,255,0.2);
   font-size: 1em;
+}
+
+.summary-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
 }
 
 .summary-DFscore, .summary-casualties, .summary-troops {
@@ -353,11 +372,30 @@ svg {
   transition: all 0.25s ease;
 }
 
+.org-carousel {
+  min-width: 75%;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+.carousel-item {
+  font-size: 13px;
+  text-align: center;
+}
+
 .play, .pause {
-  margin-left: 5%;
-  margin-top: 10px;
-  font-size: 20px;
+  font-size: 25px;
   opacity: 0.5;
+  position: absolute;
+  top: 25%;
+  left: 85%;
+}
+
+.pause {
+  display: none;
 }
 
 .pause:hover {
@@ -379,21 +417,6 @@ svg {
 
 .conflict-header {
   min-width: 20%;
-}
-
-.org-carousel {
-  margin-top: 15px;
-  min-width: 75%;
-}
-
-.carousel-item {
-  font-size: 13px;
-  text-align: center;
-}
-
-.checkbox {
-  display: inline;
-  font-size: 23px;
 }
 
 #score-factors {
@@ -473,8 +496,8 @@ input[type='checkbox'] {
 }
 
 #opening-text h3 {
-  font-family: 'Inconsolata';
-  margin: 5%;
+  font-family: 'Open Sans';
+  margin: 3%;
 }
 
 #opening-text p {

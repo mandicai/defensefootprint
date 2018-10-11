@@ -212,12 +212,14 @@ d3.json('data/world.json')
       })
 
       d3.select('.play').on('click', function () {
-        d3.select(this).classed('play-active', true)
+        d3.select('.pause').style('display', 'initial')
+        d3.select('.play').style('display', 'none')
         $('#orgCarousel').carousel('cycle')
       })
 
-      d3.select('.fa-pause').on('click', function () {
-        d3.select('.play').classed('play-active', false)
+      d3.select('.pause').on('click', function () {
+        d3.select('.play').style('display', 'initial')
+        d3.select('.pause').style('display', 'none')
         $('#orgCarousel').carousel('pause')
       })
 
