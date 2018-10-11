@@ -314,7 +314,6 @@ d3.json('data/world.json')
         zoom.scaleBy(svg.transition().duration(500), 1 / 1.4)
       })
 
-      // reset button
       d3.select('#reset')
         .on('click', resetted)
 
