@@ -4,11 +4,8 @@ let width = 960,
   scale0 = (width - 1) / 2 / Math.PI
 
 let svg = d3.select('#map').append('svg')
-  // preserveAspectRatio
-  // defaults to meet (aspect ratio is preserved, entire viewBox is visible)
   .attr('viewBox', '0 -25' + ' ' + viewBox + ' ' + viewBox)
   .attr('preserveAspectRatio', 'xMinYMid slice')
-  // y-axis is the same scale
   .classed('svg-content', true)
 
 let ocean = svg.append('rect')
@@ -18,7 +15,6 @@ let ocean = svg.append('rect')
   .attr('height', viewBox)
   .attr('class', 'ocean')
 
-// Make a threshold scale
 let color = d3.scaleThreshold()
   .domain([1.0, 2.0, 3.0, 4.0, 5.0])
   .range(['#FFFFFF', '#ECC5C5', '#D98888', '#C34444', '#710000', '#4c0202'])
@@ -26,9 +22,8 @@ let color = d3.scaleThreshold()
 
 let x = d3.scaleLinear()
   .domain([0, 6])
-  .rangeRound([325, 500]) // divide by number of values in domain
+  .rangeRound([325, 500])
 
-// how big the scale is
 let g = svg.append('g')
   .attr('class', 'key')
   .attr('transform', 'translate(265,50)')
@@ -41,15 +36,12 @@ d3.json('data/world.json')
   .then(data => {
     boundaries = data
 
-    // topojson - feature collection
     let subunits = topojson.feature(boundaries, boundaries.objects.subunits)
 
-    // store geomercator projection
     let projection = d3.geoMercator()
-      .translate([width / 2 - 200, height / 2 + 200]) // translate some pixels
+      .translate([width / 2 - 200, height / 2 + 200])
       .scale(100)
 
-    // convert projection to a path
     let path = d3.geoPath()
       .projection(projection)
 
@@ -94,7 +86,7 @@ d3.json('data/world.json')
       d3.select('#df-score-link')
         .attr('class', 'active')
 
-      DFscoreActive = true // for toggling
+      DFscoreActive = true
 
       d3.select('#df-score-link').on('click', function () {
         d3.select(this).classed('active', true)
@@ -118,7 +110,6 @@ d3.json('data/world.json')
         }
       })
 
-      // Casualty bubbles
       let casualtyBubbles = svg.selectAll('.casualtyBubble')
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
         .enter().append('g')
@@ -145,7 +136,7 @@ d3.json('data/world.json')
           }
         })
 
-      casualtyActive = false // for toggling
+      casualtyActive = false
 
       d3.select('#casualties-link').on('click', function () {
         d3.select(this).classed('active', true)
@@ -155,7 +146,7 @@ d3.json('data/world.json')
             .transition()
             .attr('r', function (d) {
               if (DFscores[d.id]) {
-                return Math.log(DFscores[d.id].Casualties) // have to tweak this! it's bullshit rn!
+                return Math.log(DFscores[d.id].Casualties)
               }
             })
           casualtyActive = true
@@ -170,7 +161,6 @@ d3.json('data/world.json')
         }
       })
 
-      // Casualty bubbles
       let troopsBubbles = svg.selectAll('.troopsBubble')
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
         .enter().append('g')
@@ -197,7 +187,7 @@ d3.json('data/world.json')
           }
         })
 
-      troopsActive = false // for toggling
+      troopsActive = false
 
       d3.select('#us-troops-link').on('click', function () {
         d3.select(this).classed('active', true)
@@ -294,23 +284,20 @@ d3.json('data/world.json')
         }
       })
 
-      // define the zoom behavior
       let zoom = d3.zoom()
-        .scaleExtent([1, 40]) // restricts zooming in and out
+        .scaleExtent([1, 40])
         .translateExtent([
           [0, 0],
           [width / 1.5, height / 0.6]
-        ]) // restricts panning, causes translation on zoom out
+        ])
         .extent([
           [0, 0],
           [width / 1.5, height / 0.6]
-        ]) // sets the viewport
+        ])
         .on('zoom', zoomed)
 
-      // call the zoom behavior on a selected element
       svg.call(zoom)
 
-      // applies the current zoom transform
       function zoomed () {
         let transform = d3.event.transform
         subunit.attr('transform', transform)
@@ -319,12 +306,10 @@ d3.json('data/world.json')
         troopsBubbles.attr('transform', transform)
       }
 
-      // zoom in, scaleBy takes in a factor and automatically zooms in by that factor
       d3.select('#zoom-in').on('click', function () {
         zoom.scaleBy(svg.transition().duration(500), 1.4)
       })
 
-      // must do 1/1.4 to zoom out, no longer like scale() which took the negative of the zoom-in factor
       d3.select('#zoom-out').on('click', function () {
         zoom.scaleBy(svg.transition().duration(500), 1 / 1.4)
       })
@@ -339,24 +324,11 @@ d3.json('data/world.json')
           .call(zoom.transform, d3.zoomIdentity)
       }
 
-      // create mouse over and mouse out functionality
       d3.selectAll('.activeConflict')
         .on('mousemove mouseout click', function () {
           let selector = d3.select(this).attr('class').split(` `)[1]
 
-          d3.selectAll('.activeConflict').style('opacity', function (d) {
-            if (!d3.select(this).attr('class').includes(selector)) {
-              return 0.3
-            }
-          })
-
-          d3.selectAll('.casualtyBubble').style('opacity', function (d) {
-            if (!d3.select(this).attr('class').includes(selector)) {
-              return 0.3
-            }
-          })
-
-          d3.selectAll('.troopsBubble').style('opacity', function (d) {
+          d3.selectAll('.activeConflict,.casualtyBubble,.troopsBubble').style('opacity', function (d) {
             if (!d3.select(this).attr('class').includes(selector)) {
               return 0.3
             }
@@ -369,15 +341,11 @@ d3.json('data/world.json')
         })
 
       d3.selectAll('.inactiveConflict').on('mouseover', function () {
-        d3.selectAll('.activeConflict').style('opacity', 1)
-        d3.selectAll('.casualtyBubble').style('opacity', 1)
-        d3.selectAll('.troopsBubble').style('opacity', 1)
+        d3.selectAll('.activeConflict,.casualtyBubble,.troopsBubble').style('opacity', 1)
       })
 
       d3.select('.ocean').on('mouseover', function () {
-        d3.selectAll('.activeConflict').style('opacity', 1)
-        d3.selectAll('.casualtyBubble').style('opacity', 1)
-        d3.selectAll('.troopsBubble').style('opacity', 1)
+        d3.selectAll('.activeConflict,.casualtyBubble,.troopsBubble').style('opacity', 1)
       })
     })
       .catch(function (error) {
