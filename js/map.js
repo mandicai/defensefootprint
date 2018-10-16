@@ -1,10 +1,10 @@
 let width = 960,
   height = 325,
-  viewBox = 750,
+  viewBox = 900,
   scale0 = (width - 1) / 2 / Math.PI
 
 let svg = d3.select('#map').append('svg')
-  .attr('viewBox', '-50 -100' + ' ' + 900 + ' ' + 900)
+  .attr('viewBox', '-50 -125' + ' ' + viewBox + ' ' + viewBox)
   .attr('preserveAspectRatio', 'xMinYMid slice')
   .classed('svg-content', true)
 
@@ -56,8 +56,6 @@ d3.json('data/countries.json')
 
       scores = data
 
-      console.log(scores)
-
       let DFscores = {}
       scores.forEach(function (d) {
         DFscores[d.ISO] = {
@@ -69,8 +67,6 @@ d3.json('data/countries.json')
           TroopNumbers: +d.USG_TROOP_NUMBERS
         }
       })
-
-      console.log(DFscores)
 
       let subunit = svg.selectAll('.subunit')
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
@@ -259,7 +255,7 @@ d3.json('data/countries.json')
       })
 
       $('#orgCarousel').on('slid.bs.carousel', function (event) {
-        if (event.relatedTarget.innerText === 'The Department of Defense Manpower Center') {
+        if (event.relatedTarget.innerText === 'Department of Defense Manpower Center') {
           scores.forEach(function (d) {
             DFscores[d.ISO] = {
               Name: d.COUNTRY,
@@ -387,9 +383,13 @@ d3.json('data/countries.json')
           })
 
           d3.select('.conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
-          d3.select('.summary-DFscore').text(DFscores[d3.select(this).data()[0].id].Score)
-          d3.select('.summary-casualties').text(DFscores[d3.select(this).data()[0].id].Casualties)
-          d3.select('.summary-troops').text(DFscores[d3.select(this).data()[0].id].Troops)
+          d3.select('.summary-civilian-casualties').text(DFscores[d3.select(this).data()[0].id].CivilianCasualties)
+          d3.select('.summary-troop-casualties').text(DFscores[d3.select(this).data()[0].id].TroopCasualties)
+          if (!isNaN(DFscores[d3.select(this).data()[0].id].TroopNumbers)) {
+            d3.select('.summary-troop-numbers').text(DFscores[d3.select(this).data()[0].id].TroopNumbers)
+          } else {
+            d3.select('.summary-troop-numbers').text('No data')
+          }
         })
 
       d3.selectAll('.inactiveConflict').on('mouseover', function () {

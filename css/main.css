@@ -97,7 +97,7 @@ a:hover {
   transition: all 0.25s ease;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1100px) {
   #nav-bar,
   .nav-links,
   .links {
@@ -203,21 +203,23 @@ svg {
   transform: translate(-50%, -50%)
 }
 
-.summary-DFscore, .summary-casualties, .summary-troops {
+.summary-civilian-casualties,
+.summary-troop-casualties,
+.summary-troop-numbers {
   float: right;
   font-family: 'Inconsolata';
 }
 
-.summary-DFscore {
-  color: #D98888;
-}
-
-.summary-casualties {
+.summary-civilian-casualties {
   color: #ce2525;
 }
 
-.summary-troops {
+.summary-troop-casualties {
   color: #47c5fc;
+}
+
+.summary-troop-numbers {
+  color: #CEC40D;
 }
 
 .circle-civilian-casualties {
@@ -294,13 +296,13 @@ svg {
 }
 
 .subunit {
-  fill: #25424f;
+  fill: rgba(91, 12, 31, 0.2);
   stroke: black;
   stroke-width: 0.2px;
 }
 
 .subunit.activeConflict {
-  fill: rgba(91, 12, 31, 0.2);
+  fill: #25424f;
 }
 
 .place-label {
