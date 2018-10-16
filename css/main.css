@@ -172,9 +172,9 @@ svg {
 #info {
   position: fixed;
   padding: 15px;
-  left: 72%;
+  left: 73%;
   top: 30%;
-  width: 26%;
+  width: 25%;
   height: 65%;
   background-color: rgba(255,255,255,0.1);
   overflow: auto;
@@ -184,9 +184,9 @@ svg {
 #summary {
   position: fixed;
   padding: 1%;
-  left: 72%;
+  left: 73%;
   top: 12%;
-  width: 26%;
+  width: 25%;
   height: 15%;
   background-color: rgba(0,0,0,0.2);
   overflow: auto;
@@ -220,21 +220,31 @@ svg {
   color: #47c5fc;
 }
 
-.circle-casualties {
+.circle-civilian-casualties {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border: 1px solid #ce2525;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
 }
 
-.circle-troops {
+.circle-troop-casualties {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border: 1px solid #47c5fc;
+  border-radius: 100%;
+  margin-left: 10px;
+  opacity: 0.8;
+}
+
+.circle-troop-numbers {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #CEC40D;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
@@ -290,7 +300,7 @@ svg {
 }
 
 .subunit.activeConflict {
-  fill: rgba(91, 12, 31, 0.2)
+  fill: rgba(91, 12, 31, 0.2);
 }
 
 .place-label {
@@ -307,15 +317,22 @@ svg {
   text-anchor: middle;
 }
 
-.casualtyBubble {
+.civilianCasualtyBubble {
   stroke: #ce2525;
   stroke-width: 0.5px;
   fill: none;
   box-shadow: 0 0 100px -10px black inset;
 }
 
-.troopsBubble {
+.troopCasualtiesBubble {
   stroke: #47c5fc;
+  stroke-width: 0.5px;
+  fill: none;
+  box-shadow: 0 0 100px -10px black inset;
+}
+
+.troopNumbersBubble {
+  stroke: #CEC40D;
   stroke-width: 0.5px;
   fill: none;
   box-shadow: 0 0 100px -10px black inset;
@@ -422,28 +439,34 @@ svg {
 #score-factors {
   position: absolute;
   border-left: 2px solid rgba(255,255,255,0.75);
-  top: 40%;
+  top: 45%;
   left: 3%;
   min-height: 175px;
-  width: 100px;
-  font-size: 1em;
+  width: 150px;
+  font-size: 0.9em;
 }
 
 .score-factor-links {
   margin-top: 83px;
 }
 
-#df-score-link, #casualties-link, #us-troops-link {
+#troop-casualties-link,
+#civilian-casualties-link,
+#troop-numbers-link {
   display:flex;
   justify-content: flex-end;
   opacity: 0.3;
 }
 
-#df-score-link:hover , #casualties-link:hover , #us-troops-link:hover {
+#troop-casualties-link:hover,
+#civilian-casualties-link:hover,
+#troop-numbers-link:hover {
   opacity: 1;
 }
 
-#df-score-link.active, #casualties-link.active, #us-troops-link.active {
+#troop-casualties-link.active,
+#civilian-casualties-link.active,
+#troop-numbers-link.active {
   opacity: 1;
 }
 
