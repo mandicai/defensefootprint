@@ -319,7 +319,7 @@ svg {
   text-anchor: middle;
 }
 
-.civilianCasualtyBubble {
+.civilianCasualtiesBubble {
   stroke: #ce2525;
   stroke-width: 0.5px;
   fill: none;
@@ -452,23 +452,23 @@ svg {
   margin-top: 83px;
 }
 
-#troop-casualties-link,
-#civilian-casualties-link,
-#troop-numbers-link {
+#troopCasualties-link,
+#civilianCasualties-link,
+#troopNumbers-link {
   display:flex;
   justify-content: flex-end;
   opacity: 0.3;
 }
 
-#troop-casualties-link:hover,
-#civilian-casualties-link:hover,
-#troop-numbers-link:hover {
+#troopCasualties-link:hover,
+#civilianCasualties-link:hover,
+#troopNumbers-link:hover {
   opacity: 1;
 }
 
-#troop-casualties-link.active,
-#civilian-casualties-link.active,
-#troop-numbers-link.active {
+#troopCasualties-link.active,
+#civilianCasualties-link.active,
+#troopNumbers-link.active {
   opacity: 1;
 }
 
