@@ -215,6 +215,7 @@ d3.json('data/countries.json')
       troopNumbersBubbles.selectAll('circle')
         .transition()
         .attr('r', function (d) {
+          console.log(DFscores.USA)
           if (DFscores[d.id]) {
             return (DFscores[d.id].TroopNumbers != 0 && !isNaN(DFscores[d.id].TroopNumbers)) ? Math.log(DFscores[d.id].TroopNumbers) : 0
           }
@@ -255,7 +256,7 @@ d3.json('data/countries.json')
       })
 
       $('#orgCarousel').on('slid.bs.carousel', function (event) {
-        if (event.relatedTarget.innerText === 'Department of Defense Manpower Center') {
+        if (event.relatedTarget.innerText === 'Department of Defense') {
           scores.forEach(function (d) {
             DFscores[d.ISO] = {
               Name: d.COUNTRY,
