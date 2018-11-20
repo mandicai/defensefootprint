@@ -37,9 +37,14 @@ h3, h4 {
   font-family: 'Open Sans';
 }
 
-
 h3 {
   margin-bottom: 50px;
+  text-align: center;
+}
+
+h4 {
+  margin-bottom: 25px;
+  color: #C34444;
 }
 
 .logo {
@@ -173,10 +178,6 @@ a:hover {
     width: 90%;
     height: 25%;
     font-size: 12px;
-  }
-
-  .conflict-name {
-    font-size: 20px
   }
 
   #org-chooser {
@@ -403,7 +404,9 @@ svg {
 
 .conflict-name {
   font-family: 'Open Sans';
-  border-bottom: 2px solid #4C0202;
+  font-size: 20px;
+  border-bottom: 2px solid #C34444;
+  color: #fff;
 }
 
 .description-text, .statistics-text {
@@ -598,22 +601,18 @@ input[type='checkbox'] {
   top: 5px;
 }
 
-#opening-view, #methodology-view {
+#opening-view, #subpage-view {
   font-family: 'Dosis';
-  position: absolute;
   width: 100%;
   height: 100%;
 }
 
-#methodology-view {
+#subpage-view {
   background-color: #121E26;
 }
 
-.about-name {
-  font-family: 'Open Sans';
-}
-
 #opening-view {
+  position: absolute;
   text-align: center;
   padding-top: 15%;
   z-index: 1002;
@@ -641,6 +640,6 @@ input[type='checkbox'] {
   margin-bottom: 50px;
 }
 
-.methodology-heading {
+.subpage-heading {
   padding: 5%;
 }
