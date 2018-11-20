@@ -171,7 +171,7 @@ a:hover {
 
   #controls {
     top: 25%;
-    left: 90%;
+    left: 89%;
   }
 
   #controls button {
@@ -187,6 +187,10 @@ a:hover {
 
   .score-factor-links {
     margin-top: 0px;
+  }
+
+  .score-factor-links a {
+    margin-top: 10px;
   }
 }
 
@@ -229,6 +233,10 @@ a:hover {
 
   .score-factor-links {
     margin-top: 83px;
+  }
+
+  .score-factor-links a {
+    margin-top: 20px;
   }
 }
 
@@ -538,7 +546,6 @@ svg {
   min-width: 125px;
   border-bottom: 2px solid rgba(255,255,255,0.75);
   text-align: right;
-  margin-top: 20px;
 }
 
 div#tooltip {
