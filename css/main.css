@@ -130,7 +130,7 @@ a:hover {
   }
 
   .mobile-icon {
-    display: none;
+    display: initial;
     position: absolute;
     align-self: flex-end;
     padding-right: 20px;
