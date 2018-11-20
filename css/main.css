@@ -134,7 +134,7 @@ a:hover {
   }
 
   .logo {
-    font-size: 1px;
+    font-size: 20px;
     padding-left: 20px;
   }
 
@@ -441,8 +441,6 @@ svg {
 
 #controls {
   position: fixed;
-  height: 20%;
-  width: 20%;
   transition: all 0.25s ease;
 }
 
