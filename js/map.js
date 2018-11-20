@@ -245,16 +245,16 @@ d3.json('data/countries.json')
       d3.select('.play').on('click', function () {
         d3.select('.pause').style('display', 'initial')
         d3.select('.play').style('display', 'none')
-        $('#orgCarousel').carousel('cycle')
+        $('#org-carousel').carousel('cycle')
       })
 
       d3.select('.pause').on('click', function () {
         d3.select('.play').style('display', 'initial')
         d3.select('.pause').style('display', 'none')
-        $('#orgCarousel').carousel('pause')
+        $('#org-carousel').carousel('pause')
       })
 
-      $('#orgCarousel').on('slid.bs.carousel', function (event) {
+      $('#org-carousel').on('slid.bs.carousel', function (event) {
         if (event.relatedTarget.innerText === 'Department of Defense') {
           scores.forEach(function (d) {
             DFscores[d.ISO] = {

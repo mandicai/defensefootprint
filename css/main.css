@@ -141,7 +141,7 @@ a:hover {
     margin-bottom: 15px;
   }
 
-  .nav-links.nav-links__show {
+  .nav-links.nav-links-show {
     display: initial;
     background-color: #0c161c;
     z-index: 1000;
@@ -486,7 +486,7 @@ svg {
   transition: all 0.25s ease;
 }
 
-.org-carousel {
+.org-carousel-container {
   min-width: 75%;
   position: absolute;
   top: 50%;

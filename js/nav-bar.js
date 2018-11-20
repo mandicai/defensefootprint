@@ -4,5 +4,5 @@ d3.select('.mobile-icon').on('click', function () {
 
 function mobileMenuToggle () {
   let navs = document.querySelectorAll('.nav-links')
-  navs.forEach(nav => nav.classList.toggle('nav-links__show'))
+  navs.forEach(nav => nav.classList.toggle('nav-links-show'))
 }
