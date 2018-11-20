@@ -336,6 +336,14 @@ d3.json('data/countries.json')
               }
             })
         }
+
+        d3.select('.summary-civilian-casualties').text(DFscores[lastSelected.data()[0].id].CivilianCasualties)
+        d3.select('.summary-troop-casualties').text(DFscores[lastSelected.data()[0].id].TroopCasualties)
+        if (!isNaN(DFscores[lastSelected.data()[0].id].TroopNumbers)) {
+          d3.select('.summary-troop-numbers').text(DFscores[lastSelected.data()[0].id].TroopNumbers)
+        } else {
+          d3.select('.summary-troop-numbers').text('No data')
+        }
       })
 
       let zoom = d3.zoom()
@@ -378,6 +386,8 @@ d3.json('data/countries.json')
           .call(zoom.transform, d3.zoomIdentity)
       }
 
+      let lastSelected = d3.select('.AFG')
+
       d3.selectAll('.activeConflict')
         .on('mousemove mouseout click', function () {
           let selector = d3.select(this).attr('class').split(` `)[1]
@@ -388,6 +398,7 @@ d3.json('data/countries.json')
             }
           })
 
+          lastSelected = d3.select(this)
           d3.select('.conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
           d3.select('.summary-civilian-casualties').text(DFscores[d3.select(this).data()[0].id].CivilianCasualties)
           d3.select('.summary-troop-casualties').text(DFscores[d3.select(this).data()[0].id].TroopCasualties)
