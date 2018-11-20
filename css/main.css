@@ -173,10 +173,18 @@ a:hover {
   }
 
   #controls button {
-    width: 25px;
-    height: 25px;
     line-height: 20px;
     font-size: 10px;
+  }
+
+  #score-factors {
+    font-size: 12px;
+    top: 25%;
+    width: 0px;
+  }
+
+  .score-factor-links {
+    margin-top: 0px;
   }
 }
 
@@ -207,10 +215,18 @@ a:hover {
   }
 
   #controls button {
-    width: 35px;
-    height: 35px;
     line-height: 25px;
     font-size: 12px;
+  }
+
+  #score-factors {
+    font-size: 0.9em;
+    top: 45%;
+    width: 150px;
+  }
+
+  .score-factor-links {
+    margin-top: 83px;
   }
 }
 
@@ -494,15 +510,7 @@ svg {
 #score-factors {
   position: fixed;
   border-left: 2px solid rgba(255,255,255,0.75);
-  top: 45%;
   left: 3%;
-  min-height: 175px;
-  width: 150px;
-  font-size: 0.9em;
-}
-
-.score-factor-links {
-  margin-top: 83px;
 }
 
 #troop-casualties-link,
