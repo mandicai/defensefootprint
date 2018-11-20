@@ -33,6 +33,11 @@ body {
   background-color: rgba(255,255,255,0.4);
 }
 
+h3 {
+  font-family: 'Open Sans';
+  margin-bottom: 50px;
+}
+
 .logo {
   font-family: 'Open Sans';
   font-weight: bold;
@@ -393,7 +398,7 @@ svg {
 }
 
 .conflict-name {
-  font-family: 'Inconsolata';
+  font-family: 'Open Sans';
   border-bottom: 2px solid #4C0202;
 }
 
@@ -608,11 +613,6 @@ input[type='checkbox'] {
 
 #opening-text {
   opacity: 0;
-}
-
-#opening-text h3 {
-  font-family: 'Open Sans';
-  margin-bottom: 50px;
 }
 
 #opening-text p {
