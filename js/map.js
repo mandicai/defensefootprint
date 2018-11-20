@@ -215,7 +215,6 @@ d3.json('data/countries.json')
       troopNumbersBubbles.selectAll('circle')
         .transition()
         .attr('r', function (d) {
-          console.log(DFscores.USA)
           if (DFscores[d.id]) {
             return (DFscores[d.id].TroopNumbers != 0 && !isNaN(DFscores[d.id].TroopNumbers)) ? Math.log(DFscores[d.id].TroopNumbers) : 0
           }
