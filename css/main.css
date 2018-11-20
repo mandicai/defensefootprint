@@ -2,6 +2,7 @@ body {
   font-family: 'Dosis', sans-serif;
   min-height: 500px;
   color: #fff;
+  background-color: #112a38;
 }
 
 #info::-webkit-scrollbar, #info::-webkit-scrollbar-corner,
@@ -134,7 +135,7 @@ a:hover {
   }
 
   .logo {
-    font-size: 15px;
+    font-size: 20px;
     padding-left: 20px;
   }
 
