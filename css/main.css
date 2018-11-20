@@ -5,6 +5,18 @@ body {
   background-color: #112a38;
 }
 
+#video-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 1001;
+  filter: brightness(20%);
+}
+
 #info::-webkit-scrollbar, #info::-webkit-scrollbar-corner,
 #org-chooser::-webkit-scrollbar, #org-chooser::-webkit-scrollbar-corner,
 #summary::-webkit-scrollbar, #summary::-webkit-scrollbar-corner {
@@ -170,13 +182,7 @@ a:hover {
   }
 
   #controls {
-    top: 25%;
-    left: 89%;
-  }
-
-  #controls button {
-    line-height: 20px;
-    font-size: 10px;
+    display: none;
   }
 
   #score-factors {
@@ -191,6 +197,11 @@ a:hover {
 
   .score-factor-links a {
     margin-top: 10px;
+  }
+
+  #opening-view p {
+    margin-left: 10%;
+    margin-right: 10%;
   }
 }
 
@@ -216,13 +227,9 @@ a:hover {
   }
 
   #controls {
+    display: initial;
     top: 75%;
     left: 2%;
-  }
-
-  #controls button {
-    line-height: 25px;
-    font-size: 12px;
   }
 
   #score-factors {
@@ -237,6 +244,11 @@ a:hover {
 
   .score-factor-links a {
     margin-top: 20px;
+  }
+
+  #opening-view p {
+    margin-left: 20%;
+    margin-right: 20%;
   }
 }
 
@@ -461,6 +473,10 @@ svg {
   border-radius: 100%;
   text-align: center;
   margin: 10px;
+  line-height: 25px;
+  font-size: 12px;
+  width: 35px;
+  height: 35px;
 }
 
 #controls button:hover {
@@ -576,12 +592,16 @@ input[type='checkbox'] {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+#methodology-view {
   background-color: #121E26;
 }
 
 #opening-view {
   text-align: center;
-  padding-top: 10%;
+  padding-top: 15%;
+  z-index: 1002;
 }
 
 #opening-text {
@@ -590,18 +610,25 @@ input[type='checkbox'] {
 
 #opening-text h3 {
   font-family: 'Open Sans';
-  margin: 3%;
+  margin-bottom: 50px;
 }
 
 #opening-text p {
   text-align: left;
-  margin-left: 20%;
-  margin-right: 20%;
   opacity: 0.75;
 }
 
 #opening-text a {
   font-size: 20px;
+  padding: 10px;
+  margin-top: 50px;
+  background-color: #bbbbbb;
+  color: #112a38;
+  border-radius: 10%;
+}
+
+.df-intro {
+  margin-bottom: 50px;
 }
 
 .methodology-heading {
