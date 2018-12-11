@@ -122,7 +122,7 @@ d3.json('data/countries.json')
                 return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
               }
             })
-          
+
           d3.selectAll('.activeConflict')
             .transition(2000)
             .style('fill', function (d) {
@@ -140,7 +140,7 @@ d3.json('data/countries.json')
             .attr('r', function (d) {
               return 0
             })
-          
+
           d3.selectAll('.activeConflict')
             .transition(2000)
             .style('fill', '#25424f')
@@ -259,6 +259,11 @@ d3.json('data/countries.json')
           troopNumbersActive = false
         }
       })
+
+      // $('#org-carousel').carousel({
+      //   interval: false,
+      //   pause: 'true'
+      // })
 
       d3.select('.play').on('click', function () {
         d3.select('.pause').style('display', 'initial')
