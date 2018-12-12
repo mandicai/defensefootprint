@@ -260,26 +260,17 @@ d3.json('data/countries.json')
         }
       })
 
-      // $('#org-carousel').carousel({
-      //   interval: false,
-      //   pause: 'true'
-      // })
+      $('#org-carousel').carousel('pause') // pause on load of carousel
 
       d3.select('.play').on('click', function () {
         d3.select('.pause').style('display', 'initial')
         d3.select('.play').style('display', 'none')
-        $('#org-carousel').carousel({
-          interval: 3000
-        })
         $('#org-carousel').carousel('cycle')
       })
 
       d3.select('.pause').on('click', function () {
         d3.select('.play').style('display', 'initial')
         d3.select('.pause').style('display', 'none')
-        $('#org-carousel').carousel({
-          interval: 0
-        })
         $('#org-carousel').carousel('pause')
       })
 
