@@ -394,18 +394,18 @@ svg {
 
 .square-df-score {
   display: block;
-  width: 9px;
-  height: 17px;
-  background-color: #D98888;
+  width: 15px;
+  height: 15px;
+  background-color: rgba(230, 53, 42);
   margin-left: 10px;
   opacity: 0.8;
 }
 
 .square-df-score-two {
   display: block;
-  width: 9px;
-  height: 17px;
-  background-color: #C34444;
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 238, 230);
   opacity: 0.8;
 }
 

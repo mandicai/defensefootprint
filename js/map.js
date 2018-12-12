@@ -20,16 +20,11 @@ let color = d3.scaleThreshold()
   .range(['#FFFFFF', '#ECC5C5', '#D98888', '#C34444', '#710000', '#4c0202'])
 // let color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, 5])
 
-let civilianCasualtiesColorScale = d3.scaleSequential(d3.interpolateReds)
-  .domain([0, 50])
+let civilianCasualtiesColorScale = d3.scaleSequential(d3.interpolateReds).domain([0, 50])
 
 let x = d3.scaleLinear()
   .domain([0, 6])
   .rangeRound([325, 500])
-
-let g = svg.append('g')
-  .attr('class', 'key')
-  .attr('transform', 'translate(265,50)')
 
 let tooltip = d3.select('body').append('div')
   .attr('id', 'tooltip')
@@ -85,43 +80,43 @@ d3.json('data/countries.json')
 
       civilianCasualtiesActive = false
 
-      let civilianCasualtiesBubbles = svg.selectAll('.civilianCasualtiesBubble')
-        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append('g')
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'civilianCasualtiesBubble'
-          }
-        })
+      // let civilianCasualtiesBubbles = svg.selectAll('.civilianCasualtiesBubble')
+      //   .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+      //   .enter().append('g')
+      //   .attr('class', function (d) {
+      //     if (DFscores[d.id]) {
+      //       return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
+      //     } else {
+      //       return 'civilianCasualtiesBubble'
+      //     }
+      //   })
 
-      civilianCasualtiesBubbles.append('circle')
-        .attr('transform', function (d) {
-          return 'translate(' + mapTopo.path.centroid(d) + ')'
-        })
-        .attr('r', function (d) {
-          return 0
-        })
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'civilianCasualtiesBubble'
-          }
-        })
+      // civilianCasualtiesBubbles.append('circle')
+      //   .attr('transform', function (d) {
+      //     return 'translate(' + mapTopo.path.centroid(d) + ')'
+      //   })
+      //   .attr('r', function (d) {
+      //     return 0
+      //   })
+      //   .attr('class', function (d) {
+      //     if (DFscores[d.id]) {
+      //       return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
+      //     } else {
+      //       return 'civilianCasualtiesBubble'
+      //     }
+      //   })
 
       d3.select('#civilian-casualties-link').on('click', function () {
         d3.select(this).classed('active', true)
 
         if (civilianCasualtiesActive === false) {
-          civilianCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
-              }
-            })
+          // civilianCasualtiesBubbles.selectAll('circle')
+          //   .transition()
+          //   .attr('r', function (d) {
+          //     if (DFscores[d.id]) {
+          //       return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
+          //     }
+          //   })
 
           d3.selectAll('.activeConflict')
             .transition(2000)
@@ -135,11 +130,11 @@ d3.json('data/countries.json')
         } else {
           d3.select(this).classed('active', false)
 
-          civilianCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              return 0
-            })
+          // civilianCasualtiesBubbles.selectAll('circle')
+          //   .transition()
+          //   .attr('r', function (d) {
+          //     return 0
+          //   })
 
           d3.selectAll('.activeConflict')
             .transition(2000)
@@ -322,13 +317,13 @@ d3.json('data/countries.json')
         }
 
         if (civilianCasualtiesActive) {
-          civilianCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
-              }
-            })
+          // civilianCasualtiesBubbles.selectAll('circle')
+          //   .transition()
+          //   .attr('r', function (d) {
+          //     if (DFscores[d.id]) {
+          //       return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
+          //     }
+          //   })
 
           d3.selectAll('.activeConflict')
             .transition(2000)
@@ -386,7 +381,7 @@ d3.json('data/countries.json')
         let transform = d3.event.transform
         subunit.attr('transform', transform)
         subunit.style('stroke-width', 0.2 / transform.k + 'px')
-        civilianCasualtiesBubbles.attr('transform', transform)
+        // civilianCasualtiesBubbles.attr('transform', transform)
         troopCasualtiesBubbles.attr('transform', transform)
         troopNumbersBubbles.attr('transform', transform)
       }
@@ -439,6 +434,37 @@ d3.json('data/countries.json')
       d3.select('.ocean').on('mouseover', function () {
         d3.selectAll('.activeConflict,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
       })
+
+      let legend = svg.selectAll('.legend')
+        .data(civilianCasualtiesColorScale.ticks(6).slice(1).reverse())
+        .enter().append('g')
+        .attr('class', 'legend')
+        .attr('transform', function (d, i) { return 'translate(' + (width / 2 + i * 12) + ',' + (100) + ')' })
+
+      legend.append('rect')
+        .attr('width', 12)
+        .attr('height', 12)
+        .style('fill', civilianCasualtiesColorScale)
+
+      legend.append('text')
+        .attr('y', 20)
+        .attr('dy', '.5em')
+        .attr('dx', '.3em')
+        .style('font-size', '8px')
+        .attr('fill', '#fff')
+        .attr('opacity', 0.6)
+        .text(String)
+
+      svg.append('text')
+        .attr('class', 'label')
+        .attr('x', width / 2)
+        .attr('y', 90)
+        .attr('dy', '.35em')
+        .style('font-size', '8px')
+        .attr('fill', '#fff')
+        .attr('opacity', 0.6)
+        .text('Civilian Casualties')
+        .attr('class', 'legend-title')
     })
       .catch(function (error) {
         console.log('Error:' + error)
