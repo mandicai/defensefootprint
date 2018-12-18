@@ -132,7 +132,16 @@ a:hover {
   transition: all 0.25s ease;
 }
 
+#summary, #civilian-casualties-scale {
+  position: fixed;
+  overflow: auto;
+}
+
 @media only screen and (max-width: 1100px) {
+  h3 {
+    margin-top: 25px;
+  }
+
   #nav-bar,
   .nav-links,
   .links {
@@ -192,6 +201,14 @@ a:hover {
     width: 90%;
   }
 
+  #civilian-casualties-scale {
+    height: 10%;
+    left: 5%;
+    top: 65%;
+    width: 90%;
+    font-size: 12px;
+  }
+
   #summary {
     height: 10%;
     left: 5%;
@@ -227,14 +244,22 @@ a:hover {
 @media only screen and (min-width: 1101px) {
   #info {
     left: 73%;
-    top: 30%;
+    top: 12%;
     width: 25%;
-    height: 65%;
+    height: 25%;
   }
 
   #org-chooser {
     left: 2%;
     width: 40%;
+  }
+
+  #civilian-casualties-scale {
+    height: 10%;
+    left: 60%;
+    top: 12%;
+    width: 25%;
+    font-size: 1em;
   }
 
   #summary {
@@ -324,15 +349,6 @@ svg {
   top: 0;
   left: 0;
   z-index: 10;
-}
-
-#summary {
-  position: fixed;
-  padding: 1%;
-  background-color: rgba(0,0,0,0.2);
-  overflow: auto;
-  box-shadow: 0 6px 10px rgba(0,0,0,.25);
-  border: 2px solid rgba(255,255,255,0.2);
 }
 
 .summary-text {
@@ -608,7 +624,7 @@ input[type='checkbox'] {
   top: 5px;
 }
 
-#opening-view, #subpage-view {
+#subpage-view {
   font-family: 'Dosis';
   width: 100%;
   height: 100%;
@@ -616,35 +632,6 @@ input[type='checkbox'] {
 
 #subpage-view {
   background-color: #121E26;
-}
-
-#opening-view {
-  position: absolute;
-  text-align: center;
-  padding-top: 15%;
-  z-index: 1002;
-}
-
-#opening-text {
-  opacity: 0;
-}
-
-#opening-text p {
-  text-align: left;
-  opacity: 0.75;
-}
-
-#opening-text a {
-  font-family: 'Open Sans';
-  padding: 10px;
-  margin-top: 50px;
-  background-color: #bbbbbb;
-  color: #112a38;
-  border-radius: 10%;
-}
-
-.df-intro {
-  margin-bottom: 50px;
 }
 
 .subpage-heading {

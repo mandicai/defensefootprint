@@ -55,14 +55,14 @@
     <div class="nav-links">
       <div class="links">
         <a href="map.html">Map</a>
-        <a href="methodology.html">Methodology</a>
+        <a href="approach.html">Approach</a>
         <a href="definitions.html">Definitions</a>
         <a href="about.html">About</a>
       </div>
       <div class="social-icons">
-        <a href=""><i class="far fa-envelope" ></i></a>
-        <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter" ></i></a>
-        <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook" ></i></a>
+        <a href="mailto:mandicai@gmail.com?Subject=Feedback%20for%20Defense%20Footprint"><i class="far fa-envelope"></i></a>
+        <a href="https://twitter.com/deffootprint"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.facebook.com/DefFootprint/"><i class="fab fa-facebook"></i></a>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
         <a href="map.html">Map</a>
       </li>
       <li>
-        <a href="methodology.html">Methodology</a>
+        <a href="approach.html">Approach</a>
       </li>
       <li>
         <a href="definitions.html">Definitions</a>
@@ -145,28 +145,36 @@
         <a id="troop-numbers-link">Troop Numbers<div class="circle-troop-numbers"></div></a>
       </div>
     </div>
+
     <div id="scale"></div>
+
     <div class="overlay" id="info">
       <div class="col" id="info-text">
         <h4 class="conflict-name">Afghanistan</h4>
-        <p class="description-text">
+        <!-- <p class="description-text">
           War is a state of armed conflict between states, governments, societies and informal paramilitary groups, such as mercenaries, insurgents and militias. It is generally characterized by extreme violence, aggression, destruction, and mortality, using regular or irregular military forces.
-        </p>
+        </p> -->
       </div>
       <div class="col" id="statistics">
-        <p class="statistics-text">
+        <div>Civilian Casualties:<span class="summary-civilian-casualties">0</span></div>
+        <div>Troop Casualties:<span class="summary-troop-casualties">21</span></div>
+        <div>Troop Numbers:<span class="summary-troop-numbers">15298</span></div>
+        <!-- <p class="statistics-text">
           The deadliest war in history, in terms of the cumulative number of deaths since its start, is World War II, from 1939 to 1945, with 60–85 million deaths, followed by the Mongol conquests at up to 60 million. As concerns a belligerent's losses in proportion to its prewar population, the most destructive war in modern history may have been the Paraguayan War (see Paraguayan War casualties).
-        </p>
+        </p> -->
       </div>
     </div>
 
-    <div class="overlay" id="summary">
+    <div class="overlay" id="civilian-casualties-scale">
+    </div>
+
+    <!-- <div class="overlay" id="summary">
       <div class="col summary-text">
         <div>Civilian Casualties:<span class="summary-civilian-casualties">0</span></div>
         <div>Troop Casualties:<span class="summary-troop-casualties">21</span></div>
         <div>Troop Numbers:<span class="summary-troop-numbers">15298</span></div>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <script src="//unpkg.com/cross-fetch/dist/cross-fetch.js"></script>

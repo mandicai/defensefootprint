@@ -1,12 +1,16 @@
-.terms-container {
+.approach-factors {
+    padding: 2%;
     background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, .25);
-    padding: 20px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
     margin: 2%;
     margin-bottom: 5%;
 }
 
 .defined-word {
     font-family: 'Open Sans';
+    color: #C34444;
+}
+
+.approach-sources a {
     color: #C34444;
 }

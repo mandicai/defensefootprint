@@ -1,10 +1,11 @@
 let width = 960,
   height = 325,
-  viewBox = 900,
+  viewBox = 800,
+  // viewBox = 900,
   scale0 = (width - 1) / 2 / Math.PI
 
 let svg = d3.select('#map').append('svg')
-  .attr('viewBox', '-50 -125' + ' ' + viewBox + ' ' + viewBox)
+  .attr('viewBox', '-100 -100' + ' ' + viewBox + ' ' + viewBox) // '-50 -125'
   .attr('preserveAspectRatio', 'xMinYMid slice')
   .classed('svg-content', true)
 
@@ -435,32 +436,35 @@ d3.json('data/countries.json')
         d3.selectAll('.activeConflict,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
       })
 
-      let legend = svg.selectAll('.legend')
+      let civilianCasualtiesScale = d3.select('#civilian-casualties-scale').append('svg')
+        .attr('width', viewBox)
+        .attr('height', 50)
+
+      let legend = civilianCasualtiesScale.selectAll('.legend')
         .data(civilianCasualtiesColorScale.ticks(6).reverse())
         .enter().append('g')
         .attr('class', 'legend')
-        .attr('transform', function (d, i) { return 'translate(' + (width / 2 + i * 10) + ',' + (100) + ')' })
+        .attr('transform', function (d, i) { return 'translate(' + (i * 15) + ',' + 20 + ')' })
 
       legend.append('rect')
-        .attr('width', 10)
-        .attr('height', 10)
+        .attr('width', 15)
+        .attr('height', 15)
         .style('fill', civilianCasualtiesColorScale)
 
       legend.append('text')
         .attr('y', 20)
-        .attr('dy', '.5em')
-        .attr('dx', '.4em')
-        .style('font-size', '7px')
+        .attr('dy', '.75em')
+        .attr('dx', '.3em')
+        .style('font-size', '10px')
         .attr('fill', '#fff')
         .attr('opacity', 0.6)
         .text(String)
 
-      svg.append('text')
+      civilianCasualtiesScale.append('text')
         .attr('class', 'label')
-        .attr('x', width / 2)
-        .attr('y', 90)
+        .attr('y', 5)
         .attr('dy', '.35em')
-        .style('font-size', '8px')
+        .style('font-size', '12px')
         .attr('fill', '#fff')
         .attr('opacity', 0.6)
         .text('Civilian Casualties')
