@@ -461,10 +461,17 @@ d3.json('data/countries.json')
         d3.select('.summary-adversary-casualties').text(DFscores[lastSelected.data()[0].id].AdversaryCasualties)
         d3.select('.summary-civilian-casualties').text(DFscores[lastSelected.data()[0].id].CivilianCasualties)
         d3.select('.summary-troop-casualties').text(DFscores[lastSelected.data()[0].id].TroopCasualties)
+
         if (!isNaN(DFscores[lastSelected.data()[0].id].TroopNumbers)) {
           d3.select('.summary-troop-numbers').text(DFscores[lastSelected.data()[0].id].TroopNumbers)
         } else {
           d3.select('.summary-troop-numbers').text('No data')
+        }
+
+        if (DFscores[lastSelected.data()[0].id].Presence === 0) {
+          d3.select('.summary-presence').text('Inactive')
+        } else {
+          d3.select('.summary-presence').text('Active')
         }
       })
 
@@ -527,10 +534,17 @@ d3.json('data/countries.json')
           d3.select('.summary-adversary-casualties').text(DFscores[d3.select(this).data()[0].id].AdversaryCasualties)
           d3.select('.summary-civilian-casualties').text(DFscores[d3.select(this).data()[0].id].CivilianCasualties)
           d3.select('.summary-troop-casualties').text(DFscores[d3.select(this).data()[0].id].TroopCasualties)
+
           if (!isNaN(DFscores[d3.select(this).data()[0].id].TroopNumbers)) {
             d3.select('.summary-troop-numbers').text(DFscores[d3.select(this).data()[0].id].TroopNumbers)
           } else {
             d3.select('.summary-troop-numbers').text('No data')
+          }
+
+          if (DFscores[lastSelected.data()[0].id].Presence === 0) {
+            d3.select('.summary-presence').text('Inactive')
+          } else {
+            d3.select('.summary-presence').text('Active')
           }
         })
 
