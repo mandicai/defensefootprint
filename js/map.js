@@ -94,10 +94,11 @@ d3.json('data/countries.json')
         DFscores[d.ISO] = {
           Name: d.COUNTRY,
           ISO: d.ISO,
-          Score: +d.USG_PRESENCE,
+          Presence: +d.USG_PRESENCE,
           CivilianCasualties: +d.USG_CIVILIAN_CASUALTIES,
           TroopCasualties: +d.USG_TROOP_CASUALTIES,
-          TroopNumbers: +d.USG_TROOP_NUMBERS
+          TroopNumbers: +d.USG_TROOP_NUMBERS,
+          AdversaryCasualties: +d.USG_ADVERSARY_CASUALTIES
         }
       })
 
@@ -106,12 +107,66 @@ d3.json('data/countries.json')
         .enter().append('path')
         .attr('class', function (d) {
           if (DFscores[d.id]) {
-            return (DFscores[d.id].Score === 1) ? 'subunit ' + DFscores[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
+            return (DFscores[d.id].Presence === 1) ? 'subunit ' + DFscores[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
           } else {
             return 'subunit'
           }
         })
         .attr('d', mapTopo.path)
+
+      adversaryCasualtiesActive = false
+
+      let adversaryCasualtiesBubbles = svg.selectAll('.adversaryCasualtiesBubble')
+        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+        .enter().append('g')
+        .attr('class', function (d) {
+          if (DFscores[d.id]) {
+            return 'adversaryCasualtiesBubble ' + DFscores[d.id].ISO
+          } else {
+            return 'adversaryCasualtiesBubble'
+          }
+        })
+
+      adversaryCasualtiesBubbles.append('circle')
+        .attr('transform', function (d) {
+          return 'translate(' + mapTopo.path.centroid(d) + ')'
+        })
+        .attr('r', function (d) {
+          return 0
+        })
+        .attr('class', function (d) {
+          if (DFscores[d.id]) {
+            return 'adversaryCasualtiesBubble ' + DFscores[d.id].ISO
+          } else {
+            return 'adversaryCasualtiesBubble'
+          }
+        })
+
+      d3.select('#adversary-casualties-link').on('click', function () {
+        d3.select(this).classed('active', true)
+
+        if (adversaryCasualtiesActive === false) {
+          adversaryCasualtiesBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function (d) {
+              if (DFscores[d.id]) {
+                return (DFscores[d.id].AdversaryCasualties != 0) ? Math.log(DFscores[d.id].AdversaryCasualties) : 0
+              }
+            })
+
+          adversaryCasualtiesActive = true
+        } else {
+          d3.select(this).classed('active', false)
+
+          adversaryCasualtiesBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function (d) {
+              return 0
+            })
+
+          adversaryCasualtiesActive = false
+        }
+      })
 
       civilianCasualtiesActive = false
 
@@ -153,13 +208,13 @@ d3.json('data/countries.json')
               }
             })
 
-          d3.selectAll('.activeConflict')
-            .transition(2000)
-            .style('fill', function (d) {
-              if (DFscores[d.id].CivilianCasualties != 0) {
-                return civilianCasualtiesColorScale(DFscores[d.id].CivilianCasualties)
-              }
-            })
+          // d3.selectAll('.activeConflict')
+          //   .transition(2000)
+          //   .style('fill', function (d) {
+          //     if (DFscores[d.id].CivilianCasualties != 0) {
+          //       return civilianCasualtiesColorScale(DFscores[d.id].CivilianCasualties)
+          //     }
+          //   })
 
           civilianCasualtiesActive = true
         } else {
@@ -171,9 +226,9 @@ d3.json('data/countries.json')
               return 0
             })
 
-          d3.selectAll('.activeConflict')
-            .transition(2000)
-            .style('fill', '#25424f')
+          // d3.selectAll('.activeConflict')
+          //   .transition(2000)
+          //   .style('fill', '#25424f')
 
           civilianCasualtiesActive = false
         }
@@ -310,10 +365,11 @@ d3.json('data/countries.json')
             DFscores[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
-              Score: +d.USG_PRESENCE,
+              Presence: +d.USG_PRESENCE,
               CivilianCasualties: +d.USG_CIVILIAN_CASUALTIES,
               TroopCasualties: +d.USG_TROOP_CASUALTIES,
-              TroopNumbers: +d.USG_TROOP_NUMBERS
+              TroopNumbers: +d.USG_TROOP_NUMBERS,
+              AdversaryCasualties: +d.USG_ADVERSARY_CASUALTIES
             }
           })
         } else if (event.relatedTarget.innerText === 'Geneva Academy') {
@@ -321,10 +377,11 @@ d3.json('data/countries.json')
             DFscores[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
-              Score: +d.GENEVA_PRESENCE,
+              Presence: +d.GENEVA_PRESENCE,
               CivilianCasualties: +d.GENEVA_CIVILIAN_CASUALTIES,
               TroopCasualties: +d.GENEVA_TROOP_CASUALTIES,
-              TroopNumbers: +d.GENEVA_TROOP_NUMBERS
+              TroopNumbers: +d.GENEVA_TROOP_NUMBERS,
+              AdversaryCasualties: +d.GENEVA_ADVERSARY_CASUALTIES
             }
           })
         } else if (event.relatedTarget.innerText === 'New America') {
@@ -332,10 +389,11 @@ d3.json('data/countries.json')
             DFscores[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
-              Score: +d.NEW_AMERICA_PRESENCE,
+              Presence: +d.NEW_AMERICA_PRESENCE,
               CivilianCasualties: +d.NEW_AMERICA_CIVILIAN_CASUALTIES,
               TroopCasualties: +d.NEW_AMERICA_TROOP_CASUALTIES,
-              TroopNumbers: +d.NEW_AMERICA_TROOP_NUMBERS
+              TroopNumbers: +d.NEW_AMERICA_TROOP_NUMBERS,
+              AdversaryCasualties: +d.NEW_AMERICA_ADVERSARY_CASUALTIES
             }
           })
         } else if (event.relatedTarget.innerText === 'The Bureau of Investigative Journalism') {
@@ -343,12 +401,23 @@ d3.json('data/countries.json')
             DFscores[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
-              Score: +d.BIJ_PRESENCE,
+              Presence: +d.BIJ_PRESENCE,
               CivilianCasualties: +d.BIJ_CIVILIAN_CASUALTIES,
               TroopCasualties: +d.BIJ_TROOP_CASUALTIES,
-              TroopNumbers: +d.BIJ_TROOP_NUMBERS
+              TroopNumbers: +d.BIJ_TROOP_NUMBERS,
+              AdversaryCasualties: +d.BIJ_ADVERSARY_CASUALTIES
             }
           })
+        }
+
+        if (adversaryCasualtiesActive) {
+          adversaryCasualtiesBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function (d) {
+              if (DFscores[d.id]) {
+                return (DFscores[d.id].AdversaryCasualties != 0) ? Math.log(DFscores[d.id].AdversaryCasualties) : 0
+              }
+            })
         }
 
         if (civilianCasualtiesActive) {
@@ -360,13 +429,13 @@ d3.json('data/countries.json')
               }
             })
 
-          d3.selectAll('.activeConflict')
-            .transition(2000)
-            .style('fill', function (d) {
-              if (DFscores[d.id].CivilianCasualties != 0) {
-                return civilianCasualtiesColorScale(DFscores[d.id].CivilianCasualties)
-              }
-            })
+          // d3.selectAll('.activeConflict')
+          //   .transition(2000)
+          //   .style('fill', function (d) {
+          //     if (DFscores[d.id].CivilianCasualties != 0) {
+          //       return civilianCasualtiesColorScale(DFscores[d.id].CivilianCasualties)
+          //     }
+          //   })
         }
 
         if (troopCasualtiesActive) {
@@ -389,6 +458,7 @@ d3.json('data/countries.json')
             })
         }
 
+        d3.select('.summary-adversary-casualties').text(DFscores[lastSelected.data()[0].id].AdversaryCasualties)
         d3.select('.summary-civilian-casualties').text(DFscores[lastSelected.data()[0].id].CivilianCasualties)
         d3.select('.summary-troop-casualties').text(DFscores[lastSelected.data()[0].id].TroopCasualties)
         if (!isNaN(DFscores[lastSelected.data()[0].id].TroopNumbers)) {
@@ -416,6 +486,7 @@ d3.json('data/countries.json')
         let transform = d3.event.transform
         subunit.attr('transform', transform)
         subunit.style('stroke-width', 0.2 / transform.k + 'px')
+        adversaryCasualtiesBubbles.attr('transform', transform)
         civilianCasualtiesBubbles.attr('transform', transform)
         troopCasualtiesBubbles.attr('transform', transform)
         troopNumbersBubbles.attr('transform', transform)
@@ -444,7 +515,7 @@ d3.json('data/countries.json')
         .on('mousemove mouseout click', function () {
           let selector = d3.select(this).attr('class').split(` `)[1]
 
-          d3.selectAll('.activeConflict,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', function (d) {
+          d3.selectAll('.activeConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', function (d) {
             if (!d3.select(this).attr('class').includes(selector)) {
               return 0.3
             }
@@ -453,6 +524,7 @@ d3.json('data/countries.json')
           lastSelected = d3.select(this)
 
           d3.select('.conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
+          d3.select('.summary-adversary-casualties').text(DFscores[d3.select(this).data()[0].id].AdversaryCasualties)
           d3.select('.summary-civilian-casualties').text(DFscores[d3.select(this).data()[0].id].CivilianCasualties)
           d3.select('.summary-troop-casualties').text(DFscores[d3.select(this).data()[0].id].TroopCasualties)
           if (!isNaN(DFscores[d3.select(this).data()[0].id].TroopNumbers)) {
@@ -463,11 +535,11 @@ d3.json('data/countries.json')
         })
 
       d3.selectAll('.inactiveConflict').on('mouseover', function () {
-        d3.selectAll('.activeConflict,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
+        d3.selectAll('.activeConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
       })
 
       d3.select('.ocean').on('mouseover', function () {
-        d3.selectAll('.activeConflict,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
+        d3.selectAll('.activeConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
       })
     })
       .catch(function (error) {

@@ -493,6 +493,13 @@ svg {
   text-anchor: middle;
 }
 
+.adversaryCasualtiesBubble {
+  stroke: #AD71F4;
+  stroke-width: 0.5px;
+  fill: none;
+  box-shadow: 0 0 100px -10px black inset;
+}
+
 .civilianCasualtiesBubble {
   stroke: #ce2525;
   stroke-width: 0.5px;
