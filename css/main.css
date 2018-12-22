@@ -408,7 +408,7 @@ svg {
   opacity: 0.8;
 }
 
-.square-df-score {
+.square-presence {
   display: block;
   width: 15px;
   height: 15px;
@@ -417,7 +417,7 @@ svg {
   opacity: 0.8;
 }
 
-.square-df-score-two {
+.square-presence-two {
   display: block;
   width: 15px;
   height: 15px;
@@ -574,31 +574,17 @@ svg {
   left: 3%;
 }
 
-#troop-casualties-link,
-#civilian-casualties-link,
-#troop-numbers-link {
-  display:flex;
+.score-factor-links a {
+  display: flex;
   justify-content: flex-end;
   opacity: 0.3;
-}
-
-#troop-casualties-link:hover,
-#civilian-casualties-link:hover,
-#troop-numbers-link:hover {
-  opacity: 1;
-}
-
-#troop-casualties-link.active,
-#civilian-casualties-link.active,
-#troop-numbers-link.active {
-  opacity: 1;
-}
-
-.score-factor-links a {
-  display: block;
   min-width: 125px;
-  border-bottom: 2px solid rgba(255,255,255,0.75);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.75);
   text-align: right;
+}
+
+.score-factor-links a:hover, .score-factor-links a.active {
+  opacity: 1;
 }
 
 div#tooltip {
