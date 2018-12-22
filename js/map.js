@@ -115,43 +115,43 @@ d3.json('data/countries.json')
 
       civilianCasualtiesActive = false
 
-      // let civilianCasualtiesBubbles = svg.selectAll('.civilianCasualtiesBubble')
-      //   .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-      //   .enter().append('g')
-      //   .attr('class', function (d) {
-      //     if (DFscores[d.id]) {
-      //       return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
-      //     } else {
-      //       return 'civilianCasualtiesBubble'
-      //     }
-      //   })
+      let civilianCasualtiesBubbles = svg.selectAll('.civilianCasualtiesBubble')
+        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+        .enter().append('g')
+        .attr('class', function (d) {
+          if (DFscores[d.id]) {
+            return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
+          } else {
+            return 'civilianCasualtiesBubble'
+          }
+        })
 
-      // civilianCasualtiesBubbles.append('circle')
-      //   .attr('transform', function (d) {
-      //     return 'translate(' + mapTopo.path.centroid(d) + ')'
-      //   })
-      //   .attr('r', function (d) {
-      //     return 0
-      //   })
-      //   .attr('class', function (d) {
-      //     if (DFscores[d.id]) {
-      //       return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
-      //     } else {
-      //       return 'civilianCasualtiesBubble'
-      //     }
-      //   })
+      civilianCasualtiesBubbles.append('circle')
+        .attr('transform', function (d) {
+          return 'translate(' + mapTopo.path.centroid(d) + ')'
+        })
+        .attr('r', function (d) {
+          return 0
+        })
+        .attr('class', function (d) {
+          if (DFscores[d.id]) {
+            return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
+          } else {
+            return 'civilianCasualtiesBubble'
+          }
+        })
 
       d3.select('#civilian-casualties-link').on('click', function () {
         d3.select(this).classed('active', true)
 
         if (civilianCasualtiesActive === false) {
-          // civilianCasualtiesBubbles.selectAll('circle')
-          //   .transition()
-          //   .attr('r', function (d) {
-          //     if (DFscores[d.id]) {
-          //       return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
-          //     }
-          //   })
+          civilianCasualtiesBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function (d) {
+              if (DFscores[d.id]) {
+                return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
+              }
+            })
 
           d3.selectAll('.activeConflict')
             .transition(2000)
@@ -165,11 +165,11 @@ d3.json('data/countries.json')
         } else {
           d3.select(this).classed('active', false)
 
-          // civilianCasualtiesBubbles.selectAll('circle')
-          //   .transition()
-          //   .attr('r', function (d) {
-          //     return 0
-          //   })
+          civilianCasualtiesBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function (d) {
+              return 0
+            })
 
           d3.selectAll('.activeConflict')
             .transition(2000)
@@ -352,13 +352,13 @@ d3.json('data/countries.json')
         }
 
         if (civilianCasualtiesActive) {
-          // civilianCasualtiesBubbles.selectAll('circle')
-          //   .transition()
-          //   .attr('r', function (d) {
-          //     if (DFscores[d.id]) {
-          //       return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
-          //     }
-          //   })
+          civilianCasualtiesBubbles.selectAll('circle')
+            .transition()
+            .attr('r', function (d) {
+              if (DFscores[d.id]) {
+                return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
+              }
+            })
 
           d3.selectAll('.activeConflict')
             .transition(2000)
@@ -416,7 +416,7 @@ d3.json('data/countries.json')
         let transform = d3.event.transform
         subunit.attr('transform', transform)
         subunit.style('stroke-width', 0.2 / transform.k + 'px')
-        // civilianCasualtiesBubbles.attr('transform', transform)
+        civilianCasualtiesBubbles.attr('transform', transform)
         troopCasualtiesBubbles.attr('transform', transform)
         troopNumbersBubbles.attr('transform', transform)
       }
@@ -455,7 +455,6 @@ d3.json('data/countries.json')
           d3.select('.conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
           d3.select('.summary-civilian-casualties').text(DFscores[d3.select(this).data()[0].id].CivilianCasualties)
           d3.select('.summary-troop-casualties').text(DFscores[d3.select(this).data()[0].id].TroopCasualties)
-          console.log(DFscores[d3.select(this).data()[0].id], DFscores[d3.select(this).data()[0].id].TroopNumbers)
           if (!isNaN(DFscores[d3.select(this).data()[0].id].TroopNumbers)) {
             d3.select('.summary-troop-numbers').text(DFscores[d3.select(this).data()[0].id].TroopNumbers)
           } else {

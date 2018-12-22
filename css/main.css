@@ -246,7 +246,7 @@ a:hover {
     left: 73%;
     top: 12%;
     width: 25%;
-    height: 25%;
+    height: 30%;
   }
 
   #org-chooser {
@@ -359,15 +359,21 @@ svg {
   transform: translate(-50%, -50%)
 }
 
-.summary-civilian-casualties,
-.summary-troop-casualties,
-.summary-troop-numbers {
+#statistics span {
   float: right;
   font-family: 'Inconsolata';
 }
 
+.summary-presence {
+  color: rgb(252, 138, 107);
+}
+
 .summary-civilian-casualties {
   color: #ce2525;
+}
+
+.summary-adversary-casualties {
+  color: #AD71F4;
 }
 
 .summary-troop-casualties {
@@ -383,6 +389,16 @@ svg {
   width: 15px;
   height: 15px;
   border: 1px solid #ce2525;
+  border-radius: 100%;
+  margin-left: 10px;
+  opacity: 0.8;
+}
+
+.circle-adversary-casualties {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #AD71F4;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
@@ -412,7 +428,7 @@ svg {
   display: block;
   width: 15px;
   height: 15px;
-  background-color: rgba(230, 53, 42);
+  background-color: rgb(252, 138, 107);
   margin-left: 10px;
   opacity: 0.8;
 }
@@ -421,7 +437,7 @@ svg {
   display: block;
   width: 15px;
   height: 15px;
-  background-color: rgba(255, 238, 230);
+  background-color: rgba(230, 53, 42);
   opacity: 0.8;
 }
 
