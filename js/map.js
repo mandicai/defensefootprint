@@ -120,7 +120,7 @@ d3.json('data/countries.json')
           troopNumbersActive = true,
           troopCasualtiesActive = false
 
-      let scoreFactors = [
+      let conflictFactors = [
         {
           dataColumn: 'AdversaryCasualties',
           elementName: 'adversaryCasualties',
@@ -151,7 +151,7 @@ d3.json('data/countries.json')
         }
       ]
 
-      scoreFactors.forEach(factor => {
+      conflictFactors.forEach(factor => {
         let bubbleGroup = svg.selectAll('.' + factor.elementName + 'Bubble')
           .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
           .enter().append('g')
@@ -275,7 +275,7 @@ d3.json('data/countries.json')
           })
         }
 
-        scoreFactors.forEach(factor => {
+        conflictFactors.forEach(factor => {
           if (factor.activeProperty) {
             d3.selectAll('.' + factor.elementName + 'Bubble ' + 'circle')
               .transition()
@@ -345,7 +345,7 @@ d3.json('data/countries.json')
       let defaultCountry = 'AFG',
         lastSelected = d3.select('.' + defaultCountry)
 
-      scoreFactors.forEach(factor => {
+      conflictFactors.forEach(factor => {
         d3.select('#' + factor.summaryLink).text(orgConflictData[defaultCountry][factor.dataColumn])
       })
 
@@ -372,7 +372,7 @@ d3.json('data/countries.json')
 
           d3.select('.conflict-name').text(orgConflictData[d3.select(this).data()[0].id].Name)
 
-          scoreFactors.forEach(factor => {
+          conflictFactors.forEach(factor => {
             if (orgConflictData[lastSelected.data()[0].id][factor.dataColumn] != 0 && orgConflictData[lastSelected.data()[0].id][factor.dataColumn] != '') {
               d3.select('#' + factor.summaryLink).text(orgConflictData[lastSelected.data()[0].id][factor.dataColumn])
             } else {
