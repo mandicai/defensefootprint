@@ -58,7 +58,7 @@ h4 {
   font-family: 'Open Sans';
   font-weight: bold;
   font-size: 25px;
-  padding-left: 40px;
+  padding-left: 30px;
 }
 
 .logo p {
@@ -137,7 +137,7 @@ a:hover {
   display: flex;
   padding-left: 2%;
   padding-top: 0.5%;
-  top: 12%;
+  top: 15%;
   height: 10%;
   background-color: rgba(16, 28, 35, 0.8);
   overflow: auto;
@@ -151,6 +151,15 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
   transition: all 0.25s ease;
+}
+
+#according-to {
+  position: fixed;
+  padding-left: 2.5%;
+  top: 10%;
+  height: 5%;
+  font-size: 15px;
+  opacity: 0.6;
 }
 
 #info {
@@ -209,23 +218,23 @@ svg {
   margin-bottom: 1%;
 }
 
-.summary-presence {
+#summary-presence {
   color: rgb(252, 138, 107);
 }
 
-.summary-civilian-casualties {
+#summary-civilian-casualties {
   color: #ce2525;
 }
 
-.summary-adversary-casualties {
+#summary-adversary-casualties {
   color: #AD71F4;
 }
 
-.summary-troop-casualties {
+#summary-troop-casualties {
   color: #47c5fc;
 }
 
-.summary-troop-numbers {
+#summary-troop-numbers {
   color: #CEC40D;
 }
 
@@ -536,7 +545,7 @@ input[type='checkbox'] {
 
   .logo {
     font-size: 20px;
-    padding-left: 20px;
+    padding-left: 15px;
   }
 
   .logo p {
@@ -552,8 +561,8 @@ input[type='checkbox'] {
   }
 
   #org-chooser {
-    left: 5%;
-    width: 90%;
+    left: 2%;
+    width: 96%;
   }
 
   #civilian-casualties-scale {
@@ -578,7 +587,7 @@ input[type='checkbox'] {
 
   #score-factors {
     font-size: 12px;
-    top: 25%;
+    top: 30%;
     width: 0px;
   }
 
@@ -633,7 +642,7 @@ input[type='checkbox'] {
 
   #score-factors {
     font-size: 0.9em;
-    top: 35%;
+    top: 40%;
     width: 150px;
   }
 

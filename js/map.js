@@ -293,10 +293,10 @@ d3.json('data/countries.json')
           }
         })
 
-        if (orgConflictData[lastSelected.data()[0].id].Presence === 0) {
-          d3.select('#summary-presence').text('Inactive')
-        } else {
+        if (orgConflictData[lastSelected.data()[0].id].Presence === 1) {
           d3.select('#summary-presence').text('Active')
+        } else {
+          d3.select('#summary-presence').text('Inactive')
         }
       })
 
@@ -341,7 +341,22 @@ d3.json('data/countries.json')
       }
       /// END ZOOM
 
-      let lastSelected = d3.select('.AFG')
+      /// SET DEFAULT
+      let defaultCountry = 'AFG',
+        lastSelected = d3.select('.' + defaultCountry)
+
+      scoreFactors.forEach(factor => {
+        d3.select('#' + factor.summaryLink).text(orgConflictData[defaultCountry][factor.dataColumn])
+      })
+
+      d3.select('#summary-presence').text(() => {
+        if (orgConflictData[defaultCountry]['Presence'] === 1) {
+          return 'Active'
+        } else {
+          return 'Inactive'
+        }
+      })
+      /// END SET DEFAULT
 
       d3.selectAll('.activeConflict')
         .on('mousemove mouseout click', function () {
@@ -365,10 +380,10 @@ d3.json('data/countries.json')
             }
           })
 
-          if (orgConflictData[lastSelected.data()[0].id].Presence === 0) {
-            d3.select('#summary-presence').text('Inactive')
-          } else {
+          if (orgConflictData[lastSelected.data()[0].id].Presence === 1) {
             d3.select('#summary-presence').text('Active')
+          } else {
+            d3.select('#summary-presence').text('Inactive')
           }
         })
 
