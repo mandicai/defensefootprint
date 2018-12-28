@@ -52,7 +52,7 @@ legend.append('text')
   .attr('dx', '.3em')
   .style('font-size', '10px')
   .attr('fill', '#fff')
-  .attr('opacity', 0.6)
+  .style('opacity', 0.6)
   .text(String)
 
 civilianCasualtiesScale.append('text')
@@ -61,7 +61,7 @@ civilianCasualtiesScale.append('text')
   .attr('dy', '.35em')
   .style('font-size', '12px')
   .attr('fill', '#fff')
-  .attr('opacity', 0.6)
+  .style('opacity', 0.6)
   .text('Civilian Casualties')
   .attr('class', 'legend-title')
 
@@ -87,11 +87,10 @@ d3.json('data/countries.json')
   .then(mapTopo => {
     d3.csv('data/Master Data Set.csv').then(function (data) {
 
-      scores = data
+      let orgConflictData = {}
 
-      let DFscores = {}
-      scores.forEach(function (d) {
-        DFscores[d.ISO] = {
+      data.forEach(function (d) {
+        orgConflictData[d.ISO] = {
           Name: d.COUNTRY,
           ISO: d.ISO,
           Presence: +d.USG_PRESENCE,
@@ -106,244 +105,110 @@ d3.json('data/countries.json')
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
         .enter().append('path')
         .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return (DFscores[d.id].Presence === 1) ? 'subunit ' + DFscores[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
+          if (orgConflictData[d.id]) {
+            return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
           } else {
             return 'subunit'
           }
         })
         .attr('d', mapTopo.path)
 
-      adversaryCasualtiesActive = false
+      subunit.attr('opacity', 0).transition().duration(2500).attr('opacity', 1)
 
-      let adversaryCasualtiesBubbles = svg.selectAll('.adversaryCasualtiesBubble')
-        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append('g')
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'adversaryCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'adversaryCasualtiesBubble'
-          }
-        })
-
-      adversaryCasualtiesBubbles.append('circle')
-        .attr('transform', function (d) {
-          return 'translate(' + mapTopo.path.centroid(d) + ')'
-        })
-        .attr('r', function (d) {
-          return 0
-        })
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'adversaryCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'adversaryCasualtiesBubble'
-          }
-        })
-
-      d3.select('#adversary-casualties-link').on('click', function () {
-        d3.select(this).classed('active', true)
-
-        if (adversaryCasualtiesActive === false) {
-          adversaryCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].AdversaryCasualties != 0) ? Math.log(DFscores[d.id].AdversaryCasualties) : 0
-              }
-            })
-
-          adversaryCasualtiesActive = true
-        } else {
-          d3.select(this).classed('active', false)
-
-          adversaryCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              return 0
-            })
-
-          adversaryCasualtiesActive = false
-        }
-      })
-
-      civilianCasualtiesActive = false
-
-      let civilianCasualtiesBubbles = svg.selectAll('.civilianCasualtiesBubble')
-        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append('g')
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'civilianCasualtiesBubble'
-          }
-        })
-
-      civilianCasualtiesBubbles.append('circle')
-        .attr('transform', function (d) {
-          return 'translate(' + mapTopo.path.centroid(d) + ')'
-        })
-        .attr('r', function (d) {
-          return 0
-        })
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'civilianCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'civilianCasualtiesBubble'
-          }
-        })
-
-      d3.select('#civilian-casualties-link').on('click', function () {
-        d3.select(this).classed('active', true)
-
-        if (civilianCasualtiesActive === false) {
-          civilianCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
-              }
-            })
-
-          // d3.selectAll('.activeConflict')
-          //   .transition(2000)
-          //   .style('fill', function (d) {
-          //     if (DFscores[d.id].CivilianCasualties != 0) {
-          //       return civilianCasualtiesColorScale(DFscores[d.id].CivilianCasualties)
-          //     }
-          //   })
-
-          civilianCasualtiesActive = true
-        } else {
-          d3.select(this).classed('active', false)
-
-          civilianCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              return 0
-            })
-
-          // d3.selectAll('.activeConflict')
-          //   .transition(2000)
-          //   .style('fill', '#25424f')
-
-          civilianCasualtiesActive = false
-        }
-      })
-
-      troopCasualtiesActive = false
-
-      let troopCasualtiesBubbles = svg.selectAll('.troopCasualtiesBubble')
-        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append('g')
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'troopCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'troopCasualtiesBubble'
-          }
-        })
-
-      troopCasualtiesBubbles.append('circle')
-        .attr('transform', function (d) {
-          return 'translate(' + mapTopo.path.centroid(d) + ')'
-        })
-        .attr('r', function (d) {
-          return 0
-        })
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'troopCasualtiesBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'troopCasualtiesBubble'
-          }
-        })
-
-      d3.select('#troop-casualties-link').on('click', function () {
-        d3.select(this).classed('active', true)
-        if (troopCasualtiesActive === false) {
-          troopCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].TroopCasualties != 0) ? Math.log(DFscores[d.id].TroopCasualties) : 0
-              }
-            })
-          troopCasualtiesActive = true
-        } else {
-          d3.select(this).classed('active', false)
-          troopCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              return 0
-            })
+      let adversaryCasualtiesActive = false,
+          civilianCasualtiesActive = false,
+          troopNumbersActive = true,
           troopCasualtiesActive = false
+
+      let scoreFactors = [
+        {
+          dataColumn: 'AdversaryCasualties',
+          elementName: 'adversaryCasualties',
+          factorLink: 'adversary-casualties-link' ,
+          activeProperty: adversaryCasualtiesActive,
+          summaryLink: 'summary-adversary-casualties'
+        },
+        {
+          dataColumn: 'CivilianCasualties',
+          elementName: 'civilianCasualties',
+          factorLink: 'civilian-casualties-link',
+          activeProperty: civilianCasualtiesActive,
+          summaryLink: 'summary-civilian-casualties'
+        },
+        {
+          dataColumn: 'TroopNumbers',
+          elementName: 'troopNumbers',
+          factorLink: 'troop-numbers-link',
+          activeProperty: troopNumbersActive,
+          summaryLink: 'summary-troop-numbers'
+        },
+        {
+          dataColumn: 'TroopCasualties',
+          elementName: 'troopCasualties',
+          factorLink: 'troop-casualties-link',
+          activeProperty: troopCasualtiesActive,
+          summaryLink: 'summary-troop-casualties'
         }
+      ]
+
+      scoreFactors.forEach(factor => {
+        let bubbleGroup = svg.selectAll('.' + factor.elementName + 'Bubble')
+          .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
+          .enter().append('g')
+          .attr('class', function (d) {
+            if (orgConflictData[d.id]) {
+              return factor.elementName + 'Bubble ' + orgConflictData[d.id].ISO
+            } else {
+              return factor.elementName + 'Bubble'
+            }
+          })
+
+        bubbleGroup.append('circle')
+          .attr('transform', function (d) {
+            return 'translate(' + mapTopo.path.centroid(d) + ')'
+          })
+          .attr('r', function (d) {
+            return 0
+          })
+
+        d3.select('#' + factor.factorLink).on('click', function () {
+          d3.select(this).classed('active', true)
+
+          if (factor.activeProperty === false) {
+            bubbleGroup.selectAll('circle')
+              .transition()
+              .attr('r', function (d) {
+                if (orgConflictData[d.id]) {
+                  return (orgConflictData[d.id][factor.dataColumn] != 0 && orgConflictData[d.id][factor.dataColumn] != '') ? Math.log(orgConflictData[d.id][factor.dataColumn]) : 0
+                }
+              })
+
+            factor.activeProperty = true
+          } else {
+            d3.select(this).classed('active', false)
+
+            bubbleGroup.selectAll('circle')
+              .transition()
+              .attr('r', function (d) {
+                return 0
+              })
+
+            factor.activeProperty = false
+          }
+        })
       })
 
-      troopNumbersActive = true
+      d3.selectAll('.troopNumbersBubble circle')
+        .transition()
+        .duration(1000)
+        .attr('r', function (d) {
+          if (orgConflictData[d.id]) {
+            return (orgConflictData[d.id].TroopNumbers != 0 && orgConflictData[d.id].TroopNumbers != '') ? Math.log(orgConflictData[d.id].TroopNumbers) : 0
+          }
+        })
 
       d3.select('#troop-numbers-link')
         .attr('class', 'active')
-
-      let troopNumbersBubbles = svg.selectAll('.troopNumbersBubble')
-        .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
-        .enter().append('g')
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'troopNumbersBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'troopNumbersBubble'
-          }
-        })
-
-      troopNumbersBubbles.append('circle')
-        .attr('transform', function (d) {
-          return 'translate(' + mapTopo.path.centroid(d) + ')'
-        })
-        .attr('r', function (d) {
-          return 0
-        })
-        .attr('class', function (d) {
-          if (DFscores[d.id]) {
-            return 'troopNumbersBubble ' + DFscores[d.id].ISO
-          } else {
-            return 'troopNumbersBubble'
-          }
-        })
-
-      troopNumbersBubbles.selectAll('circle')
-        .transition()
-        .attr('r', function (d) {
-          if (DFscores[d.id]) {
-            return (DFscores[d.id].TroopNumbers != 0 && !isNaN(DFscores[d.id].TroopNumbers)) ? Math.log(DFscores[d.id].TroopNumbers) : 0
-          }
-        })
-
-      d3.select('#troop-numbers-link').on('click', function () {
-        d3.select(this).classed('active', true)
-        if (troopNumbersActive === false) {
-          troopNumbersBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].TroopNumbers != 0 && !isNaN(DFscores[d.id].TroopNumbers)) ? Math.log(DFscores[d.id].TroopNumbers) : 0
-              }
-            })
-          troopNumbersActive = true
-        } else {
-          d3.select(this).classed('active', false)
-          troopNumbersBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              return 0
-            })
-          troopNumbersActive = false
-        }
-      })
 
       $('#org-carousel').carousel('pause') // pause on load of carousel
 
@@ -361,8 +226,8 @@ d3.json('data/countries.json')
 
       $('#org-carousel').on('slid.bs.carousel', function (event) {
         if (event.relatedTarget.innerText === 'Department of Defense') {
-          scores.forEach(function (d) {
-            DFscores[d.ISO] = {
+          data.forEach(function (d) {
+            orgConflictData[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
               Presence: +d.USG_PRESENCE,
@@ -373,8 +238,8 @@ d3.json('data/countries.json')
             }
           })
         } else if (event.relatedTarget.innerText === 'Geneva Academy') {
-          scores.forEach(function (d) {
-            DFscores[d.ISO] = {
+          data.forEach(function (d) {
+            orgConflictData[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
               Presence: +d.GENEVA_PRESENCE,
@@ -385,8 +250,8 @@ d3.json('data/countries.json')
             }
           })
         } else if (event.relatedTarget.innerText === 'New America') {
-          scores.forEach(function (d) {
-            DFscores[d.ISO] = {
+          data.forEach(function (d) {
+            orgConflictData[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
               Presence: +d.NEW_AMERICA_PRESENCE,
@@ -397,8 +262,8 @@ d3.json('data/countries.json')
             }
           })
         } else if (event.relatedTarget.innerText === 'The Bureau of Investigative Journalism') {
-          scores.forEach(function (d) {
-            DFscores[d.ISO] = {
+          data.forEach(function (d) {
+            orgConflictData[d.ISO] = {
               Name: d.COUNTRY,
               ISO: d.ISO,
               Presence: +d.BIJ_PRESENCE,
@@ -410,71 +275,32 @@ d3.json('data/countries.json')
           })
         }
 
-        if (adversaryCasualtiesActive) {
-          adversaryCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].AdversaryCasualties != 0) ? Math.log(DFscores[d.id].AdversaryCasualties) : 0
-              }
-            })
-        }
+        scoreFactors.forEach(factor => {
+          if (factor.activeProperty) {
+            d3.selectAll('.' + factor.elementName + 'Bubble ' + 'circle')
+              .transition()
+              .attr('r', function (d) {
+                if (orgConflictData[d.id]) {
+                  return (orgConflictData[d.id][factor.dataColumn] != 0 && orgConflictData[d.id][factor.dataColumn] != '') ? Math.log(orgConflictData[d.id][factor.dataColumn]) : 0
+                }
+              })
+          }
 
-        if (civilianCasualtiesActive) {
-          civilianCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].CivilianCasualties != 0) ? Math.log(DFscores[d.id].CivilianCasualties) : 0
-              }
-            })
+          if (orgConflictData[lastSelected.data()[0].id][factor.dataColumn] != 0 && orgConflictData[lastSelected.data()[0].id][factor.dataColumn] != '') {
+            d3.select('#' + factor.summaryLink).text(orgConflictData[lastSelected.data()[0].id][factor.dataColumn])
+          } else {
+            d3.select('#' + factor.summaryLink).text('No data')
+          }
+        })
 
-          // d3.selectAll('.activeConflict')
-          //   .transition(2000)
-          //   .style('fill', function (d) {
-          //     if (DFscores[d.id].CivilianCasualties != 0) {
-          //       return civilianCasualtiesColorScale(DFscores[d.id].CivilianCasualties)
-          //     }
-          //   })
-        }
-
-        if (troopCasualtiesActive) {
-          troopCasualtiesBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].TroopCasualties != 0) ? Math.log(DFscores[d.id].TroopCasualties) : 0
-              }
-            })
-        }
-
-        if (troopNumbersActive) {
-          troopNumbersBubbles.selectAll('circle')
-            .transition()
-            .attr('r', function (d) {
-              if (DFscores[d.id]) {
-                return (DFscores[d.id].TroopNumbers != 0 && !isNaN(DFscores[d.id].TroopNumbers)) ? Math.log(DFscores[d.id].TroopNumbers) : 0
-              }
-            })
-        }
-
-        d3.select('.summary-adversary-casualties').text(DFscores[lastSelected.data()[0].id].AdversaryCasualties)
-        d3.select('.summary-civilian-casualties').text(DFscores[lastSelected.data()[0].id].CivilianCasualties)
-        d3.select('.summary-troop-casualties').text(DFscores[lastSelected.data()[0].id].TroopCasualties)
-
-        if (!isNaN(DFscores[lastSelected.data()[0].id].TroopNumbers)) {
-          d3.select('.summary-troop-numbers').text(DFscores[lastSelected.data()[0].id].TroopNumbers)
+        if (orgConflictData[lastSelected.data()[0].id].Presence === 0) {
+          d3.select('#summary-presence').text('Inactive')
         } else {
-          d3.select('.summary-troop-numbers').text('No data')
-        }
-
-        if (DFscores[lastSelected.data()[0].id].Presence === 0) {
-          d3.select('.summary-presence').text('Inactive')
-        } else {
-          d3.select('.summary-presence').text('Active')
+          d3.select('#summary-presence').text('Active')
         }
       })
 
+      /// ZOOM
       let zoom = d3.zoom()
         .scaleExtent([1, 40])
         .translateExtent([
@@ -493,10 +319,8 @@ d3.json('data/countries.json')
         let transform = d3.event.transform
         subunit.attr('transform', transform)
         subunit.style('stroke-width', 0.2 / transform.k + 'px')
-        adversaryCasualtiesBubbles.attr('transform', transform)
-        civilianCasualtiesBubbles.attr('transform', transform)
-        troopCasualtiesBubbles.attr('transform', transform)
-        troopNumbersBubbles.attr('transform', transform)
+
+        d3.selectAll('.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').attr('transform', transform)
       }
 
       d3.select('#zoom-in').on('click', function () {
@@ -515,6 +339,7 @@ d3.json('data/countries.json')
           .duration(750)
           .call(zoom.transform, d3.zoomIdentity)
       }
+      /// END ZOOM
 
       let lastSelected = d3.select('.AFG')
 
@@ -530,21 +355,20 @@ d3.json('data/countries.json')
 
           lastSelected = d3.select(this)
 
-          d3.select('.conflict-name').text(DFscores[d3.select(this).data()[0].id].Name)
-          d3.select('.summary-adversary-casualties').text(DFscores[d3.select(this).data()[0].id].AdversaryCasualties)
-          d3.select('.summary-civilian-casualties').text(DFscores[d3.select(this).data()[0].id].CivilianCasualties)
-          d3.select('.summary-troop-casualties').text(DFscores[d3.select(this).data()[0].id].TroopCasualties)
+          d3.select('.conflict-name').text(orgConflictData[d3.select(this).data()[0].id].Name)
 
-          if (!isNaN(DFscores[d3.select(this).data()[0].id].TroopNumbers)) {
-            d3.select('.summary-troop-numbers').text(DFscores[d3.select(this).data()[0].id].TroopNumbers)
-          } else {
-            d3.select('.summary-troop-numbers').text('No data')
-          }
+          scoreFactors.forEach(factor => {
+            if (orgConflictData[lastSelected.data()[0].id][factor.dataColumn] != 0 && orgConflictData[lastSelected.data()[0].id][factor.dataColumn] != '') {
+              d3.select('#' + factor.summaryLink).text(orgConflictData[lastSelected.data()[0].id][factor.dataColumn])
+            } else {
+              d3.select('#' + factor.summaryLink).text('No data')
+            }
+          })
 
-          if (DFscores[lastSelected.data()[0].id].Presence === 0) {
-            d3.select('.summary-presence').text('Inactive')
+          if (orgConflictData[lastSelected.data()[0].id].Presence === 0) {
+            d3.select('#summary-presence').text('Inactive')
           } else {
-            d3.select('.summary-presence').text('Active')
+            d3.select('#summary-presence').text('Active')
           }
         })
 
