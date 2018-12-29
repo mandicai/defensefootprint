@@ -108,10 +108,21 @@ d3.json('data/countries.json')
           if (orgConflictData[d.id]) {
             return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
           } else {
-            return 'subunit'
+            return 'subunit noInfo'
           }
         })
         .attr('d', mapTopo.path)
+        .style('fill', d => {
+           if (orgConflictData[d.id]) {
+             if (orgConflictData[d.id]['Presence'] === 1) {
+               return '#507b8c'
+             } else {
+               return '#274f5b'
+             }
+           } else {
+             return '#1a2d3a'
+           }
+        })
 
       subunit.attr('opacity', 0).transition().duration(2500).attr('opacity', 1)
 
@@ -298,6 +309,18 @@ d3.json('data/countries.json')
         } else {
           d3.select('#summary-presence').text('Inactive')
         }
+
+        subunit.transition().duration(750).style('fill', d => {
+          if (orgConflictData[d.id]) {
+            if (orgConflictData[d.id]['Presence'] === 1) {
+              return '#507b8c'
+            } else {
+              return '#274f5b'
+            }
+          } else {
+            return '#1a2d3a'
+          }
+        })
       })
 
       /// ZOOM
