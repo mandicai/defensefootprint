@@ -321,6 +321,13 @@ d3.json('data/countries.json')
             return '#1a2d3a'
           }
         })
+        .attr('class', function (d) {
+          if (orgConflictData[d.id]) {
+            return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
+          } else {
+            return 'subunit noInfo'
+          }
+        })
       })
 
       /// ZOOM
