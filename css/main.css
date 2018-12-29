@@ -162,6 +162,15 @@ a:hover {
   opacity: 0.6;
 }
 
+#timeframe {
+  position: fixed;
+  padding-left: 2.5%;
+  top: 27%;
+  height: 5%;
+  font-size: 15px;
+  opacity: 0.6;
+}
+
 #info {
   position: fixed;
   padding: 15px;
@@ -440,7 +449,7 @@ svg {
   min-width: 20%;
 }
 
-#score-factors {
+#conflict-factors {
   position: fixed;
   border-left: 2px solid rgba(255,255,255,0.75);
   left: 3%;
@@ -580,9 +589,9 @@ input[type='checkbox'] {
     display: none;
   }
 
-  #score-factors {
+  #conflict-factors {
     font-size: 12px;
-    top: 30%;
+    top: 35%;
     width: 0px;
   }
 
@@ -635,7 +644,7 @@ input[type='checkbox'] {
     left: 2%;
   }
 
-  #score-factors {
+  #conflict-factors {
     font-size: 0.9em;
     top: 40%;
     width: 150px;
