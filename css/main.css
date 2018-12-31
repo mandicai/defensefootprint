@@ -232,7 +232,7 @@ svg {
 }
 
 #summary-civilian-casualties {
-  color: #ce2525;
+  color: #ff0000;
 }
 
 #summary-adversary-casualties {
@@ -251,10 +251,11 @@ svg {
   display: block;
   width: 15px;
   height: 15px;
-  border: 1px solid #ce2525;
+  border: 1px solid #000;
   border-radius: 100%;
   margin-left: 10px;
   opacity: 0.8;
+  background-color: rgba(255, 0, 0, 0.75);
 }
 
 .circle-adversary-casualties {
@@ -359,9 +360,9 @@ svg {
 }
 
 .civilianCasualtiesBubble {
-  stroke: #ce2525;
+  stroke: #000;
   stroke-width: 0.5px;
-  fill: none;
+  fill: rgba(255, 0, 0, 0.75);
   box-shadow: 0 0 100px -10px black inset;
 }
 

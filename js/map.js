@@ -101,6 +101,17 @@ d3.json('data/countries.json')
         }
       })
 
+      let pattern = svg.append('defs')
+        .append('pattern')
+        .attr('id', 'diagonalHatch')
+        .attr('patternUnits', 'userSpaceOnUse')
+        .attr('width', 4)
+        .attr('height', 4)
+        .append('path')
+        .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+        .attr('stroke', '#000000')
+        .attr('stroke-width', 1)
+
       let subunit = svg.selectAll('.subunit')
         .data(topojson.feature(mapTopo.boundaries, boundaries.objects.subunits).features)
         .enter().append('path')
@@ -115,12 +126,12 @@ d3.json('data/countries.json')
         .style('fill', d => {
            if (orgConflictData[d.id]) {
              if (orgConflictData[d.id]['Presence'] === 1) {
-               return '#507b8c'
+               return '#915050'
              } else {
-               return '#274f5b'
+               return '#878787'
              }
            } else {
-             return '#1a2d3a'
+             return 'url(#diagonalHatch)'
            }
         })
 
@@ -313,12 +324,12 @@ d3.json('data/countries.json')
         subunit.transition().duration(750).style('fill', d => {
           if (orgConflictData[d.id]) {
             if (orgConflictData[d.id]['Presence'] === 1) {
-              return '#507b8c'
+              return '#915050'
             } else {
-              return '#274f5b'
+              return '#878787'
             }
           } else {
-            return '#1a2d3a'
+            return 'url(#diagonalHatch)'
           }
         })
         .attr('class', function (d) {
