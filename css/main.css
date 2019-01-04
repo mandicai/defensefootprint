@@ -205,7 +205,7 @@ svg {
   z-index: 10;
 }
 
-#summary, #civilian-casualties-scale {
+#summary, #presence-scale {
   position: fixed;
   overflow: auto;
 }
@@ -570,7 +570,7 @@ input[type='checkbox'] {
     width: 96%;
   }
 
-  #civilian-casualties-scale {
+  #presence-scale {
     height: 10%;
     left: 5%;
     top: 65%;
@@ -623,10 +623,10 @@ input[type='checkbox'] {
     width: 40%;
   }
 
-  #civilian-casualties-scale {
+  #presence-scale {
     height: 10%;
-    left: 60%;
-    top: 12%;
+    left: 85%;
+    top: 45%;
     width: 25%;
     font-size: 1em;
   }
