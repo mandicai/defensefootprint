@@ -1,11 +1,11 @@
 let width = 960,
   height = 325,
-  viewBox = 800,
+  viewBox = 850,
   // viewBox = 900,
   scale0 = (width - 1) / 2 / Math.PI
 
 let svg = d3.select('#map').append('svg')
-  .attr('viewBox', '-100 -100' + ' ' + viewBox + ' ' + viewBox) // '-50 -125'
+  .attr('viewBox', '-125 -125' + ' ' + viewBox + ' ' + viewBox)
   .attr('preserveAspectRatio', 'xMinYMid slice')
   .classed('svg-content', true)
 
@@ -32,8 +32,10 @@ let tooltip = d3.select('body').append('div')
   .attr('id', 'tooltip')
   .style('opacity', 0)
 
+let presenceViewBox = 125
+
 let presenceScale = d3.select('#presence-scale').append('svg')
-  .attr('width', viewBox)
+  .attr('width', presenceViewBox)
   .attr('height', 50)
 
 let pattern = presenceScale.append('defs')
@@ -120,7 +122,7 @@ d3.json('data/countries.json')
         .enter().append('path')
         .attr('class', function (d) {
           if (orgConflictData[d.id]) {
-            return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
+            return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit ' + orgConflictData[d.id].ISO + ' inactiveConflict'
           } else {
             return 'subunit noInfo'
           }
@@ -337,7 +339,7 @@ d3.json('data/countries.json')
         })
         .attr('class', function (d) {
           if (orgConflictData[d.id]) {
-            return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit' + ' inactiveConflict'
+            return (orgConflictData[d.id].Presence === 1) ? 'subunit ' + orgConflictData[d.id].ISO + ' activeConflict' : 'subunit ' + orgConflictData[d.id].ISO + ' inactiveConflict'
           } else {
             return 'subunit noInfo'
           }
@@ -402,15 +404,18 @@ d3.json('data/countries.json')
       })
       /// END SET DEFAULT
 
-      d3.selectAll('.activeConflict')
+      d3.selectAll('.activeConflict,.inactiveConflict')
         .on('mousemove mouseout click', function () {
           let selector = d3.select(this).attr('class').split(` `)[1]
 
-          d3.selectAll('.activeConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', function (d) {
-            if (!d3.select(this).attr('class').includes(selector)) {
-              return 0.3
-            }
-          })
+          d3.selectAll('.activeConflict,.inactiveConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble')
+            .transition()
+            .duration(100)
+            .style('opacity', function (d) {
+              if (!d3.select(this).attr('class').includes(selector)) {
+                return 0.3
+              }
+            })
 
           lastSelected = d3.select(this)
 
@@ -431,13 +436,21 @@ d3.json('data/countries.json')
           }
         })
 
-      d3.selectAll('.inactiveConflict').on('mouseover', function () {
-        d3.selectAll('.activeConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
-      })
+      d3.selectAll('.noInfo')
+        .on('mouseover', function () {
+          d3.selectAll('.activeConflict,.inactiveConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble')
+            .transition()
+            .duration(50)
+            .style('opacity', 1)
+        })
 
-      d3.select('.ocean').on('mouseover', function () {
-        d3.selectAll('.activeConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble').style('opacity', 1)
-      })
+      d3.select('.ocean')
+        .on('mouseover', function () {
+          d3.selectAll('.activeConflict,.inactiveConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble')
+            .transition()
+            .duration(50)
+            .style('opacity', 1)
+        })
     })
       .catch(function (error) {
         console.log('Error:' + error)
