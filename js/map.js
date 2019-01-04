@@ -410,10 +410,12 @@ d3.json('data/countries.json')
 
           d3.selectAll('.activeConflict,.inactiveConflict,.adversaryCasualtiesBubble,.civilianCasualtiesBubble,.troopCasualtiesBubble,.troopNumbersBubble')
             .transition()
-            .duration(100)
+            .duration(75)
             .style('opacity', function (d) {
               if (!d3.select(this).attr('class').includes(selector)) {
                 return 0.3
+              } else {
+                return 1
               }
             })
 
