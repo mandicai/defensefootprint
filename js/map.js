@@ -32,7 +32,7 @@ let tooltip = d3.select('body').append('div')
   .attr('id', 'tooltip')
   .style('opacity', 0)
 
-let presenceViewBox = 125
+let presenceViewBox = 150
 
 let presenceScale = d3.select('#presence-scale').append('svg')
   .attr('width', presenceViewBox)
@@ -53,19 +53,19 @@ let legend = presenceScale.selectAll('.legend')
   .data(presenceColorScale)
   .enter().append('g')
   .attr('class', 'legend')
-  .attr('transform', function (d, i) { return 'translate(' + (i * 40) + ',' + 10 + ')' })
+  .attr('transform', function (d, i) { return 'translate(' + (i * 50) + ',' + 10 + ')' })
 
 legend.append('rect')
-  .attr('width', 15)
-  .attr('height', 15)
+  .attr('width', 25)
+  .attr('height', 25)
   .attr('x', 5)
   .style('fill', d => d.color)
   .style('stroke', 'black')
   .style('stroke-width', '0.5px')
 
 legend.append('text')
-  .attr('y', 35)
-  .style('font-size', '10px')
+  .attr('y', 45)
+  .style('font-size', '12px')
   .attr('fill', '#fff')
   .style('opacity', 0.6)
   .text(d => d.text)
