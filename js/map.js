@@ -142,10 +142,10 @@ d3.json('data/countries.json')
 
       subunit.attr('opacity', 0).transition().duration(2500).attr('opacity', 1)
 
-      let adversaryCasualtiesActive = false,
-          civilianCasualtiesActive = false,
+      let adversaryCasualtiesActive = true,
+          civilianCasualtiesActive = true,
           troopNumbersActive = true,
-          troopCasualtiesActive = false
+          troopCasualtiesActive = true
 
       let conflictFactors = [
         {
@@ -197,6 +197,13 @@ d3.json('data/countries.json')
           .attr('r', function (d) {
             return 0
           })
+          .transition()
+          .duration(750)
+          .attr('r', function (d) {
+            if (orgConflictData[d.id]) {
+              return (orgConflictData[d.id][factor.dataColumn] != 0 && orgConflictData[d.id][factor.dataColumn] != '') ? Math.log(orgConflictData[d.id][factor.dataColumn]) : 0
+            }
+          })
 
         d3.select('#' + factor.factorLink).on('click', function () {
           d3.select(this).classed('active', true)
@@ -225,16 +232,7 @@ d3.json('data/countries.json')
         })
       })
 
-      d3.selectAll('.troopNumbersBubble circle')
-        .transition()
-        .duration(1000)
-        .attr('r', function (d) {
-          if (orgConflictData[d.id]) {
-            return (orgConflictData[d.id].TroopNumbers != 0 && orgConflictData[d.id].TroopNumbers != '') ? Math.log(orgConflictData[d.id].TroopNumbers) : 0
-          }
-        })
-
-      d3.select('#troop-numbers-link')
+      d3.selectAll('#troop-numbers-link,#troop-casualties-link,#adversary-casualties-link,#civilian-casualties-link')
         .attr('class', 'active')
 
       $('#org-carousel').carousel('pause') // pause on load of carousel
