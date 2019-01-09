@@ -629,7 +629,7 @@ input[type='checkbox'] {
   #presence-scale {
     height: 10%;
     left: 3%;
-    top: 66%;
+    top: 64%;
     font-size: 1em;
   }
 
@@ -654,7 +654,7 @@ input[type='checkbox'] {
   }
 
   .score-factor-links {
-    margin-top: 83px;
+    margin-top: 75px;
   }
 
   .score-factor-links a {
