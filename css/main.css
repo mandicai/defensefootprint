@@ -510,9 +510,10 @@ input[type='checkbox'] {
   padding: 5%;
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1000px) {
   h3 {
     margin-top: 25px;
+    margin-bottom: 10%;
   }
 
   #nav-bar,
@@ -581,6 +582,11 @@ input[type='checkbox'] {
     font-size: 12px;
   }
 
+  .presence-scale-rect {
+    width: 20px;
+    height: 20px;
+  }
+
   #summary {
     height: 10%;
     left: 5%;
@@ -613,7 +619,7 @@ input[type='checkbox'] {
   }
 }
 
-@media only screen and (min-width: 1101px) {
+@media only screen and (min-width: 1001px) {
   #info {
     left: 73%;
     top: 12%;
@@ -629,8 +635,13 @@ input[type='checkbox'] {
   #presence-scale {
     height: 10%;
     left: 3%;
-    top: 64%;
+    top: 66%;
     font-size: 1em;
+  }
+
+  .presence-scale-rect {
+    width: 25px;
+    height: 25px;
   }
 
   #summary {
