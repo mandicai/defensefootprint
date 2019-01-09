@@ -50,10 +50,13 @@
 }
 
 #opening-text .beta-test-caption {
-    font-size: 15px;
+    font-size: 20px;
     opacity: 0.6;
     margin: 15px;
-    margin-top: 75px;
+}
+
+#opening-text .beta-test-caption a {
+    color: #C34444;
 }
 
 .df-intro {
