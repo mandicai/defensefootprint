@@ -629,7 +629,7 @@ input[type='checkbox'] {
   #presence-scale {
     height: 10%;
     left: 3%;
-    top: 67%;
+    top: 66%;
     font-size: 1em;
   }
 
@@ -649,7 +649,7 @@ input[type='checkbox'] {
 
   #conflict-factors {
     font-size: 0.9em;
-    top: 35%;
+    top: 32%;
     width: 150px;
   }
 
